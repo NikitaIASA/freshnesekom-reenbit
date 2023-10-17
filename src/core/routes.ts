@@ -4,6 +4,7 @@ import { HomePage } from '@pages/HomePage';
 import { ProductsPage } from '@pages/ProductsPage';
 import { ProductPage } from '@pages/ProductPage';
 import { NotFoundPage } from '@pages/NotFoundPage';
+import { ROUTE_PATHS } from '@constants/routePaths';
 
 interface RouteItem {
     path: string;
@@ -11,21 +12,21 @@ interface RouteItem {
     private?: boolean;
 }
 
-export const routes: Record<string, RouteItem> = {
-    Home: {
-        path: '/',
+export const routes: RouteItem[] = [
+    {
+        path: ROUTE_PATHS.HOME,
         Element: HomePage,
     },
-    Products: {
-        path: '/products',
+    {
+        path: ROUTE_PATHS.PRODUCTS,
         Element: ProductsPage,
     },
-    Product: {
-        path: '/products/:product',
+    {
+        path: ROUTE_PATHS.PRODUCT,
         Element: ProductPage,
     },
-    NotFound: {
-        path: '*',
+    {
+        path: ROUTE_PATHS.NOT_FOUND,
         Element: NotFoundPage,
     },
-};
+];

@@ -8,7 +8,7 @@ export const App: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        {Object.values(routes).map((route) => (
+        {routes.map((route) => (
           <Route
             key={`route-${route.path}`}
             path={route.path}

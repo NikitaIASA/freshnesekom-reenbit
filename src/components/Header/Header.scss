@@ -1,0 +1,10 @@
+.header {
+  padding: 20px 0;
+
+  &__navigation {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+}
