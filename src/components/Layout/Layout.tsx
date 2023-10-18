@@ -9,14 +9,12 @@ import "./Layout.scss";
 
 export const Layout: FC = () => {
   return (
-    <>
-      <Container>
-        <Header />
-        <main className="main">
-          <Outlet />
-        </main>
-        <Footer />
-      </Container>
-    </>
+    <Container>
+      <Header />
+      <main className="main">
+        <Outlet />
+      </main>
+      <Footer />
+    </Container>
   );
 };
