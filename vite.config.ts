@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       "@pages": "/src/pages",
       "@components": "/src/components",
+      "@core": "/src/core",
       "@hooks": "/src/hooks",
       "@helpers": "/src/helpers",
       "@constants": "/src/constants",
