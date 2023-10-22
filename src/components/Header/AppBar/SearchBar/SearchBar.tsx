@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 
-import arrow from "@assets/images/arrow-down.svg";
-import searchIcon from "@assets/images/search-icon.svg";
 import { CATEGORIES } from "@constants/categories";
 import Dropdown from "@components/Dropdown";
+import arrow from "@assets/images/arrow-down.svg";
+import searchIcon from "@assets/images/search-icon.svg";
 
 import "./SearchBar.scss";
 
@@ -25,8 +25,26 @@ export const SearchBar: FC = () => {
     setIsOpen(!isOpen);
   };
 
+  // Effect to add an event listener to close the dropdown when clicked outside its area
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => { 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="search-bar">
+    <div className="search-bar" ref={dropdownRef}>
       <div className="search-bar__dropdown" onClick={toggleDropdown}>
         <span className="search-bar__text">{selectedCategory}</span>
         <img className="search-bar__arrow" src={arrow} alt="arrow" />
