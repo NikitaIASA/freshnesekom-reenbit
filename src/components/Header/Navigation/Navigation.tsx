@@ -18,7 +18,7 @@ export const Navigation: FC = () => {
         >
           <span>{category.name}</span>
           {activeCategory === category.name && (
-            <Dropdown items={category.items} onSelect={setActiveBrand}/>
+            <Dropdown items={category.brands} onSelect={setActiveBrand}/>
           )}
         </li>
       ))}

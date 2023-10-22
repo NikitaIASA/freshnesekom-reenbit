@@ -1,21 +1,27 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .dropdown {
   position: absolute;
   top: 100%;
   left: 0;
-  border: 1px solid #6a983c;
-  background: #f9f9f9;
+  border: 1px solid $secondary-color;
+  background: $primary-color-100;
   width: 175px; 
   border-radius: 6px;
   z-index: 10;
+
+  @include onMobile {
+    width: 150px; 
+  }
 
   &__item {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     padding: 6px;
-    border-bottom: 1px solid #6a983c;
+    border-bottom: 1px solid $secondary-color;
     transition: .2s linear;
     cursor: pointer;
 
@@ -24,7 +30,7 @@
     }
 
     &:hover {
-        background: #6a983c;
+        background: $secondary-color;
     }
 
   }
