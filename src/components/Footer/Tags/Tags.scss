@@ -1,0 +1,31 @@
+@import "@styles/colors.scss";
+
+.tags {
+  &__title {
+    color: $primary-color;
+    // font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  &__item {
+    color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // font-family: Poppins;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #f5f5f5;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

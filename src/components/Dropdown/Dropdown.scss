@@ -1,0 +1,30 @@
+@import "@styles/colors.scss";
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid #6a983c;
+  background: #f9f9f9;
+  width: 150px; 
+  border-radius: 6px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-bottom: 1px solid #6a983c;
+    transition: .2s linear;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+        background: #6a983c;
+    }
+
+  }
+}

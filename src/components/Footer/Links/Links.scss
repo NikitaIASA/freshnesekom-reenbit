@@ -1,0 +1,24 @@
+@import "@styles/colors.scss";
+
+.links {
+  display: flex;
+  justify-content: space-between;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__title {
+    color: $primary-color;
+    // font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &__link {
+    color: $secondary-color;
+  }
+
+}

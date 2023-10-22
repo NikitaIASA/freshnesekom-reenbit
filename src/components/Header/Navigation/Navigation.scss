@@ -1,0 +1,16 @@
+.navigation {
+  display: flex;
+  margin-top: 18px;
+  padding: 16px 45px;
+  gap: 54px;
+  background: #f9f9f9;
+//   font-family: Poppins;
+  font-size: 15px;
+  font-weight: 500;
+
+  &__item {
+    position: relative;
+    cursor: pointer;
+  }
+  
+}

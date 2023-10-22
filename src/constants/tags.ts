@@ -1,0 +1,18 @@
+export const TAGS = [
+    "Beans",
+    "Carrots",
+    "Apples",
+    "Garlic",
+    "Mashrooms",
+    "Tamotoes",
+    "Chili peppers",
+    "Broccoli",
+    "Watermelons",
+    "Oranges",
+    "Bananas",
+    "Grapes",
+    "Cherries",
+    "Meat",
+    "Seo tag",
+    "Fish",
+];
