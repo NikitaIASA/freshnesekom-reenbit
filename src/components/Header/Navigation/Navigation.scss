@@ -1,3 +1,5 @@
+@import "@styles/breakpoints.scss";
+
 .navigation {
   display: flex;
   margin-top: 18px;
@@ -11,6 +13,16 @@
   &__item {
     position: relative;
     cursor: pointer;
+  }
+
+  @include onBig-tablet {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include onMobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
   
 }

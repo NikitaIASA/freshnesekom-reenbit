@@ -11,6 +11,11 @@ export const SearchBar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All categories");
 
+  const сategoriesList = [
+    "All Categories",
+    ...CATEGORIES.map((category) => category.name),
+  ];
+
   const setCategoryHandler = (item: string) => {
     setSelectedCategory(item);
     toggleDropdown();
@@ -27,10 +32,7 @@ export const SearchBar: FC = () => {
         <img className="search-bar__arrow" src={arrow} alt="arrow" />
       </div>
       {isOpen && (
-        <Dropdown
-          items={CATEGORIES.map((category) => category.name)}
-          onSelect={setCategoryHandler}
-        />
+        <Dropdown items={сategoriesList} onSelect={setCategoryHandler} />
       )}
       <div className="search-bar__divider"></div>
       <label htmlFor="search" className="search-bar__label">

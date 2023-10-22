@@ -1,4 +1,5 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .contacts {
   display: flex;
@@ -18,6 +19,11 @@
 
   &__item {
     font-size: 12px;
+
+    @include onMobile {
+      font-size: 10px;
+    }
+    
   }
 
   &__link {
@@ -26,5 +32,11 @@
 
   &__link_black {
     color: $primary-color;
+  }
+
+  @include onMobile {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
   }
 }

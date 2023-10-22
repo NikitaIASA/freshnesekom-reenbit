@@ -1,4 +1,5 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .links {
   display: flex;
@@ -19,6 +20,12 @@
 
   &__link {
     color: $secondary-color;
+  }
+  
+  @include onMobile {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
   }
 
 }
