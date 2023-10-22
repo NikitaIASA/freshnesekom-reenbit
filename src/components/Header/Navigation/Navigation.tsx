@@ -7,6 +7,8 @@ export const Navigation: FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeBrand, setActiveBrand] = useState<string | null>(null);
 
+  console.log(activeBrand); // temporarily 
+
   return (
     <ul className="navigation">
       {CATEGORIES.map((category) => (
