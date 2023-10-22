@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import "./DropDown.scss";
+import "./Dropdown.scss";
 
 interface DropdownProps {
   items: string[];
