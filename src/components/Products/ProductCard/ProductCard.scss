@@ -1,0 +1,131 @@
+@import "@styles/colors.scss";
+
+.product-card {
+  display: flex;
+  width: fit-content;
+  border-radius: 12px;
+  border: 1px solid $primary-color-200;
+  background: $white;
+
+  &__information {
+    display: flex;
+    gap: 96px;
+    padding: 32px 32px 0 32px;
+  }
+
+  &__title {
+    color: $primary-color;
+    font-family: Poppins, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 5px;
+  }
+
+  &__description {
+    color: $primary-color-400;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  &__image {
+    width: 268px;
+    height: 280px;
+  }
+
+  &__stars {
+    margin-bottom: 25px;
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__details-title {
+    color: $primary-color-300;
+  }
+
+  &__details-item {
+    display: flex;
+    justify-content: flex-start;
+    gap: 32px;
+  }
+
+  &__details-title {
+    width: 75px;
+  }
+
+  &__details-value {
+    width: 135px;
+  }
+
+  &__new-price {
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__old-price {
+    color: $primary-color-300;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: line-through;
+    margin-bottom: 16px;
+  }
+
+  &__shipping {
+    color: $primary-color-300;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__delivery {
+    color: $primary-color-300;
+    font-family: Open Sans;
+    font-size: 12px;
+    margin-bottom: 26px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__details-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    color: $white;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    border: 2px solid $secondary-color-400;
+    background: $secondary-color;
+    cursor: pointer;
+  }
+
+  &__wish-button {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    background: $primary-color-50;
+    border: none;
+    cursor: pointer;
+  }
+}
