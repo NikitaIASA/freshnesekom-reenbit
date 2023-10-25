@@ -1,0 +1,35 @@
+@import "@styles/colors.scss";
+
+.home {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+
+  &__title {
+    font-size: 40px;
+
+    &_green {
+      color: $secondary-color;
+    }
+
+  }
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: auto;
+    padding: 20px 40px;
+    background: $secondary-color;
+    color: $white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 20px;
+  }
+
+}

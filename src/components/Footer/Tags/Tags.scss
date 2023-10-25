@@ -1,0 +1,41 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.tags {
+  &__title {
+    color: $primary-color;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    @include onMobile {
+      justify-content: center;
+    }
+  }
+
+  &__item {
+    color: $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: $primary-color-50;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  @include onMobile {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+}

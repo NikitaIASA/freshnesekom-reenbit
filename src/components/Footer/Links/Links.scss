@@ -1,0 +1,31 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.links {
+  display: flex;
+  justify-content: space-between;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__title {
+    color: $primary-color;
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &__link {
+    color: $secondary-color;
+  }
+  
+  @include onMobile {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+
+}

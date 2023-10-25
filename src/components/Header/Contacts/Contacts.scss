@@ -1,0 +1,43 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.contacts {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+
+  &__left-block {
+    display: flex;
+    align-items: center;
+    gap: 33px;
+  }
+  &__right-block {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+  }
+
+  &__item {
+    font-size: 12px;
+
+    @include onMobile {
+      font-size: 10px;
+    }
+    
+  }
+
+  &__link {
+    color: $secondary-color;
+  }
+
+  &__link_black {
+    color: $primary-color;
+  }
+
+  @include onMobile {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+}
