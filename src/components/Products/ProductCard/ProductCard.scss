@@ -1,4 +1,5 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .product-card {
   display: flex;
@@ -7,10 +8,21 @@
   border: 1px solid $primary-color-200;
   background: $white;
 
+  @include onMobile {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__information {
     display: flex;
     gap: 96px;
     padding: 32px 32px 0 32px;
+
+    @include onMobile {
+      flex-direction: column;
+      padding: 16px;
+    }
   }
 
   &__title {
@@ -23,15 +35,31 @@
     margin-bottom: 5px;
   }
 
+  &__descriptiption-block {
+    width: 270px;
+  }
+
   &__description {
     color: $primary-color-400;
     font-size: 12px;
     margin-bottom: 8px;
   }
 
+  &__image-block {
+    width: 100%;
+  }
+
   &__image {
+    display: block;
     width: 268px;
     height: 280px;
+    border-radius: 12px;
+    line-height: 0;
+
+    @include onMobile {
+      object-fit: cover;
+      width: 100%;
+    }
   }
 
   &__stars {

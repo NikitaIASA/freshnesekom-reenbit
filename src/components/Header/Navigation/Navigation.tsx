@@ -1,9 +1,16 @@
 import { FC, useState } from "react";
-import { CATEGORIES } from "@constants/categories";
+
+import { useAppSelector } from "@hooks/useAppSelector";
+import { RootState } from '@store/store';  
+import { getCategories } from '@helpers/getCategories';  
 import Dropdown from "@components/Dropdown";
+
 import "./Navigation.scss";
 
 export const Navigation: FC = () => {
+  const products = useAppSelector((state: RootState) => state.products.products);
+  const categories = getCategories(products);
+
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeBrand, setActiveBrand] = useState<string | null>(null);
 
@@ -11,7 +18,7 @@ export const Navigation: FC = () => {
 
   return (
     <ul className="navigation">
-      {CATEGORIES.map((category) => (
+      {categories.map((category) => (
         <li
           key={`nav-${category.name}`}
           className="navigation__item"

@@ -1,19 +1,24 @@
 import { FC, useState, useEffect, useRef } from "react";
 
-import { CATEGORIES } from "@constants/categories";
 import Dropdown from "@components/Dropdown";
 import arrow from "@assets/images/arrow-down.svg";
 import searchIcon from "@assets/images/search-icon.svg";
+import { getCategories } from "@helpers/getCategories";
+import { useAppSelector } from "@hooks/useAppSelector";
+import { RootState } from "@store/store";
 
 import "./SearchBar.scss";
 
 export const SearchBar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All categories");
+  const products = useAppSelector((state: RootState) => state.products.products);
+  const categories = getCategories(products);
 
   const сategoriesList = [
     "All Categories",
-    ...CATEGORIES.map((category) => category.name),
+    ...categories.map((category) => category.name),
+
   ];
 
   const setCategoryHandler = (item: string) => {

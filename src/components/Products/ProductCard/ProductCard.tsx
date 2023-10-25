@@ -1,56 +1,54 @@
 import { FC } from "react";
-import greyBg from "@assets/images/grey-bg.jpg";
+import { Link } from "react-router-dom";
+
+import Stars from "./Stars";
+import { IProduct } from "@appTypes/products";
+import { ROUTE_PATHS } from "@constants/routePaths";
 import arrowRight from "@assets/images/arrow-right.svg";
 import heart from "@assets/images/heart.svg";
-import star from "@assets/images/star.svg";
 
 import "./ProductCard.scss";
 
-export const ProductCard: FC = () => {
+interface ProductListProps {
+  product: IProduct;
+}
+
+export const ProductCard: FC<ProductListProps> = ({ product }) => {
   return (
     <div className="product-card">
       <div className="product-card__image-block">
-        <img className="product-card__image" src={greyBg} alt="product image" />
+        <img
+          className="product-card__image"
+          src={product.image}
+          alt="product image"
+        />
       </div>
       <div className="product-card__information">
         <div className="product-card__descriptiption-block">
-          <h4 className="product-card__title">Product title</h4>
-          <p className="product-card__description">
-            Space for a small product description{" "}
-          </p>
-          <div className="product-card__stars">
-            <img src={star} alt="star" />
-            <img src={star} alt="star" />
-            <img src={star} alt="star" />
-            <img src={star} alt="star" />
-            <img src={star} alt="star" />
-          </div>
+          <Link to={`${ROUTE_PATHS.PRODUCTS}/${product.title}`}>
+            <h4 className="product-card__title">{product.title}</h4>
+          </Link>
+          <p className="product-card__description">{product.description}</p>
+          <Stars rating={product.rating}/>
           <ul className="product-card__details">
-            <li className="product-card__details-item">
-              <p className="product-card__details-title">Fresheness</p>
-              <p className="product-card__details-value">New</p>
-            </li>
-            <li className="product-card__details-item">
-              <p className="product-card__details-title">Farm</p>
-              <p className="product-card__details-value">Grocery Tarm Fields</p>
-            </li>
-            <li className="product-card__details-item">
-              <p className="product-card__details-title">Delivery</p>
-              <p className="product-card__details-value">Europe</p>
-            </li>
-            <li className="product-card__details-item">
-              <p className="product-card__details-title">Stock</p>
-              <p className="product-card__details-value">320 pcs</p>
-            </li>
+            {Object.entries(product.details).map(([key, value]) => (
+              <li className="product-card__details-item" key={key}>
+                <p className="product-card__details-title">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                </p>
+                <p className="product-card__details-value">{value}</p>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="product-card__price-block">
-          <p className="product-card__new-price">36.99 USD</p>
-          <p className="product-card__old-price">48.56</p>
-
+          <p className="product-card__new-price">{`${product.price.current} ${product.price.currency}`}</p>
+          <p className="product-card__old-price">{product.price.previous}</p>
           <div className="product-card__shipping-block">
-            <p className="product-card__shipping">Free Shipping</p>
-            <p className="product-card__delivery">Delivery in 1 day</p>
+            <p className="product-card__shipping">{product.shipping.type}</p>
+            <p className="product-card__delivery">
+              {product.shipping.deliveryTime}
+            </p>
           </div>
           <div className="product-card__buttons">
             <button className="product-card__details-button">
