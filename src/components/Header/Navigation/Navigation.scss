@@ -1,17 +1,21 @@
 @import "@styles/breakpoints.scss";
+@import "@styles/colors.scss";
 
 .navigation {
   display: flex;
-  margin-top: 18px;
+  justify-content: center;
   padding: 16px 45px;
   gap: 54px;
-  background: #f9f9f9;
-  font-family: 'Poppins', sans-serif;
+  background: $primary-color-100;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
   font-weight: 500;
 
   &__item {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     cursor: pointer;
   }
 
@@ -21,8 +25,6 @@
   }
 
   @include onMobile {
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
-  
 }

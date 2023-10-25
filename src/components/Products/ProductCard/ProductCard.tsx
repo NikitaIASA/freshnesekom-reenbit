@@ -29,7 +29,7 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
             <h4 className="product-card__title">{product.title}</h4>
           </Link>
           <p className="product-card__description">{product.description}</p>
-          <Stars rating={product.rating}/>
+          <Stars rating={product.rating} />
           <ul className="product-card__details">
             {Object.entries(product.details).map(([key, value]) => (
               <li className="product-card__details-item" key={key}>
@@ -42,13 +42,19 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
           </ul>
         </div>
         <div className="product-card__price-block">
-          <p className="product-card__new-price">{`${product.price.current} ${product.price.currency}`}</p>
-          <p className="product-card__old-price">{product.price.previous}</p>
-          <div className="product-card__shipping-block">
-            <p className="product-card__shipping">{product.shipping.type}</p>
-            <p className="product-card__delivery">
-              {product.shipping.deliveryTime}
-            </p>
+          <div className="product-card__test">
+            <div className="product-card__prices">
+              <p className="product-card__new-price">{`${product.price.current} ${product.price.currency}`}</p>
+              <p className="product-card__old-price">
+                {product.price.previous}
+              </p>
+            </div>
+            <div className="product-card__shipping-block">
+              <p className="product-card__shipping">{product.shipping.type}</p>
+              <p className="product-card__delivery">
+                {product.shipping.deliveryTime}
+              </p>
+            </div>
           </div>
           <div className="product-card__buttons">
             <button className="product-card__details-button">

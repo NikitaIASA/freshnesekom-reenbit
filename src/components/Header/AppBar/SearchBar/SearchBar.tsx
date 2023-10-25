@@ -62,7 +62,7 @@ export const SearchBar: FC = () => {
         <input
           id="search"
           type="text"
-          placeholder="Search Products, categories..."
+          placeholder="Search products..."
           autoComplete="off"
           className="search-bar__input"
         />

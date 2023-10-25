@@ -8,7 +8,7 @@
   border: 1px solid $primary-color-200;
   background: $white;
 
-  @include onMobile {
+  @include onTablet {
     width: 90%;
     flex-direction: column;
     align-items: center;
@@ -19,8 +19,10 @@
     gap: 96px;
     padding: 32px 32px 0 32px;
 
-    @include onMobile {
+    @include onTablet {
+      width: 100%;
       flex-direction: column;
+      gap: 48px;
       padding: 16px;
     }
   }
@@ -36,7 +38,12 @@
   }
 
   &__descriptiption-block {
-    width: 270px;
+    width: 100%;
+    max-width: 270px;
+
+    @include onTablet {
+      max-width: none;
+    }
   }
 
   &__description {
@@ -56,7 +63,7 @@
     border-radius: 12px;
     line-height: 0;
 
-    @include onMobile {
+    @include onTablet {
       object-fit: cover;
       width: 100%;
     }
@@ -80,14 +87,70 @@
     display: flex;
     justify-content: flex-start;
     gap: 32px;
+
+    @include onTablet {
+      justify-content: space-between;
+    }
   }
 
   &__details-title {
     width: 75px;
+
+    @include onTablet {
+      width: auto;
+    }
   }
 
   &__details-value {
     width: 135px;
+
+    @include onTablet {
+      width: auto;
+    }
+  }
+
+  &__price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 200px;
+    width: 100%;
+
+    @include onTablet {
+      max-width: none;
+    }
+  }
+
+  &__test {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include onTablet {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__prices {
+    display: flex;
+    flex-direction: column;
+
+    @include onTablet {
+      gap: 6px;
+    }
+
+  }
+
+  &__shipping-block {
+    display: flex;
+    flex-direction: column;
+
+    @include onTablet {
+      gap: 6px;
+    }
+
   }
 
   &__new-price {
@@ -104,7 +167,11 @@
     font-size: 12px;
     font-weight: 600;
     text-decoration: line-through;
-    margin-bottom: 16px;
+
+    @include onTablet {
+      font-size: 14px;
+    }
+
   }
 
   &__shipping {
@@ -118,16 +185,21 @@
     color: $primary-color-300;
     font-family: Open Sans;
     font-size: 12px;
-    margin-bottom: 26px;
   }
 
   &__buttons {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    @include onTablet {
+      align-items: center;
+    }
+
   }
 
   &__details-button {
+    width: 170px;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -140,9 +212,16 @@
     border: 2px solid $secondary-color-400;
     background: $secondary-color;
     cursor: pointer;
+
+    @include onTablet {
+      width: 100%;
+      justify-content: center;
+    }
+
   }
 
   &__wish-button {
+    width: 170px;
     display: flex;
     align-items: center;
     padding: 6px 12px;
@@ -155,5 +234,11 @@
     background: $primary-color-50;
     border: none;
     cursor: pointer;
+
+    @include onTablet {
+      width: 100%;
+      justify-content: center;
+    }
+
   }
 }

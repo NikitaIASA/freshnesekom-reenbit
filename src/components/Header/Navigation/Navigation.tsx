@@ -4,6 +4,7 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { RootState } from '@store/store';  
 import { getCategories } from '@helpers/getCategories';  
 import Dropdown from "@components/Dropdown";
+import arrow from "@assets/images/arrow-down.svg";
 
 import "./Navigation.scss";
 
@@ -26,6 +27,7 @@ export const Navigation: FC = () => {
           onMouseLeave={() => setActiveCategory(null)}
         >
           <span>{category.name}</span>
+          <img src={arrow} alt="arrow" />
           {activeCategory === category.name && (
             <Dropdown items={category.brands} onSelect={setActiveBrand}/>
           )}
