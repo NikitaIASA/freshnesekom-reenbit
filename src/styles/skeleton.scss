@@ -1,0 +1,22 @@
+@import "colors.scss";
+
+$skeleton-animation: skeleton 1s infinite alternate;
+$skeleton-height: 16px;
+$skeleton-radius: 4px;
+$skeleton-margin-bottom: 8px;
+
+@mixin skeleton-style($width: 100%, $height: $skeleton-height) {
+  width: $width;
+  height: $height;
+  border-radius: $skeleton-radius;
+  animation: $skeleton-animation;
+}
+
+@keyframes skeleton {
+  0% {
+    background-color: $primary-color-300;
+  }
+  100% {
+    background-color: $primary-color-200;
+  }
+}

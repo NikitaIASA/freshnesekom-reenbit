@@ -23,8 +23,8 @@ export const getProducts = createAsyncThunk<IProduct[], void, { rejectValue: str
     },
 );
 
-const productsServices = {
+const productServices = {
     getProducts
 };
 
-export default productsServices;
+export default productServices;

@@ -1,0 +1,15 @@
+@import "@styles/breakpoints";
+
+.products {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+
+  @include onBig-tablet {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.sidebar {
+  margin-top: 20px;
+}

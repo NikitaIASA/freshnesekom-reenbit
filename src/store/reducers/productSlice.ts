@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { IProduct } from "@appTypes/products";
-import productsServices from '@store/services/productServices';
+import { STATUSES } from '@constants/statuses';
+import productServices from '@store/services/productServices';
 
 interface ProductsState {
     products: IProduct[];
-    status: 'loading' | 'succeeded' | 'failed';
+    status: STATUSES;
     error: string | null;
 }
 
 const initialState: ProductsState = {
     products: [],
-    status: 'loading',
+    status: STATUSES.LOADING,
     error: null,
 };
 
@@ -21,15 +22,15 @@ const productsSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(productsServices.getProducts.pending, (state) => {
-                state.status = 'loading';
+            .addCase(productServices.getProducts.pending, (state) => {
+                state.status = STATUSES.LOADING;
             })
-            .addCase(productsServices.getProducts.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+            .addCase(productServices.getProducts.fulfilled, (state, action) => {
+                state.status = STATUSES.SUCCEEDED;
                 state.products = action.payload;
             })
-            .addCase(productsServices.getProducts.rejected, (state, action) => {
-                state.status = 'failed';
+            .addCase(productServices.getProducts.rejected, (state, action) => {
+                state.status = STATUSES.FAILED;
                 state.error = action.payload as string;
             });
     },
