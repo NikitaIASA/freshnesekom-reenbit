@@ -12,16 +12,12 @@ interface ProductListProps {
 }
 
 export const ProductList: FC<ProductListProps> = ({ items, status }) => {
+  const skeletons = [...new Array(5)].map((_, index) => (
+    <ProductSkeleton key={index} />
+  ));
+
   if (status === STATUSES.LOADING) {
-    return (
-      <div className="product-list">
-        {Array(5)
-          .fill(0)
-          .map((_, index) => (
-            <ProductSkeleton key={index} />
-          ))}
-      </div>
-    );
+    return <div className="product-list">{skeletons}</div>;
   }
 
   return (
