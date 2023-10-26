@@ -10,15 +10,13 @@ interface StarProps {
 export const Stars: FC<StarProps> = ({ rating }) => {
   return (
     <div className="product-card__stars">
-      {Array(5)
-        .fill(0)
-        .map((_, index) => {
-          if (index < rating) {
-            return <img key={index} src={star} alt="star" />;
-          } else {
-            return <img key={index} src={emptyStar} alt="empty star" />;
-          }
-        })}
+      {[...new Array(5)].map((_, index) => (
+        <img
+          key={index}
+          src={index < rating ? star : emptyStar}
+          alt={index < rating ? "star" : "empty star"}
+        />
+      ))}
     </div>
   );
 };
