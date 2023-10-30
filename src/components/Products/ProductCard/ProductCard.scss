@@ -21,6 +21,7 @@
   &__old-price {
     overflow: hidden;
     text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   @include onMobile {
@@ -65,6 +66,10 @@
     max-width: 270px;
 
     @include onTablet {
+      max-width: 220px;
+    }
+
+    @include onMobile {
       max-width: none;
     }
   }
@@ -74,7 +79,6 @@
     font-size: 14px;
     margin-bottom: 8px;
     line-height: 16px;
-    max-height: 32px;
   }
 
   &__image-block {
