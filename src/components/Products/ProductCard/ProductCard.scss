@@ -3,10 +3,15 @@
 
 .product-card {
   width: 100%;
+  height: 280px;
   display: flex;
   border-radius: 12px;
   border: 1px solid $primary-color-200;
   background: $white;
+
+  @include onMobile {
+    height: auto;
+  }
 
   &__title,
   &__description,
@@ -27,12 +32,12 @@
     display: flex;
     width: 100%;
     gap: 96px;
-    padding: 32px 32px 0 32px;
+    padding: 32px;
 
     @include onBig-tablet {
       gap: 0;
       justify-content: space-between;
-      padding: 16px 16px 0 16px;
+      padding: 16px;
     }
 
     @include onTablet {
@@ -42,7 +47,6 @@
     @include onMobile {
       width: 100%;
       flex-direction: column;
-      padding: 16px;
     }
   }
 
@@ -69,6 +73,8 @@
     color: $primary-color-400;
     font-size: 14px;
     margin-bottom: 8px;
+    line-height: 16px;
+    max-height: 32px;
   }
 
   &__image-block {
@@ -80,18 +86,18 @@
   &__image {
     display: block;
     width: 268px;
-    height: 280px;
+    height: 100%;
     object-fit: cover;
     border-radius: 12px;
     line-height: 0;
 
     @include onTablet {
       width: 200px;
-      height: 220px;
     }
 
     @include onMobile {
       width: 100%;
+      height: 280px;
     }
   }
 
@@ -103,6 +109,7 @@
 
   &__details-title {
     color: $primary-color-300;
+    line-height: 16px;
   }
 
   &__details-item {
@@ -121,6 +128,7 @@
 
   &__details-title {
     width: 75px;
+    line-height: 16px;
 
     @include onMobile {
       width: auto;
@@ -129,6 +137,7 @@
 
   &__details-value {
     width: 135px;
+    line-height: 16px;
 
     @include onMobile {
       width: auto;

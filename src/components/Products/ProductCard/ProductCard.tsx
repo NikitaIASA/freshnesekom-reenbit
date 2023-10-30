@@ -29,7 +29,7 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
 
   const details = {
     Brand: brand,
-    Modle: model,
+    Model: model,
     Delivery: delivery,
     Stock: stock,
   };
