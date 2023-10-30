@@ -30,7 +30,12 @@
     padding: 32px 32px 0 32px;
 
     @include onBig-tablet {
+      gap: 0;
+      justify-content: space-between;
       padding: 16px 16px 0 16px;
+    }
+
+    @include onTablet {
       gap: 24px;
     }
 
@@ -214,10 +219,6 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-
-    @include onTablet {
-      align-items: center;
-    }
   }
 
   &__details-button {
@@ -235,7 +236,7 @@
     background: $secondary-color;
     cursor: pointer;
 
-    @include onBig-tablet {
+    @include onTablet {
       font-size: 14px;
       padding: 6px 8px;
       width: 100%;
@@ -264,7 +265,9 @@
       width: 100%;
       justify-content: center;
     }
+
   }
+  
 }
 
 .highlighted-value {
