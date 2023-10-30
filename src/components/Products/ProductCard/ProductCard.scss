@@ -46,7 +46,6 @@
     }
 
     @include onMobile {
-      width: 100%;
       flex-direction: column;
     }
   }
@@ -278,9 +277,7 @@
       width: 100%;
       justify-content: center;
     }
-
   }
-  
 }
 
 .highlighted-value {
