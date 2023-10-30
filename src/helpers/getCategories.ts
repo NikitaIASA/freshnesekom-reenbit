@@ -12,9 +12,7 @@ export const getCategories = (products: IProduct[]): ICategory[] => {
         if (!categoriesMap[product.category]) {
             categoriesMap[product.category] = new Set();
         }
-        if (product.details.farm) {
-            categoriesMap[product.category].add(product.details.farm);
-        }
+
         if (product.details.brand) {
             categoriesMap[product.category].add(product.details.brand);
         }

@@ -8,7 +8,7 @@ import ProductList from "./ProductList";
 import "./Products.scss";
 
 export const Products: FC = () => {
-  const { products, status, error } = useAppSelector((state) => state.products);
+  const { status, error } = useAppSelector((state) => state.products);
 
   if (status === STATUSES.FAILED) {
     return <ErrorBlock error={error} />;
@@ -21,7 +21,7 @@ export const Products: FC = () => {
         Recusandae omnis quo at vero sequi! Labore rerum itaque dolore hic harum
         sequi ipsum magni omnis molestiae perspiciatis? Eveniet sit quidem sint.
       </aside>
-      <ProductList items={products} status={status} />
+      <ProductList status={status} />
     </section>
   );
 };

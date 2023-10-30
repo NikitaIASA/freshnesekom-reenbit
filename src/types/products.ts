@@ -11,7 +11,6 @@ export interface IShipping {
 
 export interface IDetails {
     freshness?: string;
-    farm?: string;
     brand?: string;
     model?: string;
     delivery: string;

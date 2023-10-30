@@ -1,28 +1,54 @@
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState, useEffect, useRef, useCallback, ChangeEvent } from "react";
 
 import Dropdown from "@components/Dropdown";
-import arrow from "@assets/images/arrow-down.svg";
-import searchIcon from "@assets/images/search-icon.svg";
 import { getCategories } from "@helpers/getCategories";
 import { useAppSelector } from "@hooks/useAppSelector";
-import { RootState } from "@store/store";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import {
+  setSearchQuery,
+  setSelectedBrand,
+  setSelectedCategory,
+} from "@store/reducers/productSlice";
+import { debounce } from "@helpers/debounce";
+import { SEARCH_DELAY } from "@constants/debounceDelays";
+import {
+  selectProducts,
+  selectCategory,
+} from "@store/selectors/productSelectors";
+import arrow from "@assets/images/arrow-down.svg";
+import searchIcon from "@assets/images/search-icon.svg";
 
 import "./SearchBar.scss";
 
 export const SearchBar: FC = () => {
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All categories");
-  const products = useAppSelector((state: RootState) => state.products.products);
+  const products = useAppSelector(selectProducts);
+  const selectedCategory = useAppSelector(selectCategory);
   const categories = getCategories(products);
+  const [localSearchQuery, setLocalSearchQuery] = useState("");
 
   const сategoriesList = [
     "All Categories",
     ...categories.map((category) => category.name),
-
   ];
 
+  const debouncedUpdateSearchQuery = useCallback(
+    debounce((value: string) => {
+      dispatch(setSearchQuery(value));
+    }, SEARCH_DELAY),
+    []
+  );
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalSearchQuery(value);
+    debouncedUpdateSearchQuery(value);
+  };
+
   const setCategoryHandler = (item: string) => {
-    setSelectedCategory(item);
+    dispatch(setSelectedCategory(item));
+    dispatch(setSelectedBrand(""));
     toggleDropdown();
   };
 
@@ -33,7 +59,7 @@ export const SearchBar: FC = () => {
   // Effect to add an event listener to close the dropdown when clicked outside its area
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => { 
+  useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -65,6 +91,8 @@ export const SearchBar: FC = () => {
           placeholder="Search products..."
           autoComplete="off"
           className="search-bar__input"
+          value={localSearchQuery}
+          onChange={handleInputChange}
         />
         <img
           className="search-bar__search-icon"
