@@ -8,24 +8,35 @@
   border: 1px solid $primary-color-200;
   background: $white;
 
-  @include onTablet {
+  &__title,
+  &__description,
+  &__details-title,
+  &__details-value,
+  &__new-price,
+  &__old-price {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @include onMobile {
     flex-direction: column;
     align-items: center;
   }
 
   &__information {
     display: flex;
+    width: 100%;
     gap: 96px;
     padding: 32px 32px 0 32px;
 
     @include onBig-tablet {
-      gap: 48px;
+      padding: 16px 16px 0 16px;
+      gap: 24px;
     }
 
-    @include onTablet {
+    @include onMobile {
       width: 100%;
       flex-direction: column;
-      gap: 48px;
       padding: 16px;
     }
   }
@@ -51,12 +62,12 @@
 
   &__description {
     color: $primary-color-400;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 8px;
   }
 
   &__image-block {
-    @include onTablet {
+    @include onMobile {
       width: 100%;
     }
   }
@@ -65,16 +76,18 @@
     display: block;
     width: 268px;
     height: 280px;
+    object-fit: cover;
     border-radius: 12px;
     line-height: 0;
 
     @include onTablet {
+      width: 200px;
+      height: 220px;
+    }
+
+    @include onMobile {
       width: 100%;
     }
-  }
-
-  &__stars {
-    margin-bottom: 25px;
   }
 
   &__details {
@@ -93,6 +106,10 @@
     gap: 32px;
 
     @include onTablet {
+      gap: 0;
+    }
+
+    @include onMobile {
       justify-content: space-between;
     }
   }
@@ -100,7 +117,7 @@
   &__details-title {
     width: 75px;
 
-    @include onTablet {
+    @include onMobile {
       width: auto;
     }
   }
@@ -108,7 +125,7 @@
   &__details-value {
     width: 135px;
 
-    @include onTablet {
+    @include onMobile {
       width: auto;
     }
   }
@@ -122,6 +139,7 @@
 
     @include onTablet {
       max-width: none;
+      gap: 13px;
     }
   }
 
@@ -131,6 +149,10 @@
     gap: 16px;
 
     @include onTablet {
+      gap: 4px;
+    }
+
+    @include onMobile {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
@@ -178,14 +200,14 @@
   &__shipping {
     color: $primary-color-300;
     font-family: Poppins;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
   }
 
   &__delivery {
     color: $primary-color-300;
     font-family: Open Sans;
-    font-size: 12px;
+    font-size: 14px;
   }
 
   &__buttons {
@@ -214,6 +236,8 @@
     cursor: pointer;
 
     @include onBig-tablet {
+      font-size: 14px;
+      padding: 6px 8px;
       width: 100%;
       justify-content: center;
     }
@@ -235,8 +259,14 @@
     cursor: pointer;
 
     @include onTablet {
+      font-size: 14px;
+      padding: 6px;
       width: 100%;
       justify-content: center;
     }
   }
+}
+
+.highlighted-value {
+  color: $secondary-color;
 }

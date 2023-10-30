@@ -1,8 +1,10 @@
 import { FC } from "react";
+
 import ProductCard from "../ProductCard";
 import { ProductSkeleton } from "@components/Products/ProductSkeleton/ProductSkeleton";
 import { IProduct } from "@appTypes/products";
 import { STATUSES } from "@constants/statuses";
+import { PRODUCTS_SKELETON_COUNT } from "@constants/elementsCount";
 
 import "./ProductList.scss";
 
@@ -12,7 +14,7 @@ interface ProductListProps {
 }
 
 export const ProductList: FC<ProductListProps> = ({ items, status }) => {
-  const skeletons = [...new Array(5)].map((_, index) => (
+  const skeletons = [...new Array(PRODUCTS_SKELETON_COUNT)].map((_, index) => (
     <ProductSkeleton key={index} />
   ));
 
@@ -21,10 +23,10 @@ export const ProductList: FC<ProductListProps> = ({ items, status }) => {
   }
 
   return (
-    <div className="product-list">
+    <ul className="product-list">
       {items?.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </div>
+    </ul>
   );
 };
