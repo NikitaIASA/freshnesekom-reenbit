@@ -14,11 +14,28 @@ interface ProductListProps {
 }
 
 export const ProductCard: FC<ProductListProps> = ({ product }) => {
-  const { title, image, description, rating, details, price, shipping } =
-    product;
+  const {
+    title,
+    image,
+    description,
+    rating,
+    brand,
+    model,
+    delivery,
+    stock,
+    price,
+    shipping,
+  } = product;
+
+  const details = {
+    Brand: brand,
+    Model: model,
+    Delivery: delivery,
+    Stock: stock,
+  };
 
   return (
-    <div className="product-card">
+    <li className="product-card">
       <div className="product-card__image-block">
         <Link to={`${ROUTE_PATHS.PRODUCTS}/${title}`}>
           <img
@@ -38,10 +55,14 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
           <ul className="product-card__details">
             {Object.entries(details).map(([key, value]) => (
               <li className="product-card__details-item" key={key}>
-                <p className="product-card__details-title">
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
+                <p className="product-card__details-title">{key}</p>
+                <p
+                  className={`product-card__details-value ${
+                    key === "Stock" ? "highlighted-value" : ""
+                  }`}
+                >
+                  {value}
                 </p>
-                <p className="product-card__details-value">{value}</p>
               </li>
             ))}
           </ul>
@@ -58,10 +79,12 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
             </div>
           </div>
           <div className="product-card__buttons">
-            <button className="product-card__details-button">
-              <p>Product Detail</p>
-              <img src={arrowRight} alt="arrow" />
-            </button>
+            <Link to={`${ROUTE_PATHS.PRODUCTS}/${title}`}>
+              <button className="product-card__details-button">
+                <p>Product Detail</p>
+                <img src={arrowRight} alt="arrow" />
+              </button>
+            </Link>
             <button className="product-card__wish-button">
               <img src={heart} alt="heart" />
               <p>Add to wish list</p>
@@ -69,6 +92,6 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
           </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };

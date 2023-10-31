@@ -20,7 +20,7 @@ export const selectFilteredProducts = createSelector(
             }
 
             if (selectedBrand) {
-                matchesBrand = product.details.brand === selectedBrand;
+                matchesBrand = product.brand === selectedBrand;
             }
 
             if (searchQuery) {

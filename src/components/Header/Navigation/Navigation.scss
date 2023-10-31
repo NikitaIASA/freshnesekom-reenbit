@@ -19,12 +19,9 @@
     cursor: pointer;
   }
 
-  @include onBig-tablet {
+  @include onTablet {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @include onMobile {
     grid-template-columns: repeat(2, 1fr);
   }
+  
 }

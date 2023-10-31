@@ -6,7 +6,7 @@
   display: flex;
   width: 100%;
 
-  @include onTablet {
+  @include onMobile {
     flex-direction: column;
     gap: 10px;
   }
@@ -19,6 +19,13 @@
     margin-right: 32px;
 
     @include onTablet {
+      flex: 0 0 200px;
+      width: 200px;
+      height: 220px;
+      margin-right: 16px;
+    }
+
+    @include onMobile {
       width: 100%;
     }
   }
@@ -28,6 +35,11 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+    @include onTablet {
+      gap: 2px;
+    }
+    
   }
 
   &__title {
@@ -66,6 +78,10 @@
   margin-left: 96px;
 
   @include onTablet {
+    margin-left: 48px;
+  }
+
+  @include onMobile {
     margin-left: 0;
   }
 }
@@ -80,7 +96,7 @@
 }
 
 .product-skeleton__prices {
-  @include onTablet {
+  @include onMobile {
     gap: 20px;
     display: flex;
     justify-content: space-between;
@@ -92,6 +108,11 @@
   flex-direction: column;
   gap: 8px;
   margin-top: 48px;
+
+  @include onTablet {
+    margin-top: 0;
+  }
+
 }
 
 .product-skeleton__button {
@@ -99,6 +120,10 @@
   border-radius: 6px;
 
   @include onTablet {
+    width: 130px;
+  }
+
+  @include onMobile {
     width: 100%;
   }
 }
