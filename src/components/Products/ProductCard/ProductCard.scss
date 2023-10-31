@@ -1,0 +1,285 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.product-card {
+  width: 100%;
+  height: 280px;
+  display: flex;
+  border-radius: 12px;
+  border: 1px solid $primary-color-200;
+  background: $white;
+
+  @include onMobile {
+    height: auto;
+  }
+
+  &__title,
+  &__description,
+  &__details-title,
+  &__details-value,
+  &__new-price,
+  &__old-price {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  @include onMobile {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__information {
+    display: flex;
+    width: 100%;
+    gap: 96px;
+    padding: 32px;
+
+    @include onBig-tablet {
+      gap: 0;
+      justify-content: space-between;
+      padding: 16px;
+    }
+
+    @include onTablet {
+      gap: 24px;
+    }
+
+    @include onMobile {
+      flex-direction: column;
+    }
+  }
+
+  &__title {
+    color: $primary-color;
+    font-family: Poppins, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 5px;
+  }
+
+  &__descriptiption-block {
+    width: 100%;
+    max-width: 270px;
+
+    @include onTablet {
+      max-width: 220px;
+    }
+
+    @include onMobile {
+      max-width: none;
+    }
+  }
+
+  &__description {
+    color: $primary-color-400;
+    font-size: 14px;
+    margin-bottom: 8px;
+    line-height: 16px;
+  }
+
+  &__image-block {
+    @include onMobile {
+      width: 100%;
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 268px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    line-height: 0;
+
+    @include onTablet {
+      width: 200px;
+    }
+
+    @include onMobile {
+      width: 100%;
+      height: 280px;
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__details-title {
+    color: $primary-color-300;
+    line-height: 16px;
+  }
+
+  &__details-item {
+    display: flex;
+    justify-content: flex-start;
+    gap: 32px;
+
+    @include onTablet {
+      gap: 0;
+    }
+
+    @include onMobile {
+      justify-content: space-between;
+    }
+  }
+
+  &__details-title {
+    width: 75px;
+    line-height: 16px;
+
+    @include onMobile {
+      width: auto;
+    }
+  }
+
+  &__details-value {
+    width: 135px;
+    line-height: 16px;
+
+    @include onMobile {
+      width: auto;
+    }
+  }
+
+  &__price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 200px;
+    width: 100%;
+
+    @include onTablet {
+      max-width: none;
+      gap: 13px;
+    }
+  }
+
+  &__price-block-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include onTablet {
+      gap: 4px;
+    }
+
+    @include onMobile {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  &__prices {
+    display: flex;
+    flex-direction: column;
+
+    @include onTablet {
+      gap: 6px;
+    }
+  }
+
+  &__shipping-block {
+    display: flex;
+    flex-direction: column;
+
+    @include onTablet {
+      gap: 6px;
+    }
+  }
+
+  &__new-price {
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__old-price {
+    color: $primary-color-300;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: line-through;
+
+    @include onTablet {
+      font-size: 14px;
+    }
+  }
+
+  &__shipping {
+    color: $primary-color-300;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  &__delivery {
+    color: $primary-color-300;
+    font-family: Open Sans;
+    font-size: 14px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__details-button {
+    width: 170px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    color: $white;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    border: 2px solid $secondary-color-400;
+    background: $secondary-color;
+    cursor: pointer;
+
+    @include onTablet {
+      font-size: 14px;
+      padding: 6px 8px;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  &__wish-button {
+    width: 170px;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    background: $primary-color-50;
+    border: none;
+    cursor: pointer;
+
+    @include onTablet {
+      font-size: 14px;
+      padding: 6px;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+.highlighted-value {
+  color: $secondary-color;
+}

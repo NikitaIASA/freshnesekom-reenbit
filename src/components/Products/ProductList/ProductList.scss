@@ -1,0 +1,11 @@
+@import "@styles/breakpoints";
+
+.product-list {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  margin: 40px 0;
+}
+

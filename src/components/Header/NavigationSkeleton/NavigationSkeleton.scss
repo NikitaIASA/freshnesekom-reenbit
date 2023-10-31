@@ -1,0 +1,10 @@
+@import "@styles/skeleton.scss";
+
+.navigation-skeleton {
+  display: flex;
+  gap: 54px;
+}
+
+.navigation__item-skeleton {
+  @include skeleton-style(100px, 20px);
+}
