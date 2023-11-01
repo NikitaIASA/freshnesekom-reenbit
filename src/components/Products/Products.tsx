@@ -28,7 +28,7 @@ export const Products: FC = () => {
           Products
         </p>
       </div>
-      <div className="test">
+      <div className="products__grid">
         <aside className="sidebar">
           SIDEBAR Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           Recusandae omnis quo at vero sequi! Labore rerum itaque dolore hic
