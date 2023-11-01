@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from "@appTypes/products";
 import { STATUSES } from '@constants/statuses';
@@ -8,18 +8,34 @@ interface ProductsState {
     products: IProduct[];
     status: STATUSES;
     error: string | null;
+    searchQuery: string;
+    selectedCategory: string;
+    selectedBrand: string | null;
 }
 
 const initialState: ProductsState = {
     products: [],
     status: STATUSES.LOADING,
     error: null,
+    searchQuery: "",
+    selectedCategory: "All Categories",
+    selectedBrand: null
 };
 
 const productsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {},
+    reducers: {
+        setSearchQuery: (state, action: PayloadAction<string>) => {
+            state.searchQuery = action.payload;
+        },
+        setSelectedCategory: (state, action: PayloadAction<string>) => {
+            state.selectedCategory = action.payload;
+        },
+        setSelectedBrand: (state, action: PayloadAction<string | null>) => {
+            state.selectedBrand = action.payload;
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(productServices.getProducts.pending, (state) => {
@@ -35,5 +51,11 @@ const productsSlice = createSlice({
             });
     },
 });
+
+export const {
+    setSearchQuery,
+    setSelectedCategory,
+    setSelectedBrand
+} = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -1,0 +1,50 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 30%;
+  width: 70%;
+  background: $primary-color-100;
+  border: 1px solid $secondary-color;
+  z-index: 1;
+
+  @include onMobile {
+    width: 60%;
+    left: 40%;
+  }
+
+  &__item {
+    padding: 10px;
+    border-bottom: 1px solid #eaeaea;
+    transition: .2s linear;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $secondary-color;
+    }
+  }
+
+  &__text {
+    font-size: 16px;
+  }
+
+  &__title {
+    color: $primary-color-400;
+  }
+
+  &__category {
+    color: $primary-color-400;
+    font-weight: 600;
+  }
+
+  &__not-found {
+    padding: 10px;
+    font-weight: bold;
+  }
+}

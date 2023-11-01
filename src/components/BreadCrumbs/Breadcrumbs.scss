@@ -1,0 +1,21 @@
+@import "@styles/colors.scss";
+
+.breadcrumbs {
+  display: flex;
+  padding: 16px 0px;
+  font-size: 14px;
+  font-weight: 400;
+
+  &__link {
+    color: $primary-color-300;
+  }
+
+  &__link_active {
+    color: $primary-color;
+  }
+
+  &__seperator {
+    margin: 0 8px;
+  }
+
+}

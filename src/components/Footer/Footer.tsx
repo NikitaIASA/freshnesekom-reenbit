@@ -3,9 +3,9 @@ import { FC } from "react";
 import Tags from "./Tags";
 import Links from "./Links";
 
-interface FooterProps {}
+import "./Footer.scss";
 
-export const Footer: FC<FooterProps> = () => {
+export const Footer: FC = () => {
   return (
     <footer className="footer">
       <Links />
