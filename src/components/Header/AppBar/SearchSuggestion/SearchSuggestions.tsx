@@ -38,11 +38,8 @@ export const SearchSuggestions: FC<SearchSuggestionsProps> = ({ onClear }) => {
   return (
     <ul className="search-suggestions">
       {displayedProducts.map((product) => (
-        <li className="search-suggestions__item" key={product.id}>
-          <Link
-            to={`${ROUTE_PATHS.PRODUCTS}/${product.title}`}
-            onClick={onClear}
-          >
+        <Link key={product.id} to={`${ROUTE_PATHS.PRODUCTS}/${product.title}`} onClick={onClear}>
+          <li className="search-suggestions__item">
             <p className="search-suggestions__text">
               <span className="search-suggestions__title"> {product.title} </span>
               {selectedCategory === "All Categories" && (
@@ -52,8 +49,8 @@ export const SearchSuggestions: FC<SearchSuggestionsProps> = ({ onClear }) => {
                 </>
               )}
             </p>
-          </Link>
-        </li>
+          </li>
+        </Link>
       ))}
     </ul>
   );
