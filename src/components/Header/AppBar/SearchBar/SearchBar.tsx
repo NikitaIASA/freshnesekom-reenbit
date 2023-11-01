@@ -40,8 +40,31 @@ export const SearchBar: FC = () => {
   const [localSearchQuery, setLocalSearchQuery] = useState("");
 
   const [isInputFocused, setInputFocused] = useState(false);
-  const handleInputFocus = () => setInputFocused(true);
-  const handleInputBlur = () => setInputFocused(false);
+  const blurTimer = useRef<NodeJS.Timeout | null>(null);
+  const FOCUS_DELAY = 100;
+
+  // Adding a short delay to click on the list before focus is lost
+  const handleInputBlur = () => {
+    blurTimer.current = setTimeout(() => {
+      setInputFocused(false);
+    }, FOCUS_DELAY);
+  };
+
+  const handleInputFocus = () => {
+    if (blurTimer.current) {
+      clearTimeout(blurTimer.current);
+      blurTimer.current = null;
+    }
+    setInputFocused(true);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (blurTimer.current) {
+        clearTimeout(blurTimer.current);
+      }
+    };
+  }, []);
 
   const сategoriesList = [
     "All Categories",
@@ -123,7 +146,9 @@ export const SearchBar: FC = () => {
           onClick={localSearchQuery ? handleClearInput : undefined}
         />
       </label>
-      {location.pathname !== "/products" && isInputFocused  && <SearchSuggestions onClear={handleClearInput}/>}
+      {location.pathname !== "/products" && isInputFocused && (
+        <SearchSuggestions onClear={handleClearInput} />
+      )}
     </div>
   );
 };
