@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 
 import { useAppSelector } from "@hooks/useAppSelector";
 import { useAppDispatch } from "@hooks/useAppDispatch";
+import { Link } from "react-router-dom";
 import {
   setSelectedBrand,
   setSelectedCategory,
@@ -10,6 +11,7 @@ import { getCategories } from "@helpers/getCategories";
 import { STATUSES } from "@constants/statuses";
 import NavigationSkeleton from "@components/Header/NavigationSkeleton";
 import { selectProductsState } from "@store/selectors/productSelectors";
+import { ROUTE_PATHS } from "@constants/routePaths";
 import Dropdown from "@components/Dropdown";
 import arrow from "@assets/images/arrow-down.svg";
 
@@ -42,12 +44,14 @@ export const Navigation: FC = () => {
           >
             <span>{category.name}</span>
             <img src={arrow} alt="arrow" />
-            {activeCategory === category.name && (
-              <Dropdown
-                items={category.brands}
-                onSelect={(brand) => handleBrandSelect(brand, category.name)}
-              />
-            )}
+            <Link to={ROUTE_PATHS.PRODUCTS}>
+              {activeCategory === category.name && (
+                <Dropdown
+                  items={category.brands}
+                  onSelect={(brand) => handleBrandSelect(brand, category.name)}
+                />
+              )}
+            </Link>
           </li>
         ))
       )}

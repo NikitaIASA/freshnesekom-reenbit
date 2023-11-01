@@ -1,4 +1,11 @@
-import { FC, useState, useEffect, useRef, useCallback, ChangeEvent } from "react";
+import {
+  FC,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  ChangeEvent,
+} from "react";
 
 import Dropdown from "@components/Dropdown";
 import { getCategories } from "@helpers/getCategories";
@@ -15,13 +22,17 @@ import {
   selectProducts,
   selectCategory,
 } from "@store/selectors/productSelectors";
+import { useLocation } from "react-router-dom";
+import SearchSuggestions from "../SearchSuggestion";
 import arrow from "@assets/images/arrow-down.svg";
 import searchIcon from "@assets/images/search-icon.svg";
+import clearIcon from "@assets/images/clear-icon.svg";
 
 import "./SearchBar.scss";
 
 export const SearchBar: FC = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const products = useAppSelector(selectProducts);
   const selectedCategory = useAppSelector(selectCategory);
@@ -54,6 +65,11 @@ export const SearchBar: FC = () => {
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleClearInput = () => {
+    setLocalSearchQuery("");
+    debouncedUpdateSearchQuery("");
   };
 
   // Effect to add an event listener to close the dropdown when clicked outside its area
@@ -96,10 +112,12 @@ export const SearchBar: FC = () => {
         />
         <img
           className="search-bar__search-icon"
-          src={searchIcon}
+          src={localSearchQuery ? clearIcon : searchIcon}
           alt="search icon"
+          onClick={localSearchQuery ? handleClearInput : undefined}
         />
       </label>
+      {location.pathname !== "/products" && <SearchSuggestions onClear={handleClearInput}/>}
     </div>
   );
 };

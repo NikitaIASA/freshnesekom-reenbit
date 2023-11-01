@@ -1,6 +1,7 @@
+@import "@styles/colors";
 @import "@styles/breakpoints";
 
-.products {
+.test {
   display: grid;
   grid-template-columns: 1fr 3fr;
 
@@ -10,6 +11,45 @@
   }
 }
 
-.sidebar {
-  margin-top: 20px;
+.products {
+  &__breadcrumbs {
+    margin: 29px 0 24px 0;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: $primary-color-300;
+    font-family: Open Sans;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  &__count-number {
+    padding: 0 8px;
+    color: $secondary-color;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+    border-radius: 12px;
+    background: $secondary-color-200;
+  }
+
+  &__title {
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: normal;
+  }
 }
