@@ -39,6 +39,10 @@ export const SearchBar: FC = () => {
   const categories = getCategories(products);
   const [localSearchQuery, setLocalSearchQuery] = useState("");
 
+  const [isInputFocused, setInputFocused] = useState(false);
+  const handleInputFocus = () => setInputFocused(true);
+  const handleInputBlur = () => setInputFocused(false);
+
   const сategoriesList = [
     "All Categories",
     ...categories.map((category) => category.name),
@@ -109,6 +113,8 @@ export const SearchBar: FC = () => {
           className="search-bar__input"
           value={localSearchQuery}
           onChange={handleInputChange}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
         />
         <img
           className="search-bar__search-icon"
@@ -117,7 +123,7 @@ export const SearchBar: FC = () => {
           onClick={localSearchQuery ? handleClearInput : undefined}
         />
       </label>
-      {location.pathname !== "/products" && <SearchSuggestions onClear={handleClearInput}/>}
+      {location.pathname !== "/products" && isInputFocused  && <SearchSuggestions onClear={handleClearInput}/>}
     </div>
   );
 };

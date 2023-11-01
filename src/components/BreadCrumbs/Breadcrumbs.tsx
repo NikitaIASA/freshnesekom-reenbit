@@ -28,7 +28,7 @@ export const Breadcrumbs: FC = () => {
         const linkPath = `/${paths.slice(0, index + 1).join('/')}`;
 
         return (
-          <p>
+          <p key={`breadbcrumb-${path}`}>
             <span className="breadcrumbs__seperator"> / </span>
             <NavLink
               to={linkPath}
