@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEvent } from "react";
 
 import { useAppSelector } from "@hooks/useAppSelector";
 import { STATUSES } from "@constants/statuses";
@@ -15,9 +15,21 @@ import { useModal } from "@hooks/useModal";
 import "./Products.scss";
 
 export const Products: FC = () => {
-  const { isModalOpened: isSidebarOpened, setIsModalOpened: setIsSidebarOpened } = useModal();
+  const {
+    isModalOpened: isSidebarOpened,
+    setIsModalOpened: setIsSidebarOpened,
+  } = useModal();
   const { status, error } = useAppSelector(selectProductsState);
   const filteredProducts = useAppSelector(selectFilteredProducts);
+
+  const handleOverlayClick = () => {
+    setIsSidebarOpened(false);
+  };
+
+  const handleFilterButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsSidebarOpened(true);
+  };
 
   if (status === STATUSES.FAILED) {
     return <ErrorBlock error={error} />;
@@ -26,10 +38,7 @@ export const Products: FC = () => {
   return (
     <section className="products">
       {isSidebarOpened && (
-        <div
-          className="products__overlay"
-          onClick={() => setIsSidebarOpened(false)}
-        ></div>
+        <div className="products__overlay" onClick={handleOverlayClick}></div>
       )}
       <div className="products__top">
         <h1 className="products__title">All Products</h1>
@@ -43,10 +52,7 @@ export const Products: FC = () => {
       </div>
       <button
         className="products__filter-button"
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsSidebarOpened(true);
-        }}
+        onClick={handleFilterButtonClick}
       >
         <img
           className="products__filter-image"
