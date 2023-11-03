@@ -1,0 +1,43 @@
+@import "@styles/colors.scss";
+
+.categories {
+  &__title {
+    margin-bottom: 16px;
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__name {
+    color: $primary-color;
+    line-height: normal;
+    cursor: pointer;
+  }
+
+  &__count {
+    color: $secondary-color;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+    padding: 0 8px;
+    background: $secondary-color-200;
+    border-radius: 12px;
+  }
+}

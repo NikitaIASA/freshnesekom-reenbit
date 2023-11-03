@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
+
 import "./NoProductsFound.scss";
 
 interface NoProductsFoundProps {
@@ -15,7 +17,7 @@ export const NoProductsFound: FC<NoProductsFoundProps> = ({
 
   if (searchQuery) {
     message = `Nothing found for "${searchQuery}".`;
-  } else if (selectedCategory && selectedCategory !== "All Categories") {
+  } else if (selectedCategory && selectedCategory !== ALL_CATEGORIES_FILTER) {
     message = `No available products in "${selectedCategory}".`;
   }
 

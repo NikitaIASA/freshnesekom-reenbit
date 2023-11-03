@@ -1,3 +1,15 @@
 @import "./reset.scss";
 @import "./colors.scss";
 @import "breakpoints.scss";
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: $secondary-color;
+}
+::-webkit-scrollbar-track {
+  background-color: $primary-color-100;
+}
+::-webkit-scrollbar-thumb {
+  background-color: $secondary-color;
+}
+

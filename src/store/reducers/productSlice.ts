@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from "@appTypes/products";
 import { STATUSES } from '@constants/statuses';
 import productServices from '@store/services/productServices';
+import { ALL_CATEGORIES_FILTER } from '@constants/allCategoriesConst';
 
 interface ProductsState {
     products: IProduct[];
@@ -18,7 +19,7 @@ const initialState: ProductsState = {
     status: STATUSES.LOADING,
     error: null,
     searchQuery: "",
-    selectedCategory: "All Categories",
+    selectedCategory: ALL_CATEGORIES_FILTER,
     selectedBrand: null
 };
 

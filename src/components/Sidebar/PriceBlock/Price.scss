@@ -1,0 +1,72 @@
+@import "@styles/colors";
+@import "@styles/breakpoints";
+
+.price-block {
+  &__title {
+    margin-bottom: 16px;
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__slider {
+    height: 6px;
+    background-color: $additional-light-color;
+    border-radius: 12px;
+    width: 95%;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  &__thumb {
+    position: absolute;
+    bottom: -8px;
+    width: 24px;
+    height: 24px;
+    border: 1px solid $primary-color-300;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+    background-color: $white;
+    border-radius: 50%;
+    cursor: pointer;
+    
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__track-1 {
+    background-color: $secondary-color;
+    height: inherit;
+  }
+
+  &__inputs {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+  }
+
+  &__input-separator {
+    margin-top: 15px;
+    color: $primary-color-300;
+    line-height: normal;
+  }
+
+  &__label {
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+  }
+
+  &__input {
+    width: 109px;
+    outline: none;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+    padding: 11px 16px 12px 21px;
+  }
+}

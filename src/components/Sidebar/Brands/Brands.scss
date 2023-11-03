@@ -1,0 +1,30 @@
+@import "@styles/colors.scss";
+
+.brands {
+
+  &__title {
+    color: $primary-color;
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 16px;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 165px;
+    overflow-y: auto;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+}
