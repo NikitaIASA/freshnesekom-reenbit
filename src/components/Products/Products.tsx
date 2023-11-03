@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import { useAppSelector } from "@hooks/useAppSelector";
 import { STATUSES } from "@constants/statuses";
@@ -10,11 +10,12 @@ import {
   selectProductsState,
 } from "@store/selectors/productSelectors";
 import filterIcon from "@assets/images/filter-icon.svg";
+import { useModal } from "@hooks/useModal";
 
 import "./Products.scss";
 
 export const Products: FC = () => {
-  const [isSidebarOpened, setIsSidebarOpened] = useState(false);
+  const { isModalOpened: isSidebarOpened, setIsModalOpened: setIsSidebarOpened } = useModal();
   const { status, error } = useAppSelector(selectProductsState);
   const filteredProducts = useAppSelector(selectFilteredProducts);
 

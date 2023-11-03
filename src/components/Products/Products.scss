@@ -33,6 +33,7 @@
   &__sidebar-container {
     display: block;
     transition: transform 0.3s ease-in-out;
+    max-width: 269px;
 
     @include onBig-tablet {
       display: block;
@@ -42,9 +43,9 @@
       left: 0;
       height: 100%;
       overflow-y: auto;
-      background-color: white;
+      background-color: $white;
       padding: 20px;
-      width: 400px;
+      max-width: 400px;
       z-index: 10;
 
       &.sidebar-opened {

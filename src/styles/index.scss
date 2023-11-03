@@ -13,3 +13,7 @@
   background-color: $secondary-color;
 }
 
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}
