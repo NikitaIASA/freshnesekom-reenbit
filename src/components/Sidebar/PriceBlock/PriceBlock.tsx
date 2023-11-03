@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Slider from "react-slider";
 
+import SidebarSectionTitle from "../SidebarSectionTitle";
+
 import "./Price.scss";
 
 const MIN_VALUE = 1;
@@ -11,7 +13,7 @@ export const PriceBlock = () => {
 
   return (
     <div className="price-block">
-      <h3 className="price-block__title">Price</h3>
+      <SidebarSectionTitle title="Price"/>
       <Slider
         className="price-block__slider"
         thumbClassName="price-block__thumb"

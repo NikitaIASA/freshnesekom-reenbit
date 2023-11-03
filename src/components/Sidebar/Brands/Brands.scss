@@ -2,15 +2,6 @@
 
 .brands {
 
-  &__title {
-    color: $primary-color;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: normal;
-    margin-bottom: 16px;
-  }
-
   &__list {
     display: flex;
     flex-direction: column;

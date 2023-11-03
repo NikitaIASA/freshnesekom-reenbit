@@ -1,15 +1,17 @@
 import { FC } from "react";
 
+import SidebarSectionTitle from "../SidebarSectionTitle";
+import CustomCheckbox from "../CustomCheckbox";
 import yellowStar from "@assets/images/yellow-star.svg";
 import starEmpty from "@assets/images/empty-heart.svg";
-import CustomCheckbox from "../CustomCheckbox";
+
 
 import "./Rating.scss";
 
 export const Rating: FC = () => {
   return (
     <div className="rating">
-      <h2 className="rating__title">Rating</h2>
+      <SidebarSectionTitle title="Rating"/>
       <ul className="rating__list">
         {Array.from({ length: 5 }, (_, i) => i + 1).map((rating) => (
           <li className="rating__item" key={rating}>

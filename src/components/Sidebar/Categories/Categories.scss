@@ -1,15 +1,7 @@
 @import "@styles/colors.scss";
 
 .categories {
-  &__title {
-    margin-bottom: 16px;
-    color: $primary-color;
-    font-family: Poppins;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: normal;
-  }
-
+  
   &__list {
     display: flex;
     flex-direction: column;

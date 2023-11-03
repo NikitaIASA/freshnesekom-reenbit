@@ -1,0 +1,11 @@
+@import "@styles/skeleton.scss";
+
+.sidebar-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sidebar-skeleton__item {
+  @include skeleton-style(200px, 10px);
+}
