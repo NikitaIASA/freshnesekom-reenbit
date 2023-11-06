@@ -62,3 +62,11 @@
     padding: 11px 16px 12px 21px;
   }
 }
+
+.price-block__label--error {
+  color: #d9534f; 
+}
+
+.price-block__input--error {
+  border: 1px solid #d9534f; 
+}
