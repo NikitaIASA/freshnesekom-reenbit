@@ -38,7 +38,7 @@ const productsSlice = createSlice({
         setSelectedCategory: (state, action: PayloadAction<string>) => {
             const newCategory = action.payload;
             const availableBrands = getAvailableBrandsForCategory(newCategory, state.products);
-            
+
             if (state.selectedCategory === ALL_CATEGORIES_FILTER) {
                 state.selectedBrands = state.selectedBrands.filter(brand => availableBrands.includes(brand));
             } else {
@@ -61,9 +61,6 @@ const productsSlice = createSlice({
             } else {
                 state.selectedBrands.push(brand);
             }
-        },
-        clearBrands(state) {
-            state.selectedBrands = [];
         },
         setSelectedRatings(state, action: PayloadAction<number[]>) {
             state.selectedRatings = action.payload;
@@ -103,7 +100,6 @@ export const {
     setSelectedBrand,
     setSelectedBrands,
     toggleBrand,
-    clearBrands,
     setSelectedRatings,
     toggleRating,
     setSelectedPriceRange
