@@ -45,3 +45,15 @@ export const selectFilteredPriceRange = createSelector(
         return [minValue, maxValue];
     }
 );
+
+// Selector for search suggestion list
+export const selectSearchedProducts = createSelector(
+    [selectProducts, selectCategory, selectSearchQuery],
+    (products, selectedCategory, searchQuery) => {
+        return products.filter(product => {
+            const matchesCategory = selectedCategory === ALL_CATEGORIES_FILTER || product.category === selectedCategory;
+            const matchesSearch = !searchQuery || product.title.toLowerCase().includes(searchQuery.toLowerCase());
+            return matchesCategory && matchesSearch;
+        });
+    }
+);
