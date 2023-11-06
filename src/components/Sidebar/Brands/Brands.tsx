@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ChangeEvent} from "react";
 
 import CustomCheckbox from "../CustomCheckbox";
 import SidebarSkeleton from "../SidebarSkeleton";
@@ -17,8 +17,13 @@ export const Brands: FC = () => {
   const brandsForSelectedCategory = useBrandsForSelectedCategory();
   const { selectedBrands, status } = useAppSelector(selectProductsState);
 
-  const handleBrandChange = (brand: string) => {
+  const handleBrandToggle = (brand: string) => {
     dispatch(toggleBrand(brand));
+  };
+
+  const handleBrandChange = (event: ChangeEvent<HTMLInputElement>, brand: string) => {
+    event.stopPropagation();
+    handleBrandToggle(brand);
   };
 
   return (
@@ -29,10 +34,10 @@ export const Brands: FC = () => {
       ) : (
         <ul className="brands__list">
           {brandsForSelectedCategory.map((brand) => (
-            <li className="brands__item" key={`brand-${brand}`}>
+            <li className="brands__item" key={`brand-${brand}`} onClick={() => handleBrandToggle(brand)}>
               <CustomCheckbox
                 isChecked={selectedBrands.includes(brand)}
-                onChange={() => handleBrandChange(brand)}
+                onChange={(event) => handleBrandChange(event, brand)}
               />
               <p className="brands__item-name">{brand}</p> 
             </li>

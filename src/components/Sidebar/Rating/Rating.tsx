@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ChangeEvent } from "react";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import CustomCheckbox from "../CustomCheckbox";
@@ -15,8 +15,16 @@ export const Rating: FC = () => {
   const dispatch = useAppDispatch();
   const selectedRatings = useAppSelector(selectSelectedRatings);
 
-  const handleRatingChange = (rating: number) => {
+  const handleRatingToggle = (rating: number) => {
     dispatch(toggleRating(rating));
+  };
+
+  const handleRatingChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    rating: number
+  ) => {
+    event.stopPropagation();
+    handleRatingToggle(rating);
   };
 
   return (
@@ -24,10 +32,14 @@ export const Rating: FC = () => {
       <SidebarSectionTitle title="Rating" />
       <ul className="rating__list">
         {Array.from({ length: 5 }, (_, i) => 5 - i).map((rating) => (
-          <li className="rating__item" key={`rating-${rating}`}>
+          <li
+            className="rating__item"
+            key={`rating-${rating}`}
+            onClick={() => handleRatingToggle(rating)}
+          >
             <CustomCheckbox
               isChecked={selectedRatings.includes(rating)}
-              onChange={() => handleRatingChange(rating)}
+              onChange={(event) => handleRatingChange(event, rating)}
             />
             <div className="rating__stars">
               {[...new Array(5)].map((_, index) => (

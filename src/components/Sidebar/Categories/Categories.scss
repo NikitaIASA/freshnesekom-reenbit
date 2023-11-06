@@ -14,7 +14,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 2px;
-    
+    cursor: pointer;
+
     &.selected {
       background: lighten($secondary-color-200, 0.9);
       border-radius: 5px;

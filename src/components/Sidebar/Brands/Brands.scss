@@ -16,6 +16,14 @@
     gap: 8px;
     font-weight: 400;
     line-height: normal;
+    transition: .2s linear;
+    cursor: pointer;
+
+
+    &:hover p {
+      color: $secondary-color;
+    }
+
   }
 
 }
