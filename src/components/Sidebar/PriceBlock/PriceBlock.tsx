@@ -1,27 +1,51 @@
-import { useState } from "react";
+import { FC, useState, useEffect } from "react";
 import Slider from "react-slider";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { useAppSelector } from "@hooks/useAppSelector";
+import { setSelectedPriceRange } from "@store/reducers/productSlice";
+import { selectFilteredPriceRange } from "@store/selectors/productSelectors";
 
 import "./Price.scss";
 
-const MIN_VALUE = 1;
-const MAX_VALUE = 100;
+export const PriceBlock: FC = () => {
+  const dispatch = useAppDispatch();
+  const [minPrice, maxPrice] = useAppSelector(selectFilteredPriceRange);
+  const [values, setValues] = useState<number[]>([minPrice, maxPrice]);
 
-export const PriceBlock = () => {
-  const [values, setValues] = useState([MIN_VALUE, MAX_VALUE]);
+  useEffect(() => {
+    setValues([minPrice, maxPrice]);
+    dispatch(setSelectedPriceRange([minPrice, maxPrice]));
+  }, [minPrice, maxPrice, dispatch]);
+
+  const handleSliderChange = (newValues: number | number[]) => {
+    if (typeof newValues === "number") {
+      return;
+    }
+    setValues(newValues);
+    dispatch(setSelectedPriceRange(newValues));
+  };
+
+  const handleInputChange = (index: number, value: string) => {
+    const newValues = [...values];
+    const intValue = parseFloat(value) || 0;
+    newValues[index] = Math.max(minPrice, Math.min(maxPrice, intValue)); 
+    setValues(newValues);
+    dispatch(setSelectedPriceRange(newValues));
+  };
 
   return (
     <div className="price-block">
-      <SidebarSectionTitle title="Price"/>
+      <SidebarSectionTitle title="Price" />
       <Slider
         className="price-block__slider"
         thumbClassName="price-block__thumb"
         trackClassName="price-block__track"
         value={values}
-        onChange={setValues}
-        min={0}
-        max={1000}
+        onChange={handleSliderChange}
+        min={minPrice}
+        max={maxPrice}
         pearling
       />
       <div className="price-block__inputs">
@@ -30,11 +54,11 @@ export const PriceBlock = () => {
           <input
             type="number"
             value={values[0]}
-            onChange={(e) =>
-              setValues([parseInt(e.target.value, 10), values[1]])
-            }
+            onChange={(e) => handleInputChange(0, e.target.value)}
             className="price-block__input"
-            placeholder="0"
+            placeholder={`${minPrice}`}
+            min={minPrice}
+            max={values[1]} 
           />
         </label>
         <span className="price-block__input-separator">-</span>
@@ -43,11 +67,11 @@ export const PriceBlock = () => {
           <input
             type="number"
             value={values[1]}
-            onChange={(e) =>
-              setValues([values[0], parseInt(e.target.value, 10)])
-            }
+            onChange={(e) => handleInputChange(1, e.target.value)}
             className="price-block__input"
-            placeholder="000"
+            placeholder={`${maxPrice}`}
+            min={values[0]} 
+            max={maxPrice} 
           />
         </label>
       </div>

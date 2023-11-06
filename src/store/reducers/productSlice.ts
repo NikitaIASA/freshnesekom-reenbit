@@ -4,6 +4,7 @@ import { IProduct } from "@appTypes/products";
 import { STATUSES } from '@constants/statuses';
 import productServices from '@store/services/productServices';
 import { ALL_CATEGORIES_FILTER } from '@constants/allCategoriesConst';
+import { getAvailableBrandsForCategory } from '@helpers/getAvailableBrandsForCategory';
 
 interface ProductsState {
     products: IProduct[];
@@ -11,7 +12,9 @@ interface ProductsState {
     error: string | null;
     searchQuery: string;
     selectedCategory: string;
-    selectedBrand: string | null;
+    selectedBrands: string[];
+    selectedRatings: number[];
+    selectedPriceRange: number[];
 }
 
 const initialState: ProductsState = {
@@ -20,7 +23,9 @@ const initialState: ProductsState = {
     error: null,
     searchQuery: "",
     selectedCategory: ALL_CATEGORIES_FILTER,
-    selectedBrand: null
+    selectedBrands: [],
+    selectedRatings: [],
+    selectedPriceRange: [0, 0],
 };
 
 const productsSlice = createSlice({
@@ -31,10 +36,43 @@ const productsSlice = createSlice({
             state.searchQuery = action.payload;
         },
         setSelectedCategory: (state, action: PayloadAction<string>) => {
+            const newCategory = action.payload;
+            const availableBrands = getAvailableBrandsForCategory(newCategory, state.products);
+            state.selectedBrands = state.selectedBrands.filter(brand => availableBrands.includes(brand));
             state.selectedCategory = action.payload;
         },
-        setSelectedBrand: (state, action: PayloadAction<string | null>) => {
-            state.selectedBrand = action.payload;
+        setSelectedBrand(state, action: PayloadAction<string>) {
+            state.selectedBrands = [action.payload];
+        },
+        setSelectedBrands(state, action: PayloadAction<string[]>) {
+            state.selectedBrands = action.payload;
+        },
+        toggleBrand(state, action: PayloadAction<string>) {
+            const brand = action.payload;
+            const index = state.selectedBrands.indexOf(brand);
+            if (index !== -1) {
+                state.selectedBrands.splice(index, 1);
+            } else {
+                state.selectedBrands.push(brand);
+            }
+        },
+        clearBrands(state) {
+            state.selectedBrands = [];
+        },
+        setSelectedRatings(state, action: PayloadAction<number[]>) {
+            state.selectedRatings = action.payload;
+        },
+        toggleRating(state, action: PayloadAction<number>) {
+            const rating = action.payload;
+            const index = state.selectedRatings.indexOf(rating);
+            if (index !== -1) {
+                state.selectedRatings.splice(index, 1);
+            } else {
+                state.selectedRatings.push(rating);
+            }
+        },
+        setSelectedPriceRange(state, action: PayloadAction<number[]>) {
+            state.selectedPriceRange = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -56,7 +94,13 @@ const productsSlice = createSlice({
 export const {
     setSearchQuery,
     setSelectedCategory,
-    setSelectedBrand
+    setSelectedBrand,
+    setSelectedBrands,
+    toggleBrand,
+    clearBrands,
+    setSelectedRatings,
+    toggleRating,
+    setSelectedPriceRange
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

@@ -12,8 +12,8 @@ import { getCategories } from "@helpers/getCategories";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import {
+  clearBrands,
   setSearchQuery,
-  setSelectedBrand,
   setSelectedCategory,
 } from "@store/reducers/productSlice";
 import { debounce } from "@helpers/debounce";
@@ -87,7 +87,7 @@ export const SearchBar: FC = () => {
 
   const setCategoryHandler = (item: string) => {
     dispatch(setSelectedCategory(item));
-    dispatch(setSelectedBrand(""));
+    dispatch(clearBrands());
     toggleDropdown();
   };
 
