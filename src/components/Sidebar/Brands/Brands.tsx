@@ -23,7 +23,7 @@ export const Brands: FC = () => {
           {brandsForSelectedCategory.map((brand) => (
             <li className="brands__item" key={`brand-${brand}`}>
               <CustomCheckbox isChecked={false} />
-              <p className="brands__item">{brand}</p>
+              <p className="brands__title">{brand}</p>
             </li>
           ))}
         </ul>

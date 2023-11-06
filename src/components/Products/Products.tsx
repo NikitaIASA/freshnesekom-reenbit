@@ -43,10 +43,7 @@ export const Products: FC = () => {
       <div className="products__top">
         <h1 className="products__title">All Products</h1>
         <p className="products__count">
-          <span className="products__count-number">
-            {" "}
-            {filteredProducts?.length}{" "}
-          </span>
+          <span className="products__count-number"> {filteredProducts?.length} </span>
           Products
         </p>
       </div>

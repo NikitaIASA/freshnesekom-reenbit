@@ -28,11 +28,8 @@ export const PriceBlock = () => {
         <label className="price-block__label">
           Min
           <input
-            type="number"
+            type="text"
             value={values[0]}
-            onChange={(e) =>
-              setValues([parseInt(e.target.value, 10), values[1]])
-            }
             className="price-block__input"
             placeholder="0"
           />
@@ -41,11 +38,8 @@ export const PriceBlock = () => {
         <label className="price-block__label">
           Max
           <input
-            type="number"
+            type="text"
             value={values[1]}
-            onChange={(e) =>
-              setValues([values[0], parseInt(e.target.value, 10)])
-            }
             className="price-block__input"
             placeholder="000"
           />

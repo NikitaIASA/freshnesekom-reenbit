@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import CustomCheckbox from "../CustomCheckbox";
+import { RATING_COUNT } from "@constants/elementsCount";
 import yellowStar from "@assets/images/yellow-star.svg";
 import starEmpty from "@assets/images/empty-heart.svg";
 
@@ -13,11 +14,11 @@ export const Rating: FC = () => {
     <div className="rating">
       <SidebarSectionTitle title="Rating"/>
       <ul className="rating__list">
-        {Array.from({ length: 5 }, (_, i) => i + 1).map((rating) => (
+        {Array.from({ length: RATING_COUNT }, (_, i) => i + 1).map((rating) => (
           <li className="rating__item" key={rating}>
             <CustomCheckbox isChecked={false} />
             <div className="rating__stars">
-              {[...new Array(5)].map((_, index) => (
+              {[...new Array(RATING_COUNT)].map((_, index) => (
                 <img
                   className="rating__image"
                   key={index}
