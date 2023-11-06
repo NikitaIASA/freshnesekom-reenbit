@@ -1,0 +1,26 @@
+@import "@styles/colors.scss";
+
+.reset {
+  display: flex;
+  justify-content: center;
+
+  &__button {
+    padding: 6px 12px;
+    color: $primary-color-300;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: normal;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    transition: .2s linear;
+    cursor: pointer;
+
+    &:hover {
+      background: $primary-color-50;
+    }
+
+  }
+
+}
