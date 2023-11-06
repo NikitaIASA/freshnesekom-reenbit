@@ -38,8 +38,14 @@ const productsSlice = createSlice({
         setSelectedCategory: (state, action: PayloadAction<string>) => {
             const newCategory = action.payload;
             const availableBrands = getAvailableBrandsForCategory(newCategory, state.products);
-            state.selectedBrands = state.selectedBrands.filter(brand => availableBrands.includes(brand));
-            state.selectedCategory = action.payload;
+            
+            if (state.selectedCategory === ALL_CATEGORIES_FILTER) {
+                state.selectedBrands = state.selectedBrands.filter(brand => availableBrands.includes(brand));
+            } else {
+                state.selectedBrands = [];
+            }
+
+            state.selectedCategory = newCategory;
         },
         setSelectedBrand(state, action: PayloadAction<string>) {
             state.selectedBrands = [action.payload];
