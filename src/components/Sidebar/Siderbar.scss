@@ -1,0 +1,27 @@
+@import "@styles/breakpoints.scss";
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  &__close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: none;
+
+    @include onBig-tablet {
+      display: block;
+    }
+  }
+
+  &__close-image {
+    width: 24px;
+    height: 24px;
+  }
+
+}

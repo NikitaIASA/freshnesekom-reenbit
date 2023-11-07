@@ -24,6 +24,7 @@ import {
 } from "@store/selectors/productSelectors";
 import { useLocation } from "react-router-dom";
 import SearchSuggestions from "../SearchSuggestion";
+import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
 import arrow from "@assets/images/arrow-down.svg";
 import searchIcon from "@assets/images/search-icon.svg";
 import clearIcon from "@assets/images/clear-icon.svg";
@@ -67,7 +68,7 @@ export const SearchBar: FC = () => {
   }, []);
 
   const сategoriesList = [
-    "All Categories",
+    ALL_CATEGORIES_FILTER,
     ...categories.map((category) => category.name),
   ];
 

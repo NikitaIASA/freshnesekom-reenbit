@@ -1,17 +1,63 @@
 @import "@styles/colors";
 @import "@styles/breakpoints";
 
-.products__grid {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-
-  @include onBig-tablet {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 .products {
+  &__grid {
+    display: flex;
+    gap: 32px;
+
+    @include onBig-tablet {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__filter-button {
+    display: none;
+
+    @include onBig-tablet {
+      display: block;
+      padding: 5px;
+      margin-bottom: 15px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  &__filter-image {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__sidebar-container {
+    display: block;
+    transition: transform 0.3s ease-in-out;
+    max-width: 269px;
+
+    @include onBig-tablet {
+      display: block;
+      transform: translateX(-100%);
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      overflow-y: auto;
+      background-color: $white;
+      padding: 20px;
+      max-width: 400px;
+      z-index: 10;
+
+      &.sidebar-opened {
+        transform: translateX(0);
+      }
+    }
+
+    @include onMobile {
+      width: 300px;
+    }
+  }
+
   &__breadcrumbs {
     margin: 29px 0 24px 0;
   }
@@ -52,4 +98,15 @@
     font-weight: 600;
     line-height: normal;
   }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
 }

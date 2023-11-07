@@ -1,3 +1,26 @@
 @import "./reset.scss";
 @import "./colors.scss";
 @import "breakpoints.scss";
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: $secondary-color;
+}
+::-webkit-scrollbar-track {
+  background-color: $primary-color-100;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: $secondary-color;
+}
+
+// For Firefox
+* {
+  scrollbar-color: $secondary-color $primary-color-100;
+  scrollbar-width: thin;
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}

@@ -8,6 +8,7 @@ import {
   selectCategory,
 } from "@store/selectors/productSelectors";
 import { ROUTE_PATHS } from "@constants/routePaths";
+import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
 
 import "./SearchSuggestions.scss";
 
@@ -42,7 +43,7 @@ export const SearchSuggestions: FC<SearchSuggestionsProps> = ({ onClear }) => {
           <li className="search-suggestions__item">
             <p className="search-suggestions__text">
               <span className="search-suggestions__title"> {product.title} </span>
-              {selectedCategory === "All Categories" && (
+              {selectedCategory === ALL_CATEGORIES_FILTER && (
                 <>
                   from
                   <span className="search-suggestions__category"> {product.category} </span>

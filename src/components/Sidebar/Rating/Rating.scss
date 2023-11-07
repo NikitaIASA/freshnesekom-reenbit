@@ -1,0 +1,27 @@
+@import "@styles/colors.scss";
+
+.rating {
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__stars {
+    display: flex;
+    gap: 3px;
+  }
+
+  &__image {
+    width: 20px;
+    height: 20px;
+  }
+  
+}
