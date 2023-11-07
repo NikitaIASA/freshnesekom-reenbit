@@ -4,6 +4,8 @@ import Categories from "./Categories";
 import Brands from "./Brands";
 import Rating from "./Rating";
 import PriceBlock from "./PriceBlock";
+import ResetButton from "./ResetButton";
+import closeIcon from "@assets/images/clear-icon.svg";
 
 import "./Siderbar.scss";
 
@@ -27,12 +29,13 @@ export const Sidebar: FC<SidebarProps> = ({ setIsSidebarOpened }) => {
         className="sidebar__close-button"
         onClick={handleCloseButtonClick}
       >
-        ✖
+        <img className="sidebar__close-image" src={closeIcon} alt="close icon" />
       </button>
       <Categories />
       <Brands />
       <Rating />
       <PriceBlock />
+      <ResetButton/>
     </aside>
   );
 };

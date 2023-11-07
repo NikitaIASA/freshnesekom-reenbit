@@ -1,4 +1,4 @@
-import { FC, ChangeEvent} from "react";
+import { FC, ChangeEvent } from "react";
 
 import CustomCheckbox from "../CustomCheckbox";
 import SidebarSkeleton from "../SidebarSkeleton";
@@ -8,12 +8,12 @@ import { useBrandsForSelectedCategory } from "@hooks/useBrandsForSelectedCategor
 import { selectProductsState } from "@store/selectors/productSelectors";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { STATUSES } from "@constants/statuses";
-import { toggleBrand } from "@store/reducers/productSlice"; 
+import { toggleBrand } from "@store/reducers/productSlice";
 
 import "./Brands.scss";
 
 export const Brands: FC = () => {
-  const dispatch = useAppDispatch(); 
+  const dispatch = useAppDispatch();
   const brandsForSelectedCategory = useBrandsForSelectedCategory();
   const { selectedBrands, status } = useAppSelector(selectProductsState);
 
@@ -21,7 +21,10 @@ export const Brands: FC = () => {
     dispatch(toggleBrand(brand));
   };
 
-  const handleBrandChange = (event: ChangeEvent<HTMLInputElement>, brand: string) => {
+  const handleBrandChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    brand: string
+  ) => {
     event.stopPropagation();
     handleBrandToggle(brand);
   };
@@ -34,12 +37,16 @@ export const Brands: FC = () => {
       ) : (
         <ul className="brands__list">
           {brandsForSelectedCategory.map((brand) => (
-            <li className="brands__item" key={`brand-${brand}`} onClick={() => handleBrandToggle(brand)}>
+            <li
+              className="brands__item"
+              key={`brand-${brand}`}
+              onClick={() => handleBrandToggle(brand)}
+            >
               <CustomCheckbox
                 isChecked={selectedBrands.includes(brand)}
                 onChange={(event) => handleBrandChange(event, brand)}
               />
-              <p className="brands__item-name">{brand}</p> 
+              <p className="brands__item-name">{brand}</p>
             </li>
           ))}
         </ul>

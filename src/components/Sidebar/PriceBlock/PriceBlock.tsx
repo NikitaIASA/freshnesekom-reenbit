@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useCallback} from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import Slider from "react-slider";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
@@ -21,9 +21,12 @@ export const PriceBlock: FC = () => {
   ]);
   const [error, setError] = useState<boolean | null>(null);
 
-  const debounceSetValue = useCallback(debounce((newValues: number[]) => {
-    dispatch(setSelectedPriceRange(newValues));
-  }, PRICE_SLIDER_DELAY), []);
+  const debounceSetValue = useCallback(
+    debounce((newValues: number[]) => {
+      dispatch(setSelectedPriceRange(newValues));
+    }, PRICE_SLIDER_DELAY),
+    []
+  );
 
   useEffect(() => {
     setInputValues([minPrice, maxPrice]);
@@ -33,7 +36,11 @@ export const PriceBlock: FC = () => {
 
   useEffect(() => {
     const [minInputValue, maxInputValue] = inputValues;
-    if (minInputValue < minPrice || maxInputValue > maxPrice || minInputValue > maxInputValue) {
+    if (
+      minInputValue < minPrice ||
+      maxInputValue > maxPrice ||
+      minInputValue > maxInputValue
+    ) {
       setError(true);
     } else {
       setError(null);

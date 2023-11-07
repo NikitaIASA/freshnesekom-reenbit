@@ -1,7 +1,6 @@
 @import "@styles/colors.scss";
 
 .brands {
-
   &__list {
     display: flex;
     flex-direction: column;
@@ -14,16 +13,20 @@
     display: flex;
     align-items: center;
     gap: 8px;
+  }
+
+  &__title {
     font-weight: 400;
     line-height: normal;
     transition: .2s linear;
     cursor: pointer;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &:hover p {
       color: $secondary-color;
     }
 
   }
-
+  
 }

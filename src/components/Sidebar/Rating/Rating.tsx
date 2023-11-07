@@ -6,6 +6,7 @@ import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { toggleRating } from "@store/reducers/productSlice";
 import { selectSelectedRatings } from "@store/selectors/productSelectors";
+import { RATING_COUNT } from "@constants/elementsCount";
 import yellowStar from "@assets/images/yellow-star.svg";
 import starEmpty from "@assets/images/empty-heart.svg";
 
@@ -31,7 +32,7 @@ export const Rating: FC = () => {
     <div className="rating">
       <SidebarSectionTitle title="Rating" />
       <ul className="rating__list">
-        {Array.from({ length: 5 }, (_, i) => 5 - i).map((rating) => (
+        {Array.from({ length: RATING_COUNT }, (_, i) => 5 - i).map((rating) => (
           <li
             className="rating__item"
             key={`rating-${rating}`}
@@ -42,7 +43,7 @@ export const Rating: FC = () => {
               onChange={(event) => handleRatingChange(event, rating)}
             />
             <div className="rating__stars">
-              {[...new Array(5)].map((_, index) => (
+              {[...new Array(RATING_COUNT)].map((_, index) => (
                 <img
                   className="rating__image"
                   key={index}

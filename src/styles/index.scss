@@ -10,7 +10,14 @@
   background-color: $primary-color-100;
 }
 ::-webkit-scrollbar-thumb {
+  border-radius: 5px;
   background-color: $secondary-color;
+}
+
+// For Firefox
+* {
+  scrollbar-color: $secondary-color $primary-color-100;
+  scrollbar-width: thin;
 }
 
 .no-scroll {

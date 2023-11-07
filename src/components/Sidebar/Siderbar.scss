@@ -7,18 +7,21 @@
 
   &__close-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 5px;
     border: none;
     background: none;
-    font-size: 1.5em;
     cursor: pointer;
     display: none;
 
     @include onBig-tablet {
       display: block;
     }
+  }
 
+  &__close-image {
+    width: 24px;
+    height: 24px;
   }
 
 }

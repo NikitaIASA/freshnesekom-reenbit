@@ -34,6 +34,8 @@
   &__name {
     color: $primary-color;
     line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
     cursor: pointer;
   }
 
