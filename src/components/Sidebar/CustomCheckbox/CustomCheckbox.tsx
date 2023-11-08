@@ -7,7 +7,7 @@ import "./CustomCheckbox.scss";
 
 interface CustomCheckboxProps {
   isChecked: boolean;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CustomCheckbox: React.FC<CustomCheckboxProps> = ({

@@ -77,6 +77,18 @@ const productsSlice = createSlice({
         setSelectedPriceRange(state, action: PayloadAction<number[]>) {
             state.selectedPriceRange = action.payload;
         },
+        resetFilter: (state) => {
+            const prices = state.products.map(product => product.price.current);
+            const minPrice = Math.min(...prices);
+            const maxPrice = Math.max(...prices);
+
+            state.searchQuery = initialState.searchQuery;
+            state.selectedCategory = initialState.selectedCategory;
+            state.selectedBrands = initialState.selectedBrands;
+            state.selectedRatings = initialState.selectedRatings;
+            state.selectedPriceRange = [minPrice, maxPrice];
+
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -102,7 +114,8 @@ export const {
     toggleBrand,
     setSelectedRatings,
     toggleRating,
-    setSelectedPriceRange
+    setSelectedPriceRange,
+    resetFilter
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

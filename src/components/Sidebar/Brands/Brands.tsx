@@ -46,7 +46,7 @@ export const Brands: FC = () => {
                 isChecked={selectedBrands.includes(brand)}
                 onChange={(event) => handleBrandChange(event, brand)}
               />
-              <p className="brands__item-name">{brand}</p>
+              <p className="brands__title">{brand}</p>
             </li>
           ))}
         </ul>

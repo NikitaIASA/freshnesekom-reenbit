@@ -1,38 +1,30 @@
-import { FC, useState, useEffect, useCallback } from "react";
+import { FC, useState, useEffect } from "react";
 import Slider from "react-slider";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { setSelectedPriceRange } from "@store/reducers/productSlice";
-import { selectFilteredPriceRange } from "@store/selectors/productSelectors";
-import { debounce } from "@helpers/debounce";
-import { PRICE_SLIDER_DELAY } from "@constants/debounceDelays";
+import { selectFilteredPriceRange} from "@store/selectors/productSelectors";
+// import { debounce } from "@helpers/debounce";
+// import { PRICE_SLIDER_DELAY } from "@constants/debounceDelays";
 
 import "./Price.scss";
 
 export const PriceBlock: FC = () => {
   const dispatch = useAppDispatch();
   const [minPrice, maxPrice] = useAppSelector(selectFilteredPriceRange);
-  const [values, setValues] = useState<number[]>([minPrice, maxPrice]);
-  const [inputValues, setInputValues] = useState<number[]>([
-    minPrice,
-    maxPrice,
-  ]);
-  const [error, setError] = useState<boolean | null>(null);
 
-  const debounceSetValue = useCallback(
-    debounce((newValues: number[]) => {
-      dispatch(setSelectedPriceRange(newValues));
-    }, PRICE_SLIDER_DELAY),
-    []
-  );
+  const [values, setValues] = useState<number[]>([minPrice, maxPrice]);
+  const [inputValues, setInputValues] = useState<number[]>([minPrice, maxPrice]);
+
+  const [error, setError] = useState<boolean | null>(null);
 
   useEffect(() => {
     setInputValues([minPrice, maxPrice]);
     setValues([minPrice, maxPrice]);
-    debounceSetValue([minPrice, maxPrice]);
-  }, [minPrice, maxPrice, debounceSetValue]);
+    dispatch(setSelectedPriceRange([minPrice, maxPrice]));
+  }, [minPrice, maxPrice]);
 
   useEffect(() => {
     const [minInputValue, maxInputValue] = inputValues;
@@ -45,21 +37,23 @@ export const PriceBlock: FC = () => {
     } else {
       setError(null);
       setValues(inputValues);
-      debounceSetValue(inputValues);
+      dispatch(setSelectedPriceRange(inputValues));
     }
-  }, [inputValues, minPrice, maxPrice, debounceSetValue]);
+  }, [inputValues, minPrice, maxPrice]);
 
   const handleInputChange = (index: number, value: string) => {
     const newInputValues = [...inputValues];
     newInputValues[index] = parseFloat(value);
     setInputValues(newInputValues);
+    dispatch(setSelectedPriceRange(inputValues));
   };
 
   const handleSliderChange = (newValues: number[]) => {
     setValues(newValues);
     setInputValues(newValues);
-    debounceSetValue(newValues);
+    dispatch(setSelectedPriceRange(newValues));
   };
+
 
   return (
     <div className="price-block">
@@ -77,7 +71,7 @@ export const PriceBlock: FC = () => {
       <div className="price-block__inputs">
         <label
           className={`price-block__label ${
-            error ? "price-block__label--error" : ""
+            error ? "price-block__label_error" : ""
           }`}
         >
           Min
@@ -86,7 +80,7 @@ export const PriceBlock: FC = () => {
             value={inputValues[0]}
             onChange={(e) => handleInputChange(0, e.target.value)}
             className={`price-block__input ${
-              error ? "price-block__input--error" : ""
+              error ? "price-block__input_error" : ""
             }`}
             placeholder={`${minPrice}`}
           />
@@ -94,7 +88,7 @@ export const PriceBlock: FC = () => {
         <span className="price-block__input-separator">-</span>
         <label
           className={`price-block__label ${
-            error ? "price-block__label--error" : ""
+            error ? "price-block__label_error" : ""
           }`}
         >
           Max
@@ -103,7 +97,7 @@ export const PriceBlock: FC = () => {
             value={inputValues[1]}
             onChange={(e) => handleInputChange(1, e.target.value)}
             className={`price-block__input ${
-              error ? "price-block__input--error" : ""
+              error ? "price-block__input_error" : ""
             }`}
             placeholder={`${maxPrice}`}
           />

@@ -11,16 +11,27 @@ export const selectSelectedRatings = (state: RootState) => state.products.select
 export const selectPriceRange = (state: RootState) => state.products.selectedPriceRange;
 
 // Selector for filtering products by category, brand, rating, and search query.
-const selectBaseFilteredProducts = createSelector(
-    [selectProducts, selectSearchQuery, selectCategory, selectBrands, selectSelectedRatings],
+export const selectBaseFilteredProducts = createSelector(
+    [selectProducts, selectSearchQuery, selectCategory, selectBrands, selectSelectedRatings,selectPriceRange ],
     (products, searchQuery, selectedCategory, selectedBrands, selectedRatings) => {
         return products.filter(product => {
             const matchesCategory = selectedCategory === ALL_CATEGORIES_FILTER || product.category === selectedCategory;
-            const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
-            const matchesRating = selectedRatings.length === 0 || selectedRatings.includes(product.rating);
+            const matchesBrand = !selectedBrands.length || selectedBrands.includes(product.brand);
+            const matchesRating = !selectedRatings.length || selectedRatings.includes(product.rating);
             const matchesSearch = !searchQuery || product.title.toLowerCase().includes(searchQuery.toLowerCase());
             return matchesCategory && matchesBrand && matchesRating && matchesSearch;
         });
+    }
+);
+
+// This range is dynamically adjusted based on other selected filters.
+export const selectFilteredPriceRange = createSelector(
+    [selectBaseFilteredProducts, selectPriceRange],
+    (baseFilteredProducts) => {
+        const prices = baseFilteredProducts.map(product => product.price.current);
+        const minValue = prices.length ? Math.min(...prices) : 0;
+        const maxValue = prices.length ? Math.max(...prices) : 0;
+        return [minValue, maxValue];
     }
 );
 
@@ -32,17 +43,6 @@ export const selectFilteredProducts = createSelector(
             const matchesPrice = product.price.current >= selectedPriceRange[0] && product.price.current <= selectedPriceRange[1];
             return matchesPrice;
         });
-    }
-);
-
-// This range is dynamically adjusted based on other selected filters.
-export const selectFilteredPriceRange = createSelector(
-    [selectBaseFilteredProducts],
-    (baseFilteredProducts) => {
-        const prices = baseFilteredProducts.map(product => product.price.current);
-        const minValue = prices.length ? Math.min(...prices) : 0;
-        const maxValue = prices.length ? Math.max(...prices) : 0;
-        return [minValue, maxValue];
     }
 );
 
