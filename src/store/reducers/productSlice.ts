@@ -35,7 +35,10 @@ const productsSlice = createSlice({
         setSearchQuery: (state, action: PayloadAction<string>) => {
             state.searchQuery = action.payload;
         },
-        setSelectedCategory: (state, action: PayloadAction<string>) => {
+        setSelectedCategory: (state, action: PayloadAction<string>) => { 
+            state.selectedCategory = action.payload;
+        },  
+        setSelectedCategoryWithBrands: (state, action: PayloadAction<string>) => {
             const newCategory = action.payload;
             const availableBrands = getAvailableBrandsForCategory(newCategory, state.products);
 
@@ -46,7 +49,7 @@ const productsSlice = createSlice({
             }
 
             state.selectedCategory = newCategory;
-        },
+        },  
         setSelectedBrand(state, action: PayloadAction<string>) {
             state.selectedBrands = [action.payload];
         },
@@ -109,6 +112,7 @@ const productsSlice = createSlice({
 export const {
     setSearchQuery,
     setSelectedCategory,
+    setSelectedCategoryWithBrands,
     setSelectedBrand,
     setSelectedBrands,
     toggleBrand,
