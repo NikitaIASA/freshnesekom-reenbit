@@ -26,8 +26,8 @@
       font-weight: bold;
     }
 
-    & p:hover {
-      color: $secondary-color;
+    &:hover {
+      background: lighten($secondary-color-200, 0.9);
     }
   }
 

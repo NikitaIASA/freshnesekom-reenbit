@@ -38,7 +38,9 @@ export const Brands: FC = () => {
         <ul className="brands__list">
           {brandsForSelectedCategory.map((brand) => (
             <li
-              className="brands__item"
+              className={`brands__item ${
+                selectedBrands.includes(brand) ? "selected" : ""
+              }`}
               key={`brand-${brand}`}
               onClick={() => handleBrandToggle(brand)}
             >
