@@ -1,4 +1,4 @@
-import { FC, ChangeEvent } from "react";
+import { FC, ChangeEvent, MouseEvent} from "react";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import CustomCheckbox from "../CustomCheckbox";
@@ -16,7 +16,8 @@ export const Rating: FC = () => {
   const dispatch = useAppDispatch();
   const selectedRatings = useAppSelector(selectSelectedRatings);
 
-  const handleRatingToggle = (rating: number) => {
+  const handleRatingToggle = (event: MouseEvent<HTMLElement>, rating: number) => {
+    event.preventDefault();
     dispatch(toggleRating(rating));
   };
 
@@ -25,7 +26,7 @@ export const Rating: FC = () => {
     rating: number
   ) => {
     event.stopPropagation();
-    handleRatingToggle(rating);
+    dispatch(toggleRating(rating));
   };
 
   return (
@@ -36,7 +37,7 @@ export const Rating: FC = () => {
           <li
             className="rating__item"
             key={`rating-${rating}`}
-            onClick={() => handleRatingToggle(rating)}
+            onClick={(event) => handleRatingToggle(event, rating)}
           >
             <CustomCheckbox
               isChecked={selectedRatings.includes(rating)}

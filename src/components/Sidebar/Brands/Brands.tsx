@@ -1,4 +1,4 @@
-import { FC, ChangeEvent } from "react";
+import { FC, ChangeEvent, MouseEvent } from "react";
 
 import CustomCheckbox from "../CustomCheckbox";
 import SidebarSkeleton from "../SidebarSkeleton";
@@ -17,16 +17,14 @@ export const Brands: FC = () => {
   const brandsForSelectedCategory = useBrandsForSelectedCategory();
   const { selectedBrands, status } = useAppSelector(selectProductsState);
 
-  const handleBrandToggle = (brand: string) => {
+  const handleBrandToggle = (event: MouseEvent<HTMLElement>, brand: string) => {
+    event.preventDefault();
     dispatch(toggleBrand(brand));
   };
 
-  const handleBrandChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    brand: string
-  ) => {
+  const handleBrandChange = (event: ChangeEvent<HTMLElement>, brand: string) => {
     event.stopPropagation();
-    handleBrandToggle(brand);
+    dispatch(toggleBrand(brand));
   };
 
   return (
@@ -39,14 +37,16 @@ export const Brands: FC = () => {
           {brandsForSelectedCategory.map((brand) => (
             <li
               className={`brands__item ${
-                selectedBrands.includes(brand) ? "selected" : ""
+                selectedBrands.includes(brand) ? "brands__item--selected" : ""
               }`}
               key={`brand-${brand}`}
-              onClick={() => handleBrandToggle(brand)}
+              onClick={(event) => handleBrandToggle(event, brand)}
             >
               <CustomCheckbox
                 isChecked={selectedBrands.includes(brand)}
-                onChange={(event) => handleBrandChange(event, brand)}
+                onChange={(event) => {
+                  handleBrandChange(event, brand);
+                }}
               />
               <p className="brands__title">{brand}</p>
             </li>
