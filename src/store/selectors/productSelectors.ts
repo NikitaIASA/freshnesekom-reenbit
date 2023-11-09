@@ -31,7 +31,11 @@ export const selectFilteredPriceRange = createSelector(
         const prices = baseFilteredProducts.map(product => product.price.current);
         const minValue = prices.length ? Math.min(...prices) : 0;
         const maxValue = prices.length ? Math.max(...prices) : 0;
-        return [minValue, maxValue];
+        
+        const roundedMinValue = Math.round(minValue);
+        const roundedMaxValue = Math.round(maxValue);
+
+        return [roundedMinValue, roundedMaxValue];
     }
 );
 
@@ -40,7 +44,7 @@ export const selectFilteredProducts = createSelector(
     [selectBaseFilteredProducts, selectPriceRange],
     (baseFilteredProducts, selectedPriceRange) => {
         return baseFilteredProducts.filter(product => {
-            const matchesPrice = product.price.current >= selectedPriceRange[0] && product.price.current <= selectedPriceRange[1];
+            const matchesPrice = Math.round(product.price.current) >= selectedPriceRange[0] && Math.round(product.price.current) <= selectedPriceRange[1];
             return matchesPrice;
         });
     }

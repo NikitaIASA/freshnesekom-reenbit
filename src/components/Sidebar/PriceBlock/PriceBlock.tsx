@@ -1,59 +1,74 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import Slider from "react-slider";
 
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { setSelectedPriceRange } from "@store/reducers/productSlice";
-import { selectFilteredPriceRange} from "@store/selectors/productSelectors";
-// import { debounce } from "@helpers/debounce";
-// import { PRICE_SLIDER_DELAY } from "@constants/debounceDelays";
+import {
+  selectFilteredPriceRange,
+  selectPriceRange,
+} from "@store/selectors/productSelectors";
+import { debounce } from "@helpers/debounce";
+import { PRICE_SLIDER_DELAY } from "@constants/debounceDelays";
 
 import "./Price.scss";
 
 export const PriceBlock: FC = () => {
   const dispatch = useAppDispatch();
   const [minPrice, maxPrice] = useAppSelector(selectFilteredPriceRange);
-
-  const [values, setValues] = useState<number[]>([minPrice, maxPrice]);
-  const [inputValues, setInputValues] = useState<number[]>([minPrice, maxPrice]);
-
+  const [selectedMinPrice, selectedMaxPrice] = useAppSelector(selectPriceRange);
+  const [values, setValues] = useState<number[]>([0, 0]);
+  const [inputValues, setInputValues] = useState<number[]>([0, 0]);
   const [error, setError] = useState<boolean | null>(null);
 
+  const roundedMinPrice = Math.round(selectedMinPrice);
+  const roundedMaxPrice = Math.round(selectedMaxPrice);
+
+  const debouncedSetSelectedPriceRange = useCallback(
+    debounce((newValues: number[]) => {
+      dispatch(setSelectedPriceRange(newValues));
+    }, PRICE_SLIDER_DELAY),
+    [dispatch]
+  );
+
   useEffect(() => {
-    setInputValues([minPrice, maxPrice]);
-    setValues([minPrice, maxPrice]);
     dispatch(setSelectedPriceRange([minPrice, maxPrice]));
   }, [minPrice, maxPrice]);
 
+
   useEffect(() => {
-    const [minInputValue, maxInputValue] = inputValues;
-    if (
-      minInputValue < minPrice ||
-      maxInputValue > maxPrice ||
-      minInputValue > maxInputValue
-    ) {
-      setError(true);
-    } else {
-      setError(null);
-      setValues(inputValues);
-      dispatch(setSelectedPriceRange(inputValues));
+    if (roundedMinPrice === minPrice && roundedMaxPrice === maxPrice)  {   //means reset
+      setInputValues([roundedMinPrice, roundedMaxPrice]);
+      setValues([roundedMinPrice, roundedMaxPrice]);
     }
-  }, [inputValues, minPrice, maxPrice]);
+  }, [selectedMinPrice, selectedMaxPrice]);
 
   const handleInputChange = (index: number, value: string) => {
+    const parsedValue = parseFloat(value);
     const newInputValues = [...inputValues];
-    newInputValues[index] = parseFloat(value);
+    newInputValues[index] = isNaN(parsedValue) ? 0 : parsedValue;
+
+    const isInvalid =
+      newInputValues[0] > newInputValues[1] ||
+      newInputValues[0] < minPrice ||
+      newInputValues[1] > maxPrice;
+
     setInputValues(newInputValues);
-    dispatch(setSelectedPriceRange(inputValues));
+    setValues(newInputValues);
+    setError(isInvalid);
+
+    if (!isInvalid) {
+      debouncedSetSelectedPriceRange(newInputValues);
+    }
   };
 
   const handleSliderChange = (newValues: number[]) => {
     setValues(newValues);
     setInputValues(newValues);
-    dispatch(setSelectedPriceRange(newValues));
+    setError(false);
+    debouncedSetSelectedPriceRange(newValues);
   };
-
 
   return (
     <div className="price-block">
@@ -76,7 +91,7 @@ export const PriceBlock: FC = () => {
         >
           Min
           <input
-            type="number"
+            type="text"
             value={inputValues[0]}
             onChange={(e) => handleInputChange(0, e.target.value)}
             className={`price-block__input ${
@@ -93,7 +108,7 @@ export const PriceBlock: FC = () => {
         >
           Max
           <input
-            type="number"
+            type="text"
             value={inputValues[1]}
             onChange={(e) => handleInputChange(1, e.target.value)}
             className={`price-block__input ${
