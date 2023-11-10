@@ -12,7 +12,7 @@ import {
 import { debounce } from "@helpers/debounce";
 import { PRICE_SLIDER_DELAY } from "@constants/debounceDelays";
 
-import "./Price.scss";
+import "./PriceBlock.scss";
 
 export const PriceBlock: FC = () => {
   const dispatch = useAppDispatch();
