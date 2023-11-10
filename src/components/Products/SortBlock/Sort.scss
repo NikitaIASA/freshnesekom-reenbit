@@ -1,0 +1,38 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.sort-block {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+
+  @include onMobile {
+    font-size: 12px;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    padding: 9px 15px;
+    gap: 20px;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+
+    @include onMobile {
+      gap: 10px;
+    }
+  }
+
+  &__text-container {
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    @include onMobile {
+      width: 130px;
+    }
+  }
+}

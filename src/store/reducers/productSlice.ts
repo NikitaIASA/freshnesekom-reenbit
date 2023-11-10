@@ -15,6 +15,7 @@ interface ProductsState {
     selectedBrands: string[];
     selectedRatings: number[];
     selectedPriceRange: number[];
+    sortBy: string;
 }
 
 const initialState: ProductsState = {
@@ -26,6 +27,7 @@ const initialState: ProductsState = {
     selectedBrands: [],
     selectedRatings: [],
     selectedPriceRange: [0, 0],
+    sortBy: "default",
 };
 
 const productsSlice = createSlice({
@@ -92,6 +94,9 @@ const productsSlice = createSlice({
             state.selectedPriceRange = [minPrice, maxPrice];
 
         },
+        setSortBy: (state, action: PayloadAction<string>) => {
+            state.sortBy = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -119,7 +124,8 @@ export const {
     setSelectedRatings,
     toggleRating,
     setSelectedPriceRange,
-    resetFilter
+    resetFilter,
+    setSortBy
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

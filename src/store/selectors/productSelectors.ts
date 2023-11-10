@@ -1,6 +1,7 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@store/store";
 import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
+import { selectSortBy } from "./sortSelectors";
 
 export const selectProductsState = (state: RootState) => state.products;
 export const selectProducts = (state: RootState) => state.products.products;
@@ -12,7 +13,7 @@ export const selectPriceRange = (state: RootState) => state.products.selectedPri
 
 // Selector for filtering products by category, brand, rating, and search query.
 export const selectBaseFilteredProducts = createSelector(
-    [selectProducts, selectSearchQuery, selectCategory, selectBrands, selectSelectedRatings,selectPriceRange ],
+    [selectProducts, selectSearchQuery, selectCategory, selectBrands, selectSelectedRatings, selectPriceRange],
     (products, searchQuery, selectedCategory, selectedBrands, selectedRatings) => {
         return products.filter(product => {
             const matchesCategory = selectedCategory === ALL_CATEGORIES_FILTER || product.category === selectedCategory;
@@ -31,7 +32,7 @@ export const selectFilteredPriceRange = createSelector(
         const prices = baseFilteredProducts.map(product => product.price.current);
         const minValue = prices.length ? Math.min(...prices) : 0;
         const maxValue = prices.length ? Math.max(...prices) : 0;
-        
+
         const roundedMinValue = Math.round(minValue);
         const roundedMaxValue = Math.round(maxValue);
 
@@ -41,12 +42,37 @@ export const selectFilteredPriceRange = createSelector(
 
 // Uses the base filtered products to apply a price range filter.
 export const selectFilteredProducts = createSelector(
-    [selectBaseFilteredProducts, selectPriceRange],
-    (baseFilteredProducts, selectedPriceRange) => {
-        return baseFilteredProducts.filter(product => {
+    [selectBaseFilteredProducts, selectPriceRange, selectSortBy],
+    (baseFilteredProducts, selectedPriceRange, sortBy) => {
+        const filteredProducts = baseFilteredProducts.filter(product => {
             const matchesPrice = Math.round(product.price.current) >= selectedPriceRange[0] && Math.round(product.price.current) <= selectedPriceRange[1];
             return matchesPrice;
         });
+        
+        switch (sortBy) {
+            case 'price_asc':
+                filteredProducts.sort((a, b) => a.price.current - b.price.current);
+                break;
+            case 'price_desc':
+                filteredProducts.sort((a, b) => b.price.current - a.price.current);
+                break;
+            case 'rating_asc':
+                filteredProducts.sort((a, b) => a.rating - b.rating);
+                break;
+            case 'rating_desc':
+                filteredProducts.sort((a, b) => b.rating - a.rating);
+                break;
+            case 'name_asc':
+                filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
+                break;
+            case 'name_desc':
+                filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
+                break;
+            default:
+                break;
+        }
+
+        return filteredProducts;
     }
 );
 

@@ -1,0 +1,36 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.sort-options {
+  position: absolute;
+  top: 100%;
+  left: 30%;
+  border: 1px solid $secondary-color;
+  background: $primary-color-100;
+  width: 193px;
+  border-radius: 6px;
+  z-index: 10;
+
+  @include onMobile {
+    width: 180px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6px;
+    border-bottom: 1px solid $secondary-color;
+    transition: 0.2s linear;
+    cursor: pointer;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $secondary-color;
+    }
+  }
+}
