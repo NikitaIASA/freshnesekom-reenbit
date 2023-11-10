@@ -33,7 +33,7 @@ export const Rating: FC = () => {
     <div className="rating">
       <SidebarSectionTitle title="Rating" />
       <ul className="rating__list">
-        {Array.from({ length: RATING_COUNT }, (_, i) => 5 - i).map((rating) => (
+        {Array.from({ length: RATING_COUNT }, (_, i) => RATING_COUNT - i).map((rating) => (
           <li
             className="rating__item"
             key={`rating-${rating}`}
