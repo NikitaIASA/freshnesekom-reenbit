@@ -10,7 +10,7 @@ export interface IProduct {
     brand: string;
     model: string;
     delivery: string;
-    stock: string;
+    stock: number;
     price: IPrice;
     rating: number;
     shipping: IShipping;
