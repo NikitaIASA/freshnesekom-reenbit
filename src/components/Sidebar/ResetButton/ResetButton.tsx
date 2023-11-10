@@ -7,15 +7,13 @@ import "./ResetButton.scss";
 
 export const ResetButton: FC = () => {
   const dispatch = useAppDispatch();
-  
 
   const handleReset = () => {
     dispatch(resetFilter());
-
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth",
-    // });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
