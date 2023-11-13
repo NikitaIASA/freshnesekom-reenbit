@@ -21,7 +21,7 @@
   &__old-price {
     overflow: hidden;
     text-overflow: ellipsis;
-    text-wrap: nowrap;
+    white-space: nowrap;
   }
 
   @include onMobile {
@@ -140,7 +140,6 @@
 
   &__details-value {
     width: 135px;
-    line-height: 16px;
 
     @include onMobile {
       width: auto;
