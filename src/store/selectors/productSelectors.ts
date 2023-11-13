@@ -48,7 +48,7 @@ export const selectFilteredProducts = createSelector(
             const matchesPrice = Math.round(product.price.current) >= selectedPriceRange[0] && Math.round(product.price.current) <= selectedPriceRange[1];
             return matchesPrice;
         });
-        
+
         switch (sortBy) {
             case 'price_asc':
                 filteredProducts.sort((a, b) => a.price.current - b.price.current);
@@ -69,6 +69,12 @@ export const selectFilteredProducts = createSelector(
                 filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
                 break;
             default:
+                break;
+            case 'stock_asc':
+                filteredProducts.sort((a, b) => a.stock - b.stock);
+                break;
+            case 'stock_desc':
+                filteredProducts.sort((a, b) => b.stock - a.stock);
                 break;
         }
 

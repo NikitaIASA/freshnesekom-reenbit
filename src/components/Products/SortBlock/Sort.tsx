@@ -20,6 +20,8 @@ const sortItems: SortItem[] = [
   { sortName: "Price: High to Low", sortKey: "price_desc" },
   { sortName: "Rating: Low to High", sortKey: "rating_asc" },
   { sortName: "Rating: High to Low", sortKey: "rating_desc" },
+  { sortName: "Stock: Low to High", sortKey: "stock_asc" },
+  { sortName: "Stock: High to Low", sortKey: "stock_desc" },
   { sortName: "Name: A to Z", sortKey: "rating_asc" },
   { sortName: "Name: Z to A", sortKey: "rating_desc" },
 ];
