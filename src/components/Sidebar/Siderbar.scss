@@ -8,18 +8,28 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    padding: 20px;
+    gap: 48px;
+
+    @include onBig-tablet {
+      padding: 20px;
+      gap: 24px
+    }
+
   }
 
   &__header {
-    position: sticky;
-    display: flex;
-    justify-content: flex-end;
-    top: 0;
-    height: 40px;
-    background: $white;
-    z-index: 999;
+    display: none;
+
+    @include onBig-tablet {
+      display: block;
+      position: sticky;
+      display: flex;
+      justify-content: flex-end;
+      top: 0;
+      height: 24px;
+      background: $white;
+      z-index: 999;
+    }
   }
 
   &__close-button {
@@ -40,5 +50,4 @@
     width: 24px;
     height: 24px;
   }
-
 }
