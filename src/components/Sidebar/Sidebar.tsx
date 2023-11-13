@@ -1,4 +1,4 @@
-import { FC, MouseEvent} from "react";
+import { FC, MouseEvent } from "react";
 
 import Categories from "./Categories";
 import Brands from "./Brands";
@@ -14,7 +14,6 @@ interface SidebarProps {
 }
 
 export const Sidebar: FC<SidebarProps> = ({ setIsSidebarOpened }) => {
-  
   const handleSidebarClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
@@ -25,17 +24,26 @@ export const Sidebar: FC<SidebarProps> = ({ setIsSidebarOpened }) => {
 
   return (
     <aside className="sidebar" onClick={handleSidebarClick}>
-      <button
-        className="sidebar__close-button"
-        onClick={handleCloseButtonClick}
-      >
-        <img className="sidebar__close-image" src={closeIcon} alt="close icon" />
-      </button>
-      <Categories />
-      <Brands />
-      <Rating />
-      <PriceBlock />
-      <ResetButton/>
+      <div className="sidebar__header">
+        <button
+          className="sidebar__close-button"
+          onClick={handleCloseButtonClick}
+        >
+          <img
+            className="sidebar__close-image"
+            src={closeIcon}
+            alt="close icon"
+          />
+        </button>
+      </div>
+
+      <div className="sidebar__content">
+        <Categories />
+        <Brands />
+        <Rating />
+        <PriceBlock />
+        <ResetButton />
+      </div>
     </aside>
   );
 };

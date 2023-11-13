@@ -1,9 +1,26 @@
+@import "@styles/colors.scss";
 @import "@styles/breakpoints.scss";
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+  }
+
+  &__header {
+    position: sticky;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    height: 40px;
+    background: $white;
+    z-index: 999;
+  }
 
   &__close-button {
     position: absolute;
