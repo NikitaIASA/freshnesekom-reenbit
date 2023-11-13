@@ -29,13 +29,10 @@ export const selectFilteredPriceRange = createSelector(
     [selectBaseFilteredProducts, selectPriceRange],
     (baseFilteredProducts) => {
         const prices = baseFilteredProducts.map(product => product.price.current);
-        const minValue = prices.length ? Math.min(...prices) : 0;
-        const maxValue = prices.length ? Math.max(...prices) : 0;
-        
-        const roundedMinValue = Math.round(minValue);
-        const roundedMaxValue = Math.round(maxValue);
+        const minValue = prices.length ? Math.floor(Math.min(...prices)) : 0;
+        const maxValue = prices.length ? Math.ceil(Math.max(...prices)) : 0;
 
-        return [roundedMinValue, roundedMaxValue];
+        return [minValue, maxValue];
     }
 );
 

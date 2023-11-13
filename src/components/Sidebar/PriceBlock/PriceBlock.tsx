@@ -22,9 +22,6 @@ export const PriceBlock: FC = () => {
   const [inputValues, setInputValues] = useState<number[]>([0, 0]);
   const [error, setError] = useState<boolean | null>(null);
 
-  const roundedMinPrice = Math.round(selectedMinPrice);
-  const roundedMaxPrice = Math.round(selectedMaxPrice);
-
   const debouncedSetSelectedPriceRange = useCallback(
     debounce((newValues: number[]) => {
       dispatch(setSelectedPriceRange(newValues));
@@ -36,11 +33,14 @@ export const PriceBlock: FC = () => {
     dispatch(setSelectedPriceRange([minPrice, maxPrice]));
   }, [minPrice, maxPrice]);
 
-
   useEffect(() => {
-    if (roundedMinPrice === minPrice && roundedMaxPrice === maxPrice)  {   //means reset
-      setInputValues([roundedMinPrice, roundedMaxPrice]);
-      setValues([roundedMinPrice, roundedMaxPrice]);
+    if (
+      //means reset
+      selectedMinPrice === minPrice &&
+      selectedMaxPrice === maxPrice
+    ) {
+      setInputValues([selectedMinPrice, selectedMaxPrice]);
+      setValues([selectedMinPrice, selectedMaxPrice]);
     }
   }, [selectedMinPrice, selectedMaxPrice]);
 
@@ -49,19 +49,20 @@ export const PriceBlock: FC = () => {
     const newInputValues = [...inputValues];
     newInputValues[index] = isNaN(parsedValue) ? 0 : parsedValue;
 
-    const isInvalid =
-      newInputValues[0] > newInputValues[1] ||
-      newInputValues[0] < minPrice ||
-      newInputValues[1] > maxPrice;
-
     setInputValues(newInputValues);
     setValues(newInputValues);
-    setError(isInvalid);
 
-    if (!isInvalid) {
-      debouncedSetSelectedPriceRange(newInputValues);
-    }
+    dispatch(setSelectedPriceRange(newInputValues));
   };
+
+  useEffect(() => {
+    const isInvalid =
+      inputValues[0] > inputValues[1] ||
+      inputValues[0] < minPrice ||
+      inputValues[1] > maxPrice;
+
+    setError(isInvalid);
+  }, [inputValues, minPrice, maxPrice]);
 
   const handleSliderChange = (newValues: number[]) => {
     setValues(newValues);
