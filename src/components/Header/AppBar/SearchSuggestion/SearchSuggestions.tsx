@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useAppSelector } from "@hooks/useAppSelector";
 import {
-  selectFilteredProducts,
+  selectSearchedProducts,
   selectSearchQuery,
   selectCategory,
 } from "@store/selectors/productSelectors";
@@ -20,13 +20,13 @@ const MAX_SUGGESTIONS = 5;
 
 export const SearchSuggestions: FC<SearchSuggestionsProps> = ({ onClear }) => {
   const searchQuery = useAppSelector(selectSearchQuery);
-  const filteredProducts = useAppSelector(selectFilteredProducts);
+  const searchedProducts = useAppSelector(selectSearchedProducts);
   const selectedCategory = useAppSelector(selectCategory);
-  const displayedProducts = filteredProducts.slice(0, MAX_SUGGESTIONS);
+  const displayedProducts = searchedProducts.slice(0, MAX_SUGGESTIONS);
 
   if (!searchQuery) return null;
 
-  if (!filteredProducts?.length) {
+  if (!searchedProducts?.length) {
     return (
       <div className="search-suggestions">
         <p className="search-suggestions__not-found">

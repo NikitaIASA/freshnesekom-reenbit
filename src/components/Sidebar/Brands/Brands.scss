@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-height: 165px;
+    max-height: 140px;
     overflow-y: auto;
   }
 
@@ -13,6 +13,17 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+
+    &.selected p {
+      color: $secondary-color;
+      font-weight: bold;
+    }
+
+    &:hover {
+      color: $secondary-color;
+    }
+    
   }
 
   &__title {

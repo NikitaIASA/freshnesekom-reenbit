@@ -7,7 +7,7 @@
     height: 6px;
     background-color: $additional-light-color;
     border-radius: 12px;
-    width: 95%;
+    width: 100%;
     position: relative;
     margin-bottom: 12px;
   }
@@ -35,8 +35,9 @@
 
   &__inputs {
     display: flex;
-    gap: 14px;
     align-items: center;
+    justify-content: space-between;
+    gap: 14px;
   }
 
   &__input-separator {
@@ -46,6 +47,8 @@
   }
 
   &__label {
+    display: flex;
+    flex-direction: column;
     color: $primary-color;
     font-family: Poppins;
     font-size: 12px;
@@ -54,11 +57,19 @@
   }
 
   &__input {
-    width: 109px;
+    width: 100px;
     outline: none;
     border-radius: 12px;
     border: 1px solid $primary-color-200;
     background: $primary-color-100;
     padding: 11px 16px 12px 21px;
   }
+}
+
+.price-block__label_error {
+  color: #d9534f; 
+}
+
+.price-block__input_error {
+  border: 1px solid #d9534f; 
 }

@@ -3,9 +3,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  line-height: 1;
-  
+  box-sizing: border-box;  
 }
 
 a {
@@ -21,5 +19,15 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
   font-style: normal;
-  line-height: normal;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

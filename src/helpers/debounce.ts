@@ -1,10 +1,13 @@
-export const debounce = (func: (arg: string) => void, wait: number): (arg: string) => void => {
+export const debounce = <T extends unknown[]>(
+    func: (...args: T) => void,
+    wait: number
+): (...args: T) => void => {
     let timeout: ReturnType<typeof setTimeout> | null = null;
 
-    return (arg: string): void => {
+    return (...args: T): void => {
         const later = (): void => {
             timeout = null;
-            func(arg);
+            func(...args);
         };
 
         if (timeout !== null) {

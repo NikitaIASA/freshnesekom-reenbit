@@ -25,13 +25,14 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
     stock,
     price,
     shipping,
+    buyBy,
   } = product;
 
   const details = {
     Brand: brand,
     Model: model,
     Delivery: delivery,
-    Stock: stock,
+    Stock: `${stock} ${buyBy[0]}`,
   };
 
   return (

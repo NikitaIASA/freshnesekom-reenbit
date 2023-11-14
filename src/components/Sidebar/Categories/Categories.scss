@@ -1,12 +1,11 @@
 @import "@styles/colors.scss";
 
 .categories {
-  
   &__list {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    max-height: 150px;
+    max-height: 140px;
     overflow-y: auto;
   }
 
@@ -14,6 +13,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 2px;
+    cursor: pointer;
+
+    &.selected {
+      background: lighten($secondary-color-200, 0.9);
+      border-radius: 5px;
+    }
+
+    &.selected p {
+      color: $secondary-color;
+      font-weight: bold;
+    }
+
+    &:hover {
+      background: lighten($secondary-color-200, 0.9);
+    }
   }
 
   &__name {
