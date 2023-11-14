@@ -16,7 +16,7 @@ import {
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['selectedCategory', 'selectedBrands', "selectedRatings"]
+    whitelist: ['selectedCategory', 'selectedBrands', "selectedRatings", "sortBy"]
 };
 
 const persistedReducer = persistReducer(persistConfig, productsReducer);

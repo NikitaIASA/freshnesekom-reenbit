@@ -5,6 +5,7 @@ import { STATUSES } from '@constants/statuses';
 import productServices from '@store/services/productServices';
 import { ALL_CATEGORIES_FILTER } from '@constants/allCategoriesConst';
 import { getAvailableBrandsForCategory } from '@helpers/getAvailableBrandsForCategory';
+import { SORT_OPTIONS } from '@constants/sortOptions';
 
 interface ProductsState {
     products: IProduct[];
@@ -27,7 +28,7 @@ const initialState: ProductsState = {
     selectedBrands: [],
     selectedRatings: [],
     selectedPriceRange: [0, 0],
-    sortBy: "default",
+    sortBy: SORT_OPTIONS.DEFAULT,
 };
 
 const productsSlice = createSlice({
@@ -92,6 +93,7 @@ const productsSlice = createSlice({
             state.selectedBrands = initialState.selectedBrands;
             state.selectedRatings = initialState.selectedRatings;
             state.selectedPriceRange = [minPrice, maxPrice];
+            state.sortBy = initialState.sortBy;
         },
         setSortBy: (state, action: PayloadAction<string>) => {
             state.sortBy = action.payload;
