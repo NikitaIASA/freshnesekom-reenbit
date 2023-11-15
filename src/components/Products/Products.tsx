@@ -5,6 +5,7 @@ import { STATUSES } from "@constants/statuses";
 import ErrorBlock from "@components/UI/ErrorBlock";
 import ProductList from "./ProductList";
 import Sidebar from "@components/Sidebar";
+import SortBlock from "./SortBlock";
 import {
   selectFilteredProducts,
   selectProductsState,
@@ -40,10 +41,14 @@ export const Products: FC = () => {
       {isSidebarOpened && (
         <div className="products__overlay" onClick={handleOverlayClick}></div>
       )}
+      <h1 className="products__title">All Products</h1>
       <div className="products__top">
-        <h1 className="products__title">All Products</h1>
+        <SortBlock />
         <p className="products__count">
-          <span className="products__count-number"> {filteredProducts?.length} </span>
+          <span className="products__count-number">
+            {" "}
+            {filteredProducts?.length}{" "}
+          </span>
           Products
         </p>
       </div>
