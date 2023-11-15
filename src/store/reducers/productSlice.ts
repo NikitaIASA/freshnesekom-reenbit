@@ -102,6 +102,8 @@ const productsSlice = createSlice({
             state.selectedBrands = initialState.selectedBrands;
             state.selectedRatings = initialState.selectedRatings;
             state.selectedPriceRange = [minPrice, maxPrice];
+            state.currentPage = initialState.currentPage;
+            state.itemsPerPageByPage = initialState.itemsPerPageByPage;
         },
         setSortBy: (state, action: PayloadAction<string>) => {
             state.sortBy = action.payload;
