@@ -6,8 +6,8 @@ import { ProductSkeleton } from "@components/Products/ProductSkeleton/ProductSke
 import { STATUSES } from "@constants/statuses";
 import { PRODUCTS_SKELETON_COUNT } from "@constants/elementsCount";
 import { useAppSelector } from "@hooks/useAppSelector";
-import { selectFilteredProducts } from "@store/selectors/productSelectors";
 import { selectSearchQuery, selectCategory } from "@store/selectors/productSelectors";
+import { selectShownProducts } from "@store/selectors/paginationSelectors";
 
 import "./ProductList.scss";
 
@@ -23,13 +23,13 @@ export const ProductList: FC<ProductListProps> = ({status }) => {
     <ProductSkeleton key={index} />
   ));
 
-  const filteredProducts = useAppSelector(selectFilteredProducts);
+  const shownProducts = useAppSelector(selectShownProducts)
 
   if (status === STATUSES.LOADING) {
     return <div className="product-list">{skeletons}</div>;
   }
 
-  if (!filteredProducts?.length) {
+  if (!shownProducts?.length) {
     if (searchQuery) {
       return <NoProductsFound searchQuery={searchQuery}/>
     } else {
@@ -39,7 +39,7 @@ export const ProductList: FC<ProductListProps> = ({status }) => {
 
   return (
     <ul className="product-list">
-      {filteredProducts?.map((product) => (
+      {shownProducts?.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </ul>

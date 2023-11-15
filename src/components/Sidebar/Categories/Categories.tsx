@@ -3,7 +3,7 @@ import { FC } from "react";
 import SidebarSkeleton from "../SidebarSkeleton";
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import { useAppDispatch } from "@hooks/useAppDispatch";
-import { setSelectedCategoryWithBrands } from "@store/reducers/productSlice";
+import { resetPage, setSelectedCategoryWithBrands } from "@store/reducers/productSlice";
 import { getCategories } from "@helpers/getCategories";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { selectProductsState } from "@store/selectors/productSelectors";
@@ -29,6 +29,7 @@ export const Categories: FC = () => {
 
   const handleCategorySelect = (category: string) => {
     dispatch(setSelectedCategoryWithBrands(category));
+    dispatch(resetPage());
   };
 
   return (

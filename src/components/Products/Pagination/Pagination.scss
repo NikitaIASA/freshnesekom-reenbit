@@ -1,0 +1,63 @@
+@import "@styles/colors.scss";
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 0;
+
+  &__container {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__title {
+    color: $primary-color-300;
+  }
+
+  &__items {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__item {
+    color: $primary-color;
+    transition: 0.2s linear;
+    cursor: pointer;
+
+    &_active {
+      color: $secondary-color;
+    }
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+
+  &__button {
+    display: flex;
+    padding: 12px 16px;
+    align-items: center;
+    gap: 6px;
+    color: $white;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    border: 2px solid $secondary-color-400;
+    background: $secondary-color;
+    transition: .2s linear;
+    cursor: pointer;
+
+    &:hover {
+      background: $secondary-color-400;
+      border-color: $secondary-color;
+    }
+
+    &:disabled {
+      display: none;
+    }
+
+  }
+  
+}

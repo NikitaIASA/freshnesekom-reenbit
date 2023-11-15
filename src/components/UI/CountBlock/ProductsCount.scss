@@ -1,0 +1,23 @@
+@import "@styles/colors.scss";
+
+.products-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: $primary-color-300;
+  font-family: Open Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+
+  &__number {
+    padding: 0 8px;
+    color: $secondary-color;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: normal;
+    border-radius: 12px;
+    background: $secondary-color-200;
+  }
+}

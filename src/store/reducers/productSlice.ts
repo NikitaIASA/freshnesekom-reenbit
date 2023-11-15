@@ -6,6 +6,10 @@ import productServices from '@store/services/productServices';
 import { ALL_CATEGORIES_FILTER } from '@constants/allCategoriesConst';
 import { getAvailableBrandsForCategory } from '@helpers/getAvailableBrandsForCategory';
 
+export type ItemsPerPageByPage = {
+    [page: number]: number;
+}
+
 interface ProductsState {
     products: IProduct[];
     status: STATUSES;
@@ -16,6 +20,9 @@ interface ProductsState {
     selectedRatings: number[];
     selectedPriceRange: number[];
     sortBy: string;
+    currentPage: number;
+    itemsPerPageByPage: ItemsPerPageByPage;
+    shownProducts: IProduct[];
 }
 
 const initialState: ProductsState = {
@@ -28,6 +35,9 @@ const initialState: ProductsState = {
     selectedRatings: [],
     selectedPriceRange: [0, 0],
     sortBy: "default",
+    currentPage: 1,
+    itemsPerPageByPage: { 1: 5 },
+    shownProducts: [],
 };
 
 const productsSlice = createSlice({
@@ -96,6 +106,19 @@ const productsSlice = createSlice({
         setSortBy: (state, action: PayloadAction<string>) => {
             state.sortBy = action.payload;
         },
+        setShownProducts: (state, action: PayloadAction<IProduct[]>) => {
+            state.shownProducts = action.payload;
+        },
+        setCurrentPage: (state, action: PayloadAction<number>) => {
+            state.currentPage = action.payload;
+        },
+        setItemsPerPageByPage: (state, action: PayloadAction<ItemsPerPageByPage>) => {
+            state.itemsPerPageByPage = action.payload;
+        },
+        resetPage: (state) => {
+            state.currentPage = 1;
+            state.itemsPerPageByPage = { 1: 5 };
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -124,7 +147,11 @@ export const {
     toggleRating,
     setSelectedPriceRange,
     resetFilter,
-    setSortBy
+    setSortBy,
+    setShownProducts,
+    setCurrentPage,
+    setItemsPerPageByPage,
+    resetPage
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

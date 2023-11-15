@@ -4,6 +4,7 @@ import { useAppSelector } from "@hooks/useAppSelector";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { Link } from "react-router-dom";
 import {
+  resetPage,
   setSelectedBrand,
   setSelectedCategory,
 } from "@store/reducers/productSlice";
@@ -28,6 +29,7 @@ export const Navigation: FC = () => {
     dispatch(setSelectedBrand(brand));
     dispatch(setSelectedCategory(category));
     setActiveCategory(null);
+    dispatch(resetPage());
   };
 
   return (

@@ -12,6 +12,8 @@ import {
 } from "@store/selectors/productSelectors";
 import filterIcon from "@assets/images/filter-icon.svg";
 import { useModal } from "@hooks/useModal";
+import Pagination from "./Pagination";
+import ProductsCount from "@components/UI/CountBlock";
 
 import "./Products.scss";
 
@@ -44,13 +46,7 @@ export const Products: FC = () => {
       <h1 className="products__title">All Products</h1>
       <div className="products__top">
         <SortBlock />
-        <p className="products__count">
-          <span className="products__count-number">
-            {" "}
-            {filteredProducts?.length}{" "}
-          </span>
-          Products
-        </p>
+        <ProductsCount count={filteredProducts?.length || 0} />
       </div>
       <button
         className="products__filter-button"
@@ -72,6 +68,7 @@ export const Products: FC = () => {
         </div>
         <ProductList status={status} />
       </div>
+      <Pagination />
     </section>
   );
 };
