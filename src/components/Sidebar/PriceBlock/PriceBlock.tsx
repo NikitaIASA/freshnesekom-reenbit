@@ -22,6 +22,8 @@ export const PriceBlock: FC = () => {
   const [inputValues, setInputValues] = useState<number[]>([0, 0]);
   const [error, setError] = useState<boolean | null>(null);
 
+  const [inputMinPrice, inputMaxPrice] = inputValues;
+
   const debouncedSetSelectedPriceRange = useCallback(
     debounce((newValues: number[]) => {
       dispatch(setSelectedPriceRange(newValues));
@@ -58,12 +60,12 @@ export const PriceBlock: FC = () => {
 
   useEffect(() => {
     const isInvalid =
-      inputValues[0] > inputValues[1] ||
-      inputValues[0] < minPrice ||
-      inputValues[1] > maxPrice;
+      inputMinPrice > inputMaxPrice ||
+      inputMinPrice < minPrice ||
+      inputMaxPrice > maxPrice;
 
     setError(isInvalid);
-  }, [inputValues, minPrice, maxPrice]);
+  }, [inputMinPrice, inputMaxPrice, minPrice, maxPrice]);
 
   const handleSliderChange = (newValues: number[]) => {
     setValues(newValues);
@@ -95,7 +97,7 @@ export const PriceBlock: FC = () => {
           Min
           <input
             type="text"
-            value={inputValues[0]}
+            value={inputMinPrice}
             onChange={(e) => handleInputChange(0, e.target.value)}
             className={`price-block__input ${
               error ? "price-block__input_error" : ""
@@ -112,7 +114,7 @@ export const PriceBlock: FC = () => {
           Max
           <input
             type="text"
-            value={inputValues[1]}
+            value={inputMaxPrice}
             onChange={(e) => handleInputChange(1, e.target.value)}
             className={`price-block__input ${
               error ? "price-block__input_error" : ""

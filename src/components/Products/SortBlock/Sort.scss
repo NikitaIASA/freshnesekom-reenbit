@@ -19,6 +19,10 @@
     border: 1px solid $primary-color-200;
     background: $primary-color-100;
 
+    @include onSmall-Mobile {
+      padding: 5px 10px;
+    }
+
     @include onMobile {
       gap: 10px;
     }

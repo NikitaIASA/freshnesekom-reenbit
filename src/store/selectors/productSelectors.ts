@@ -2,6 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "@store/store";
 import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
 import { selectSortBy } from "./sortSelectors";
+import { SORT_OPTIONS } from "@constants/sortOptions";
 
 export const selectProductsState = (state: RootState) => state.products;
 export const selectProducts = (state: RootState) => state.products.products;
@@ -47,34 +48,33 @@ export const selectFilteredProducts = createSelector(
         });
 
         switch (sortBy) {
-            case 'price_asc':
+            case SORT_OPTIONS.PRICE_ASC:
                 filteredProducts.sort((a, b) => a.price.current - b.price.current);
                 break;
-            case 'price_desc':
+            case SORT_OPTIONS.PRICE_DESC:
                 filteredProducts.sort((a, b) => b.price.current - a.price.current);
                 break;
-            case 'rating_asc':
+            case SORT_OPTIONS.RATING_ASC:
                 filteredProducts.sort((a, b) => a.rating - b.rating);
                 break;
-            case 'rating_desc':
+            case SORT_OPTIONS.RATING_DESC:
                 filteredProducts.sort((a, b) => b.rating - a.rating);
                 break;
-            case 'name_asc':
+            case SORT_OPTIONS.NAME_ASC:
                 filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
                 break;
-            case 'name_desc':
+            case SORT_OPTIONS.NAME_DESC:
                 filteredProducts.sort((a, b) => b.title.localeCompare(a.title));
+                break;
+            case SORT_OPTIONS.STOCK_ASC:
+                filteredProducts.sort((a, b) => a.stock - b.stock);
+                break;
+            case SORT_OPTIONS.STOCK_DESC:
+                filteredProducts.sort((a, b) => b.stock - a.stock);
                 break;
             default:
                 break;
-            case 'stock_asc':
-                filteredProducts.sort((a, b) => a.stock - b.stock);
-                break;
-            case 'stock_desc':
-                filteredProducts.sort((a, b) => b.stock - a.stock);
-                break;
         }
-
         return filteredProducts;
     }
 );

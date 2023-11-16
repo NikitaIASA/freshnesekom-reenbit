@@ -14,9 +14,9 @@ import {
 } from 'redux-persist';
 
 const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['selectedCategory', 'selectedBrands', "selectedRatings", "currentPage", "itemsPerPageByPage"]
+    key: 'root',
+    storage,
+    whitelist: ['selectedCategory', 'selectedBrands', "selectedRatings", "sortBy", "currentPage", "itemsPerPageByPage"]
 };
 
 const persistedReducer = persistReducer(persistConfig, productsReducer);

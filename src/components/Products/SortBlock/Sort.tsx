@@ -1,35 +1,30 @@
-import { FC, useState, useRef} from "react";
+import { FC, useState, useRef, useEffect} from "react";
 
 import { useAppDispatch } from "@hooks/useAppDispatch";
-
+import { useAppSelector } from "@hooks/useAppSelector";
 import SortOptions from "./SortOptions";
 import { setSortBy } from "@store/reducers/productSlice";
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
+import { sortItems} from "@constants/sortOptions";
+import { selectSortBy } from "@store/selectors/sortSelectors";
+
+
 import arrow from "@assets/images/arrow-down.svg";
 
 import "./Sort.scss";
 
-type SortItem = {
-  sortName: string;
-  sortKey: string;
-};
-
-const sortItems: SortItem[] = [
-  { sortName: "Default", sortKey: "default" },
-  { sortName: "Price: Low to High", sortKey: "price_asc" },
-  { sortName: "Price: High to Low", sortKey: "price_desc" },
-  { sortName: "Rating: Low to High", sortKey: "rating_asc" },
-  { sortName: "Rating: High to Low", sortKey: "rating_desc" },
-  { sortName: "Stock: Low to High", sortKey: "stock_asc" },
-  { sortName: "Stock: High to Low", sortKey: "stock_desc" },
-  { sortName: "Name: A to Z", sortKey: "rating_asc" },
-  { sortName: "Name: Z to A", sortKey: "rating_desc" },
-];
-
 export const SortBlock: FC = () => {
   const dispatch = useAppDispatch();
-  const [selectedSort, setSelectedSort] = useState(sortItems[0].sortName);
+  const selectedSortOption = useAppSelector(selectSortBy)
+  const [selectedSort, setSelectedSort] = useState(selectedSortOption);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const sortItem = sortItems.find(item => item.sortKey === selectedSortOption);
+    if (sortItem) {
+      setSelectedSort(sortItem.sortName);
+    }
+  }, [selectedSortOption]);
 
   const handleSelect = (sortName: string) => {
     const sortItem = sortItems.find((item) => item.sortName === sortName);
