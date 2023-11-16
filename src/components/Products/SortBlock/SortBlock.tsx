@@ -10,7 +10,7 @@ import { selectSortBy } from "@store/selectors/sortSelectors";
 
 import arrow from "@assets/images/arrow-down.svg";
 
-import "./Sort.scss";
+import "./SortBlock.scss";
 
 export const SortBlock: FC = () => {
   const dispatch = useAppDispatch();
