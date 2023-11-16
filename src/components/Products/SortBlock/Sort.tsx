@@ -8,7 +8,6 @@ import { useOnClickOutside } from "@hooks/useOnClickOutside";
 import { sortItems} from "@constants/sortOptions";
 import { selectSortBy } from "@store/selectors/sortSelectors";
 
-
 import arrow from "@assets/images/arrow-down.svg";
 
 import "./Sort.scss";

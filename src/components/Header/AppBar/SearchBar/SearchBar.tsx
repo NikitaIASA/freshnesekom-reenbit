@@ -25,6 +25,7 @@ import {
 import { useLocation } from "react-router-dom";
 import SearchSuggestions from "../SearchSuggestion";
 import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
+import { useOnClickOutside } from "@hooks/useOnClickOutside";
 import arrow from "@assets/images/arrow-down.svg";
 import searchIcon from "@assets/images/search-icon.svg";
 import clearIcon from "@assets/images/clear-icon.svg";
@@ -100,23 +101,11 @@ export const SearchBar: FC = () => {
     debouncedUpdateSearchQuery("");
   };
 
-  // Effect to add an event listener to close the dropdown when clicked outside its area
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+  useOnClickOutside(dropdownRef, () => {
+    setIsOpen(false);
+  });
 
   return (
     <div className="search-bar" ref={dropdownRef}>
