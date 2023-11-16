@@ -1,10 +1,16 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 48px 0;
+
+  @include onTablet {
+    flex-direction: column;
+    gap: 40px;
+  }
 
   &__container {
     display: flex;
@@ -24,9 +30,11 @@
     color: $primary-color;
     transition: 0.2s linear;
     cursor: pointer;
+    font-size: 16px;
 
     &_active {
       color: $secondary-color;
+      font-weight: bold;
     }
 
     &:hover {
@@ -46,7 +54,7 @@
     border-radius: 12px;
     border: 2px solid $secondary-color-400;
     background: $secondary-color;
-    transition: .2s linear;
+    transition: 0.2s linear;
     cursor: pointer;
 
     &:hover {
@@ -58,6 +66,8 @@
       display: none;
     }
 
+    @include onTablet {
+      order: -1;
+    }
   }
-  
 }

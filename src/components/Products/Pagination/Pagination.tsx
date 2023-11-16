@@ -34,8 +34,6 @@ export const Pagination: FC = () => {
   const currentPage = useAppSelector(selectCurrentPage);
   const itemsPerPageByPage = useAppSelector(selectItemsPerPageByPage);
 
-  console.log(itemsPerPageByPage);
-
   const handleAddProducts = () => {
     const updatedItemsPerPageByPage = {
       ...itemsPerPageByPage,
@@ -74,13 +72,12 @@ export const Pagination: FC = () => {
         <p className="pagination__title">Page:</p>
         <ReactPaginate
           containerClassName="pagination__items"
-          previousLinkClassName="pagination__item"
           pageLinkClassName="pagination__item"
           breakLinkClassName="pagination__item"
           activeLinkClassName="pagination__item_active"
           disabledClassName="pagination__item_disabled"
           marginPagesDisplayed={1}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={2}
           onPageChange={handleClick}
           breakLabel="..."
           pageCount={pagesCount}
