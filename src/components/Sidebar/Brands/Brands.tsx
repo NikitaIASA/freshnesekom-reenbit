@@ -8,7 +8,7 @@ import { useBrandsForSelectedCategory } from "@hooks/useBrandsForSelectedCategor
 import { selectProductsState } from "@store/selectors/productSelectors";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { STATUSES } from "@constants/statuses";
-import { toggleBrand } from "@store/reducers/productSlice";
+import { resetPage, toggleBrand } from "@store/reducers/productSlice";
 
 import "./Brands.scss";
 
@@ -20,11 +20,13 @@ export const Brands: FC = () => {
   const handleBrandToggle = (event: MouseEvent<HTMLElement>, brand: string) => {
     event.preventDefault();
     dispatch(toggleBrand(brand));
+    dispatch(resetPage());
   };
 
   const handleBrandChange = (event: ChangeEvent<HTMLElement>, brand: string) => {
     event.stopPropagation();
     dispatch(toggleBrand(brand));
+    dispatch(resetPage());
   };
 
   return (

@@ -3,7 +3,7 @@ import { FC, useState, useRef, useEffect} from "react";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import SortOptions from "./SortOptions";
-import { setSortBy } from "@store/reducers/productSlice";
+import { resetPage, setSortBy } from "@store/reducers/productSlice";
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
 import { sortItems} from "@constants/sortOptions";
 import { selectSortBy } from "@store/selectors/sortSelectors";
@@ -32,6 +32,7 @@ export const SortBlock: FC = () => {
       setSelectedSort(sortName);
       dispatch(setSortBy(sortItem.sortKey));
       setIsOpen(false); 
+      dispatch(resetPage());
     }
   };
 

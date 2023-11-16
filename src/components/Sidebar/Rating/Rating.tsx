@@ -4,7 +4,7 @@ import SidebarSectionTitle from "../SidebarSectionTitle";
 import CustomCheckbox from "../CustomCheckbox";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
-import { toggleRating } from "@store/reducers/productSlice";
+import { resetPage, toggleRating } from "@store/reducers/productSlice";
 import { selectSelectedRatings } from "@store/selectors/productSelectors";
 import { RATING_COUNT } from "@constants/elementsCount";
 import yellowStar from "@assets/images/yellow-star.svg";
@@ -19,6 +19,7 @@ export const Rating: FC = () => {
   const handleRatingToggle = (event: MouseEvent<HTMLElement>, rating: number) => {
     event.preventDefault();
     dispatch(toggleRating(rating));
+    dispatch(resetPage());
   };
 
   const handleRatingChange = (
@@ -27,6 +28,7 @@ export const Rating: FC = () => {
   ) => {
     event.stopPropagation();
     dispatch(toggleRating(rating));
+    dispatch(resetPage());
   };
 
   return (

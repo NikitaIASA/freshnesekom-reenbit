@@ -4,7 +4,7 @@ import Slider from "react-slider";
 import SidebarSectionTitle from "../SidebarSectionTitle";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
-import { setSelectedPriceRange } from "@store/reducers/productSlice";
+import { resetPage, setSelectedPriceRange } from "@store/reducers/productSlice";
 import {
   selectFilteredPriceRange,
   selectPriceRange,
@@ -55,6 +55,7 @@ export const PriceBlock: FC = () => {
     setValues(newInputValues);
 
     dispatch(setSelectedPriceRange(newInputValues));
+    dispatch(resetPage());
   };
 
   useEffect(() => {
@@ -71,6 +72,7 @@ export const PriceBlock: FC = () => {
     setInputValues(newValues);
     setError(false);
     debouncedSetSelectedPriceRange(newValues);
+    dispatch(resetPage());
   };
 
   return (
