@@ -1,11 +1,11 @@
-import { FC, useState, useRef, useEffect} from "react";
+import { FC, useState, useRef, useEffect } from "react";
 
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import SortOptions from "./SortOptions";
 import { resetPage, setSortBy } from "@store/reducers/productSlice";
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
-import { sortItems} from "@constants/sortOptions";
+import { sortItems } from "@constants/sortOptions";
 import { selectSortBy } from "@store/selectors/sortSelectors";
 
 import arrow from "@assets/images/arrow-down.svg";
@@ -14,12 +14,14 @@ import "./SortBlock.scss";
 
 export const SortBlock: FC = () => {
   const dispatch = useAppDispatch();
-  const selectedSortOption = useAppSelector(selectSortBy)
+  const selectedSortOption = useAppSelector(selectSortBy);
   const [selectedSort, setSelectedSort] = useState(selectedSortOption);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const sortItem = sortItems.find(item => item.sortKey === selectedSortOption);
+    const sortItem = sortItems.find(
+      (item) => item.sortKey === selectedSortOption
+    );
     if (sortItem) {
       setSelectedSort(sortItem.sortName);
     }
@@ -30,7 +32,7 @@ export const SortBlock: FC = () => {
     if (sortItem) {
       setSelectedSort(sortName);
       dispatch(setSortBy(sortItem.sortKey));
-      setIsOpen(false); 
+      setIsOpen(false);
       dispatch(resetPage());
     }
   };
@@ -41,8 +43,7 @@ export const SortBlock: FC = () => {
   return (
     <div className="sort-block" ref={dropdownRef}>
       <div className="sort-block__button" onClick={() => setIsOpen(!isOpen)}>
-        <span>Sort by</span>
-        <span className="sort-block__divider">|</span>
+        <span className="sort-block__sort-by">Sort by</span>
         <div className="sort-block__text-container">
           <p className="sort-block__text">{selectedSort}</p>
           <img className="sort-dropdown__arrow" src={arrow} alt="arrow" />

@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { STARS_COUNT } from "@constants/elementsCount";
-import emptyStar from "@assets/images/empty-heart.svg";
+import emptyStar from "@assets/images/empty-star.svg";
 import star from "@assets/images/star.svg";
 
 import "./Stars.scss";

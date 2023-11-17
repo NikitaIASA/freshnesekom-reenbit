@@ -10,21 +10,26 @@
     font-size: 12px;
   }
 
+  &__sort-by {
+
+    &::after {
+      content: "|";
+      margin: 0 16px 0 20px;
+      color: $primary-color-200;
+    }
+    
+  }
+
   &__button {
     display: flex;
     align-items: center;
     padding: 9px 15px;
-    gap: 20px;
     border-radius: 12px;
     border: 1px solid $primary-color-200;
     background: $primary-color-100;
 
     @include onSmall-Mobile {
       padding: 5px 10px;
-    }
-
-    @include onMobile {
-      gap: 10px;
     }
   }
 
@@ -33,7 +38,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
 
     @include onMobile {
       width: 130px;

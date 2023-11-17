@@ -8,7 +8,7 @@ import { resetPage, toggleRating } from "@store/reducers/productSlice";
 import { selectSelectedRatings } from "@store/selectors/productSelectors";
 import { RATING_COUNT } from "@constants/elementsCount";
 import yellowStar from "@assets/images/yellow-star.svg";
-import starEmpty from "@assets/images/empty-heart.svg";
+import emptyStar from "@assets/images/empty-star.svg";
 
 import "./Rating.scss";
 
@@ -50,7 +50,7 @@ export const Rating: FC = () => {
                 <img
                   className="rating__image"
                   key={index}
-                  src={index < rating ? yellowStar : starEmpty}
+                  src={index < rating ? yellowStar : emptyStar}
                   alt={index < rating ? "Full star" : "Empty star"}
                 />
               ))}
