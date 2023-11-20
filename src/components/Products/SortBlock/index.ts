@@ -1,3 +1,3 @@
-import { SortBlock } from "./Sort";
+import { SortBlock } from "./SortBlock";
 
 export default SortBlock;

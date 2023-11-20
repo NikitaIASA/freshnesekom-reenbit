@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { resetFilter } from "@store/reducers/productSlice";
+import { scrollToTop } from "@helpers/scrollToTop";
 
 import "./ResetButton.scss";
 
@@ -9,27 +10,12 @@ export const ResetButton: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleReset = () => {
+    const sidebarElement = document.querySelector(".products__sidebar-container") as HTMLElement | null;
+    const categoriesList = document.querySelector(".categories__list") as HTMLElement | null;
+    const brandsList = document.querySelector(".brands__list") as HTMLElement | null;
+    
     dispatch(resetFilter());
-
-   window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
-    // Scroll for various parts of the sidebar
-    const sidebarElement = document.querySelector(".products__sidebar-container");
-    const categoriesList = document.querySelector(".categories__list");
-    const brandsList = document.querySelector(".brands__list");
-
-    if (sidebarElement) {
-      sidebarElement.scrollTo({ top: 0, behavior: "smooth" });
-    }
-    if (categoriesList) {
-      categoriesList.scrollTo({ top: 0, behavior: "smooth" });
-    }
-    if (brandsList) {
-      brandsList.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    scrollToTop(window, sidebarElement, categoriesList, brandsList);
   };
 
   return (

@@ -19,6 +19,7 @@ import {
   calculatePagesCount,
   getItemRangeForPage,
 } from "@helpers/paginationHelpers";
+import { scrollToTop } from "@helpers/scrollToTop";
 import ProductsCount from "@components/UI/CountBlock";
 import arrowDown from "@assets/images/arrow-down-white.svg";
 
@@ -52,7 +53,7 @@ export const Pagination: FC = () => {
 
   const handleClick = (event: { selected: number }) => {
     dispatch(setCurrentPage(event.selected + 1));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop(window);
   };
 
   useEffect(() => {
