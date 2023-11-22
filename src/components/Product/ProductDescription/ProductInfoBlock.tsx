@@ -55,6 +55,8 @@ export const ProductInfoBlock: FC = () => {
       setTotalNewPrice(actualQuantity * price.current || 0);
       setTotalOldPrice(actualQuantity * price.previous || 0);
     }
+
+    return actualQuantity;
   };
 
   const formattedBuyBy = buyBy

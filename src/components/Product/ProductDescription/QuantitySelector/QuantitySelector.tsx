@@ -9,7 +9,7 @@ interface QuantitySelectorProps {
   initialQuantity?: number;
   units: string[];
   maxQuantity: number;
-  onQuantityChange: (quantity: number, unit: string) => void;
+  onQuantityChange: (quantity: number, unit: string) => number;
   setError: (error: string | null) => void;
 }
 
@@ -26,11 +26,11 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
   const [selectedUnit, setSelectedUnit] = useState<string>(units[0]);
 
   const validateQuantity = (qty: number): boolean => {
-    if (qty < 1) {
+    if (qty <= 0) {
       setError(`Product sold in quantities of at least 1`);
       return false;
     } else if (qty > maxQuantity) {
-      setError(`Max Product quantity: ${maxQuantity}.`);
+      setError(`Max Product quantity: ${maxQuantity} ${units[0]}`);
       return false;
     } else {
       setError(null);
@@ -39,21 +39,19 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
   };
 
   const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newQuantityValue = event.target.value;
+    const newQuantityValue = event.target.value.replace(/[^0-9]/g, '');
     setQuantity(newQuantityValue);
-
+  
     const newQuantity = parseInt(newQuantityValue, 10);
-    if (validateQuantity(newQuantity)) {
-      onQuantityChange(newQuantity, selectedUnit);
-    }
+    const actualQuantity = onQuantityChange(newQuantity, selectedUnit);
+    validateQuantity(actualQuantity);
   };
 
   const handleUnitSelect = (unit: string) => {
     setSelectedUnit(unit);
     setIsDropdownOpen(false);
-    if (validateQuantity(+quantity)) {
-      onQuantityChange(+quantity, unit);
-    }
+    const actualQuantity = onQuantityChange(+quantity, unit);
+    validateQuantity(actualQuantity);
   };
 
   const dropdownRef = useRef(null);
@@ -63,10 +61,9 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
     <div className="quantity-selector">
       <input
         className="quantity-selector__input"
-        type="number"
+        type="text"
         value={quantity}
         onChange={handleQuantityChange}
-        min="1"
         placeholder="0"
       />
       {units && (
