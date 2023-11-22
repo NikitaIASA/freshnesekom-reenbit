@@ -13,8 +13,8 @@ export const useBreadcrumbs = () => {
     const paths = pathname.split('/').filter((path) => !!path);
 
     const productTitle = product
-        ? productsList.find(({ title }) => title === product)?.title
-        : undefined;
+    ? productsList.find(({ id }) => id.toString() === product)?.title
+    : undefined;
 
     const getBreadcrumb = (path: string) => {
         const breadcrumb = BREADCRUMBS_PATHS[path as PATHS];

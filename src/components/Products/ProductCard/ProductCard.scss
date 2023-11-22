@@ -31,8 +31,8 @@
 
   &__information {
     display: flex;
+    justify-content: space-between;
     width: 100%;
-    gap: 96px;
     padding: 32px;
 
     @include onBig-tablet {
@@ -41,9 +41,6 @@
       padding: 16px;
     }
 
-    @include onTablet {
-      gap: 24px;
-    }
 
     @include onMobile {
       flex-direction: column;
@@ -108,6 +105,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    margin-top: 20px;
   }
 
   &__details-title {
@@ -151,7 +149,6 @@
     flex-direction: column;
     gap: 26px;
     max-width: 200px;
-    width: 100%;
 
     @include onTablet {
       max-width: none;
@@ -232,51 +229,6 @@
     gap: 12px;
   }
 
-  &__details-button {
-    width: 170px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 16px;
-    color: $white;
-    font-family: Poppins;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 12px;
-    border: 2px solid $secondary-color-400;
-    background: $secondary-color;
-    cursor: pointer;
-
-    @include onTablet {
-      font-size: 14px;
-      padding: 6px 8px;
-      width: 100%;
-      justify-content: center;
-    }
-  }
-
-  &__wish-button {
-    width: 170px;
-    display: flex;
-    align-items: center;
-    padding: 6px 12px;
-    gap: 8px;
-    color: $primary-color;
-    font-family: Poppins;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 12px;
-    background: $primary-color-50;
-    border: none;
-    cursor: pointer;
-
-    @include onTablet {
-      font-size: 14px;
-      padding: 6px;
-      width: 100%;
-      justify-content: center;
-    }
-  }
 }
 
 .highlighted-value {

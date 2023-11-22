@@ -1,0 +1,54 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.product-images {
+  
+  &__discount-block {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__discount-block-item {
+    display: flex;
+    padding: 4px 10px;
+    align-items: center;
+    color: $secondary-color;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 12px;
+    background: $secondary-color-200;
+  }
+
+  &__images-block {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    margin-top: 8px;
+  }
+
+  &__main-image {
+    width: 100%;
+    height: 418px;
+    object-fit: cover;
+    border-radius: 12px;
+
+    @include onBig-tablet {
+      height: 300px;
+    }
+  }
+
+  &__addition-images-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 39px;
+  }
+
+  &__addition-image {
+    width: 100%;
+    height: 218px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+}

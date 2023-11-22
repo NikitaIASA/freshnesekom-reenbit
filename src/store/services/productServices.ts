@@ -11,6 +11,16 @@ export const getProductsService = async () => {
     }
 };
 
+export const getOneProductService = async (id: string) => {
+    try {
+        const { data } = await axios.get(`/products/${id}`);
+        return data;
+    } catch (error) {
+        throw new Error('Network error occurred');
+    }
+};
+
+
 export const getProducts = createAsyncThunk<IProduct[], void, { rejectValue: string }>(
     'products/getProducts',
     async (_, { rejectWithValue }) => {
@@ -22,9 +32,21 @@ export const getProducts = createAsyncThunk<IProduct[], void, { rejectValue: str
         }
     },
 );
+export const getOneProduct = createAsyncThunk<IProduct, string, { rejectValue: string }>(
+    'products/getOneProduct',
+    async (id, { rejectWithValue }) => {
+        try {
+            const data = await getOneProductService(id);
+            return data;
+        } catch (error) {
+            return rejectWithValue(error instanceof Error ? error.message : 'Network error occurred');
+        }
+    },
+);
 
 const productServices = {
-    getProducts
+    getProducts,
+    getOneProduct,
 };
 
 export default productServices;

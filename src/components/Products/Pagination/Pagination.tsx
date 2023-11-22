@@ -53,7 +53,7 @@ export const Pagination: FC = () => {
 
   const handleClick = (event: { selected: number }) => {
     dispatch(setCurrentPage(event.selected + 1));
-    scrollToTop(window);
+    scrollToTop([window], true);
   };
 
   useEffect(() => {

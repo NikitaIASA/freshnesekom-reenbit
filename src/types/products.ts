@@ -3,8 +3,8 @@ import { IShipping } from "./shipping";
 import { IExtraInfo } from "./extraInfo";
 
 export interface IProduct {
-    id: number;
-    image: string;
+    id: string;
+    image: string[];
     title: string;
     description: string;
     brand: string;

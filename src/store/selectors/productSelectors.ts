@@ -4,6 +4,7 @@ import { ALL_CATEGORIES_FILTER } from "@constants/allCategoriesConst";
 import { selectSortBy } from "./sortSelectors";
 import { SORT_OPTIONS } from "@constants/sortOptions";
 
+export const selectError = (state: RootState) => state.products.error;
 export const selectProductsState = (state: RootState) => state.products;
 export const selectProducts = (state: RootState) => state.products.products;
 export const selectSearchQuery = (state: RootState) => state.products.searchQuery;
@@ -11,6 +12,8 @@ export const selectCategory = (state: RootState) => state.products.selectedCateg
 export const selectBrands = (state: RootState) => state.products.selectedBrands;
 export const selectSelectedRatings = (state: RootState) => state.products.selectedRatings;
 export const selectPriceRange = (state: RootState) => state.products.selectedPriceRange;
+export const selectSelectedProduct = (state: RootState) => state.products.selectedProduct;
+export const selectSelectedProductStatus = (state: RootState) => state.products.selectedProductStatus;
 
 // Selector for filtering products by category, brand, rating, and search query.
 export const selectBaseFilteredProducts = createSelector(

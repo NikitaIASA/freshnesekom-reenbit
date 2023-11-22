@@ -2,7 +2,7 @@
 @import "@styles/colors.scss";
 @import "@styles/skeleton.scss";
 
-.product-skeleton {
+.products-skeleton {
   display: flex;
   width: 100%;
 
@@ -70,7 +70,7 @@
   }
 }
 
-.product-skeleton__price-block {
+.products-skeleton__price-block {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -86,7 +86,7 @@
   }
 }
 
-.product-skeleton__price {
+.products-skeleton__price {
   @include skeleton-style(50%);
   border-radius: 6px;
 
@@ -95,7 +95,7 @@
   }
 }
 
-.product-skeleton__prices {
+.products-skeleton__prices {
   @include onMobile {
     gap: 20px;
     display: flex;
@@ -103,7 +103,7 @@
   }
 }
 
-.product-skeleton__buttons {
+.products-skeleton__buttons {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -115,7 +115,7 @@
 
 }
 
-.product-skeleton__button {
+.products-skeleton__button {
   @include skeleton-style(170px, 32px);
   border-radius: 6px;
 

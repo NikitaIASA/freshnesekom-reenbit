@@ -1,9 +1,14 @@
-export const scrollToTop = (...elements: (HTMLElement | Window | null)[]): void => {
+export const scrollToTop = (
+    elements: (HTMLElement | Window | null)[],
+    smooth: boolean = false // Default to false if not provided
+): void => {
+    const behavior = smooth ? "smooth" : "auto";
+
     elements.forEach((element) => {
         if (element instanceof HTMLElement) {
-            element.scrollTo({ top: 0, behavior: "smooth" });
+            element.scrollTo({ top: 0, behavior });
         } else if (element instanceof Window) {
-            document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+            document.documentElement.scrollTo({ top: 0, behavior });
         }
     });
 };

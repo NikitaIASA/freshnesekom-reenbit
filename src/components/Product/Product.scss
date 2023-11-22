@@ -1,0 +1,12 @@
+@import "@styles/breakpoints";
+
+.product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+
+  @include onBig-tablet {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,13 +1,15 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 
-import Stars from "./Stars";
+import Stars from "../../UI/Stars";
 import { IProduct } from "@appTypes/products";
 import { ROUTE_PATHS } from "@constants/routePaths";
 import arrowRight from "@assets/images/arrow-right.svg";
 import heart from "@assets/images/heart.svg";
+import { ButtonVariants, ButtonSizes} from "@appTypes/buttonTypes";
 
 import "./ProductCard.scss";
+import CustomButton from "@components/UI/CustomButton";
 
 interface ProductListProps {
   product: IProduct;
@@ -15,6 +17,7 @@ interface ProductListProps {
 
 export const ProductCard: FC<ProductListProps> = ({ product }) => {
   const {
+    id,
     title,
     image,
     description,
@@ -38,17 +41,17 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
   return (
     <li className="product-card">
       <div className="product-card__image-block">
-        <Link to={`${ROUTE_PATHS.PRODUCTS}/${title}`}>
+        <Link to={`${ROUTE_PATHS.PRODUCTS}/${id}`}>
           <img
             className="product-card__image"
-            src={image}
+            src={image[0]}
             alt="product image"
           />
         </Link>
       </div>
       <div className="product-card__information">
         <div className="product-card__descriptiption-block">
-          <Link to={`${ROUTE_PATHS.PRODUCTS}/${title}`}>
+          <Link to={`${ROUTE_PATHS.PRODUCTS}/${id}`}>
             <h4 className="product-card__title">{title}</h4>
           </Link>
           <p className="product-card__description">{description}</p>
@@ -80,16 +83,24 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
             </div>
           </div>
           <div className="product-card__buttons">
-            <Link to={`${ROUTE_PATHS.PRODUCTS}/${title}`}>
-              <button className="product-card__details-button">
+            <Link to={`${ROUTE_PATHS.PRODUCTS}/${id}`}>
+              {/* <button className="product-card__details-button">
                 <p>Product Detail</p>
                 <img src={arrowRight} alt="arrow" />
-              </button>
+              </button> */}
+              <CustomButton>
+                <p>Product Detail</p>
+                <img src={arrowRight} alt="arrow" />
+              </CustomButton>
             </Link>
-            <button className="product-card__wish-button">
+            {/* <button className="product-card__wish-button">
               <img src={heart} alt="heart" />
               <p>Add to wish list</p>
-            </button>
+            </button> */}
+            <CustomButton variant={ButtonVariants.SECONDARY} size={ButtonSizes.SMALL}>
+              <img src={heart} alt="heart" />
+              <p>Add to wish list</p>
+            </CustomButton>
           </div>
         </div>
       </div>

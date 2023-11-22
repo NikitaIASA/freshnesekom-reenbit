@@ -15,7 +15,7 @@ export const ResetButton: FC = () => {
     const brandsList = document.querySelector(".brands__list") as HTMLElement | null;
     
     dispatch(resetFilter());
-    scrollToTop(window, sidebarElement, categoriesList, brandsList);
+    scrollToTop([window, sidebarElement, categoriesList, brandsList], true);
   };
 
   return (

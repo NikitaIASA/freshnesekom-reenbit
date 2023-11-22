@@ -1,0 +1,109 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.product-info {
+  &__details {
+    margin-bottom: 40px;
+  }
+
+  &__details-list {
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: $primary-color;
+
+    @include onMobile {
+      flex-wrap: nowrap;
+      height: auto;
+    }
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+  }
+
+  &__reviews-count {
+    color: $primary-color-300;
+    font-size: 12px;
+    margin-left: 8px;
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-family: Poppins;
+    font-size: 32px;
+    font-weight: 600;
+  }
+
+  &__description {
+    margin: 40px 0;
+    font-size: 17px;
+  }
+
+  &__details-item {
+    display: flex;
+
+    @include onMobile {
+      justify-content: space-between;
+    }
+  }
+
+  &__details-title {
+    color: $primary-color-300;
+    width: 120px;
+  }
+
+  &__details-value {
+    width: 120px;
+  }
+
+  &__price-block-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include onTablet {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+
+  &__price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 24px 16px 16px;
+    border-radius: 12px;
+    border: 1px solid $primary-color-50;
+    margin-bottom: 24px;
+  }
+
+  &__prices {
+    @include onMobile {
+      text-align: center;
+    }
+  }
+
+  &__new-price {
+    font-family: Poppins;
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  &__old-price {
+    color: $primary-color-300;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: line-through;
+  }
+
+  &__error-message {
+    font-weight: bold;
+    color: $error-color;
+  }
+  
+}
