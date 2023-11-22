@@ -110,7 +110,6 @@ export const ProductInfoBlock: FC = () => {
             <QuantitySelector
               initialQuantity={1}
               units={buyBy!}
-              conversionRate={conversionRate}
               maxQuantity={stock}
               onQuantityChange={(quantity: number, unit: string) =>
                 handleQuantityChange(quantity, unit)
