@@ -36,11 +36,13 @@
     font-family: Poppins;
     font-size: 32px;
     font-weight: 600;
+    word-break: break-word;
   }
 
   &__description {
     margin: 40px 0;
     font-size: 17px;
+    word-break: break-word;
   }
 
   &__details-item {
@@ -54,10 +56,16 @@
   &__details-title {
     color: $primary-color-300;
     width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   &__details-value {
     width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
   }
 
   &__price-block-container {
@@ -65,7 +73,7 @@
     align-items: center;
     justify-content: space-between;
 
-    @include onTablet {
+    @include onMobile {
       flex-direction: column;
       gap: 24px;
     }

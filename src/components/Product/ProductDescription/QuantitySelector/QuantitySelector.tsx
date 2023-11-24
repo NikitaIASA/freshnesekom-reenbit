@@ -83,7 +83,7 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
           {isDropdownOpen && (
             <ul className="quantity-selector__dropdown-list">
               {units.map((unit) => (
-                <li key={`unit-${unit}`} onClick={() => handleUnitSelect(unit)}>
+                <li className="quantity-selector__dropdown-item" key={`unit-${unit}`} onClick={() => handleUnitSelect(unit)}>
                   {unit}
                 </li>
               ))}

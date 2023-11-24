@@ -1,4 +1,5 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .quantity-selector {
   display: flex;
@@ -11,45 +12,51 @@
   max-width: 150px;
   width: 100%;
 
+  @include onMobile {
+    justify-content: space-between;
+    max-width: none;
+  }
+
   &__input {
     width: 40px;
     border: none;
     outline: none;
-    background: $primary-color-100;
-  }
-}
-
-.quantity-selector__dropdown {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  cursor: pointer;
-  background: $primary-color-100;
-
-  &::before {
-    content: "|";
-    margin-right: 20px;
-    color: $primary-color-200;
+    background: inherit;
   }
 
-}
+  &__dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    background: inherit;
 
-.quantity-selector__dropdown-list {
-  border: 1px solid #ccc;
-  position: absolute;
-  top: 100%;
-  right: 0;;
-  z-index: 1000;
-  background: $white;
-}
+    &::before {
+      content: "|";
+      margin-right: 20px;
+      color: $primary-color-200;
+    }
+  }
 
-.quantity-selector__dropdown-list li {
-  width: 80px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
+  &__dropdown-list {
+    border: 1px solid $primary-color-200;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    background: $white;
+  }
 
-.quantity-selector__dropdown-list li:hover {
-  background-color: $secondary-color;
+  &__dropdown-item {
+    width: 80px;
+    padding: 10px 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+
+  }
+
 }
