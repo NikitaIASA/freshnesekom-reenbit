@@ -2,9 +2,10 @@ import { FC } from "react";
 
 import { useAppSelector } from "@hooks/useAppSelector";
 import { selectSelectedProduct } from "@store/selectors/productSelectors";
+import { calculateDiscount } from "@helpers/calculateDiscount";
+import { SHIPPING_TYPES } from "@constants/shippingTypes";
 
 import "./ProductImages.scss";
-import { calculateDiscount } from "@helpers/calculateDiscount";
 
 interface ProductImagesProps {}
 
@@ -17,8 +18,8 @@ export const ProductImages: FC<ProductImagesProps> = () => {
   return (
     <div className="product-images">
       <div className="product-images__discount-block">
-        <p className="product-images__discount-block-item">{discount} %</p>
-        {shipping?.type === "Free" && (
+        <p className="product-images__discount-block-item"> - {discount} %</p>
+        {shipping?.type === SHIPPING_TYPES.FREE && (
           <p className="product-images__discount-block-item">Free shipping</p>
         )}
       </div>
