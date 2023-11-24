@@ -2,13 +2,13 @@ import { FC, useState } from "react";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { selectSelectedProduct } from "@store/selectors/productSelectors";
 import QuantitySelector from "./QuantitySelector";
+import CustomButton from "@components/UI/CustomButton";
+import { ButtonSizes, ButtonVariants } from "@appTypes/buttonTypes";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
 
 import "./ProductInfoBlock.scss";
-import CustomButton from "@components/UI/CustomButton";
-import { ButtonSizes, ButtonVariants } from "@appTypes/buttonTypes";
 
 const BOX_ITEMS = 5;
 const REVIEW_SINGLE = "customer review";
@@ -18,6 +18,8 @@ const BOX = "box";
 export const ProductInfoBlock: FC = () => {
   const selectedProduct = useAppSelector(selectSelectedProduct);
   const [error, setError] = useState<string | null>(null);
+  const [totalNewPrice, setTotalNewPrice] = useState<number>(0);
+  const [totalOldPrice, setTotalOldPrice] = useState<number>(0);
 
   const {
     rating,
@@ -36,26 +38,16 @@ export const ProductInfoBlock: FC = () => {
   } = selectedProduct || {};
 
   const reviewsCount = extraInfo?.reviews.length;
-  const reviewsLabel =
-    reviewsCount === 1 ? REVIEW_SINGLE : REVIEW_PLURAL;
-
-  const [totalNewPrice, setTotalNewPrice] = useState<number>(
-    price?.current || 0
-  );
-  const [totalOldPrice, setTotalOldPrice] = useState<number>(
-    price?.previous || 0
-  );
-
+  const reviewsLabel = reviewsCount === 1 ? REVIEW_SINGLE : REVIEW_PLURAL;
   const conversionRate = buyBy?.includes(BOX) ? BOX_ITEMS : 1;
 
   const handleQuantityChange = (quantity: number, unit: string) => {
-    const actualQuantity =
-      unit === BOX ? quantity * conversionRate : quantity;
+    const actualQuantity = unit === BOX ? quantity * conversionRate : quantity;
     if (price) {
-      setTotalNewPrice(actualQuantity * price.current || 0);
-      setTotalOldPrice(actualQuantity * price.previous || 0);
+      setTotalNewPrice(parseFloat((actualQuantity * price.current).toFixed(2)));
+      setTotalOldPrice(parseFloat((actualQuantity * price.previous).toFixed(2)));
     }
-
+  
     return actualQuantity;
   };
 
@@ -91,7 +83,7 @@ export const ProductInfoBlock: FC = () => {
       <div className="product-info__details">
         <ul className="product-info__details-list">
           {Object.entries(details).map(([key, value]) => (
-            <li className="product-info__details-item" key={key}>
+            <li className="product-info__details-item" key={`details-${key}`}>
               <span className="product-info__details-title">{`${key}:`}</span>
               <span className="product-info__details-value">{value}</span>
             </li>
@@ -101,12 +93,8 @@ export const ProductInfoBlock: FC = () => {
       <div className="product-info__price-block">
         <div className="product-info__price-block-container">
           <div className="product-info__prices">
-            <p className="product-info__new-price">{`${totalNewPrice.toFixed(
-              2
-            )} ${price?.currency}`}</p>
-            <p className="product-info__old-price">{`${totalOldPrice.toFixed(
-              2
-            )} ${price?.currency}`}</p>
+            <p className="product-info__new-price">{`${totalNewPrice} ${price?.currency}`}</p>
+            <p className="product-info__old-price">{`${totalOldPrice} ${price?.currency}`}</p>
           </div>
           {price && (
             <QuantitySelector
@@ -119,7 +107,7 @@ export const ProductInfoBlock: FC = () => {
               setError={setError}
             />
           )}
-          <CustomButton>
+          <CustomButton isDisabled={!!error?.length}>
             <img src={plus} alt="plus sign" />
             Add to cart
           </CustomButton>

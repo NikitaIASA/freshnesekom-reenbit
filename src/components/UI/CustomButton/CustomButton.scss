@@ -40,12 +40,13 @@
   }
 
   &--disabled {
-    background: var(--button-active);
+    background: $primary-color-300;
+    border-color: $primary-color-400;
     opacity: 0.7;
     cursor: initial;
 
     &:hover {
-      background: var(--button-active);
+      background: $primary-color-300;
     }
   }
 

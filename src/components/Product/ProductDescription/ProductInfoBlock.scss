@@ -69,9 +69,11 @@
       flex-direction: column;
       gap: 24px;
     }
+    
   }
 
   &__price-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -102,6 +104,8 @@
   }
 
   &__error-message {
+    position: absolute;
+    bottom: 0;
     font-weight: bold;
     color: $error-color;
   }

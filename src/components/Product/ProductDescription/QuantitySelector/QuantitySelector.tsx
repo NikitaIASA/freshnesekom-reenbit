@@ -1,6 +1,8 @@
-import { FC, useState, useRef, ChangeEvent } from "react";
+import { FC, useState, useRef, ChangeEvent, useEffect } from "react";
 
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
+import { handleKeyDown } from "@helpers/handleKeyDown";
+import { MIN_QUANTITY, INITIAL_QUANTITY, STEP_QUANTITY } from "@constants/priceValidation";
 import arrowDown from "@assets/images/arrow-down.svg";
 
 import "./QuantitySelector.scss";
@@ -21,37 +23,34 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
   setError,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const [quantity, setQuantity] = useState<string>(initialQuantity.toString());
+  const [quantity, setQuantity] = useState<number>(initialQuantity);
   const [selectedUnit, setSelectedUnit] = useState<string>(units[0]);
 
-  const validateQuantity = (qty: number): boolean => {
-    if (qty <= 0) {
-      setError(`Product sold in quantities of at least 1`);
-      return false;
+  const validateQuantity = (qty: number) => {
+    if (qty < 1 || isNaN(qty)) {
+      setError(`Product sold in quantities of at least 1 ${units[0]}`);
+      onQuantityChange(0, selectedUnit);
     } else if (qty > maxQuantity) {
       setError(`Max Product quantity: ${maxQuantity} ${units[0]}`);
-      return false;
+      onQuantityChange(0, selectedUnit);
     } else {
       setError(null);
-      return true;
     }
   };
 
-  const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newQuantityValue = event.target.value.replace(/[^0-9]/g, '');
-    setQuantity(newQuantityValue);
-  
-    const newQuantity = parseInt(newQuantityValue, 10);
-    const actualQuantity = onQuantityChange(newQuantity, selectedUnit);
+  useEffect(() => {
+    const actualQuantity = onQuantityChange(quantity, selectedUnit);
     validateQuantity(actualQuantity);
+  }, [quantity, selectedUnit, onQuantityChange]);
+
+  const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    setQuantity(newQuantity);
   };
 
   const handleUnitSelect = (unit: string) => {
     setSelectedUnit(unit);
     setIsDropdownOpen(false);
-    const actualQuantity = onQuantityChange(+quantity, unit);
-    validateQuantity(actualQuantity);
   };
 
   const dropdownRef = useRef(null);
@@ -61,10 +60,13 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
     <div className="quantity-selector">
       <input
         className="quantity-selector__input"
-        type="text"
-        value={quantity}
+        type="number"
+        onKeyDown={handleKeyDown}
+        value={quantity || ""}
         onChange={handleQuantityChange}
-        placeholder="0"
+        min={MIN_QUANTITY}
+        step={STEP_QUANTITY}
+        placeholder={INITIAL_QUANTITY.toString()}
       />
       {units && (
         <div
@@ -81,7 +83,7 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
           {isDropdownOpen && (
             <ul className="quantity-selector__dropdown-list">
               {units.map((unit) => (
-                <li key={unit} onClick={() => handleUnitSelect(unit)}>
+                <li key={`unit-${unit}`} onClick={() => handleUnitSelect(unit)}>
                   {unit}
                 </li>
               ))}
