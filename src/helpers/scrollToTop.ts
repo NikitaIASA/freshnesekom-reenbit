@@ -1,6 +1,6 @@
 export const scrollToTop = (
     elements: (HTMLElement | Window | null)[],
-    smooth: boolean = false // Default to false if not provided
+    smooth: boolean = false 
 ): void => {
     const behavior = smooth ? "smooth" : "auto";
 
