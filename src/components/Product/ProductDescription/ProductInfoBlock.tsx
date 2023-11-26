@@ -4,6 +4,7 @@ import { selectSelectedProduct } from "@store/selectors/productSelectors";
 import QuantitySelector from "./QuantitySelector";
 import CustomButton from "@components/UI/CustomButton";
 import { ButtonSizes, ButtonVariants } from "@appTypes/buttonTypes";
+import ProductTabs from "../ProductTabs";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
@@ -118,6 +119,7 @@ export const ProductInfoBlock: FC = () => {
         <img src={heart} alt="heart" />
         Add to my wish list
       </CustomButton>
+      <ProductTabs/>
     </div>
   );
 };

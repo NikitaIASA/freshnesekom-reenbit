@@ -1,0 +1,26 @@
+@import "@styles/colors.scss";
+
+.product-questions {
+  font-size: 16px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-height: 240px;
+    overflow: auto;
+    padding-right: 20px;
+  }
+
+  &__item {
+    padding: 5px 10px;
+    background: $secondary-color-200;
+    border: 1px solid $primary-color;
+    border-radius: 6px;
+  }
+
+  &__user {
+    font-weight: 600;
+  }
+  
+}
