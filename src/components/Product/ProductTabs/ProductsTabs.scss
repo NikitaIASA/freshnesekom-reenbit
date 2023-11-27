@@ -27,7 +27,6 @@
     @include onSmall-Mobile {
       font-size: 14px;
     }
-    
 
     &.active {
       &::after {
@@ -40,6 +39,11 @@
         background-color: $primary-color;
       }
     }
+  }
+
+  &__content {
+    height: 260px;
+    overflow: auto;
   }
 
   &__count {

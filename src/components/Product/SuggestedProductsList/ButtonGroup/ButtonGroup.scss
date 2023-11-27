@@ -1,0 +1,32 @@
+.suggested-products {
+
+  &__top-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding: 0 20px;
+
+  }
+
+  &__more-products-block {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  &__arrow-image {
+    cursor: pointer;
+
+    &.arrow-left {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__more-products-title {
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+}
