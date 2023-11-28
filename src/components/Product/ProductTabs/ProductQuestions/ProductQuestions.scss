@@ -18,7 +18,18 @@
   }
 
   &__user {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
     font-weight: 600;
   }
-  
+
+  &__question {
+    word-break: break-word;
+  }
+
+  &__answer {
+    word-break: break-word;
+  }
 }
