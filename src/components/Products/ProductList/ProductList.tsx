@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import ProductCard from "../ProductCard";
 import NoProductsFound from "../NoProductsFound";
-import { ProductSkeleton } from "@components/Products/ProductSkeleton/ProductSkeleton";
+import ProductsSkeleton from "../ProductSkeleton";
 import { STATUSES } from "@constants/statuses";
 import { PRODUCTS_SKELETON_COUNT } from "@constants/elementsCount";
 import { useAppSelector } from "@hooks/useAppSelector";
@@ -20,7 +20,7 @@ export const ProductList: FC<ProductListProps> = ({status }) => {
   const selectedCategory = useAppSelector(selectCategory);
 
   const skeletons = [...new Array(PRODUCTS_SKELETON_COUNT)].map((_, index) => (
-    <ProductSkeleton key={index} />
+    <ProductsSkeleton key={index} />
   ));
 
   const shownProducts = useAppSelector(selectShownProducts)

@@ -1,0 +1,83 @@
+@import "@styles/breakpoints.scss";
+@import "@styles/colors.scss";
+@import "@styles/skeleton.scss";
+
+.product-skeleton {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  @include onBig-tablet {
+      display: flex;
+      flex-direction: column;
+  }
+
+  &__images {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+  &__main-image {
+    @include skeleton-style(100%, 280px);
+
+    @include onBig-tablet {
+
+    }
+  }
+
+  &__additional-images {
+    display: flex;
+    gap: 24px;
+  }
+
+  &__additional-image {
+    @include skeleton-style(100%, 218px);
+  }
+
+  &__information {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__title {
+    @include skeleton-style(240px, 20px);
+  }
+
+  &__reviews {
+    @include skeleton-style(120px, 20px);
+  }
+
+  &__description {
+    @include skeleton-style(100%, 150px);
+  }
+
+  &__details {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+
+    @include onMobile {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  &__details-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  &__details-item {
+    @include skeleton-style(100%, 20px);
+
+    @include onMobile {
+      width: 100%;
+    }
+
+  }
+  
+}

@@ -1,0 +1,62 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  border: 1px solid $primary-color-200;
+  background: $primary-color-100;
+  padding: 14px 16px;
+  position: relative;
+  max-width: 150px;
+  width: 100%;
+
+  @include onMobile {
+    justify-content: space-between;
+    max-width: none;
+  }
+
+  &__input {
+    width: 40px;
+    border: none;
+    outline: none;
+    background: inherit;
+  }
+
+  &__dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    background: inherit;
+
+    &::before {
+      content: "|";
+      margin-right: 20px;
+      color: $primary-color-200;
+    }
+  }
+
+  &__dropdown-list {
+    border: 1px solid $primary-color-200;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    background: $white;
+  }
+
+  &__dropdown-item {
+    width: 80px;
+    padding: 10px 15px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary-color;
+    }
+
+  }
+
+}

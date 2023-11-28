@@ -1,0 +1,65 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.custom-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 12px;
+  transition: 0.2s linear;
+  cursor: pointer;
+
+  @include onMobile {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &--primary {
+    border: 2px solid $secondary-color-400;
+    background: $secondary-color;
+
+    &:hover {
+      background: $secondary-color-400;
+      border-color: $secondary-color;
+    }
+  }
+
+  &--secondary {
+    border: none;
+    background: $primary-color-50;
+    color: $black;
+
+    &:hover {
+      background: $primary-color-200;
+    }
+  }
+
+  &--disabled {
+    background: $primary-color-300;
+    border-color: $primary-color-400;
+    opacity: 0.7;
+    cursor: initial;
+
+    &:hover {
+      background: $primary-color-300;
+    }
+  }
+
+  &--small {
+    padding: 6px 12px;
+  }
+
+  &--medium {
+    padding: 12px 16px;
+  }
+
+  &--large {
+    font-size: 20px;
+    padding: 20px 40px;
+  }
+}

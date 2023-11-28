@@ -24,6 +24,8 @@ interface ProductsState {
     currentPage: number;
     itemsPerPageByPage: ItemsPerPageByPage;
     shownProducts: IProduct[];
+    selectedProduct: IProduct | null;
+    selectedProductStatus: STATUSES;
 }
 
 const initialState: ProductsState = {
@@ -39,6 +41,8 @@ const initialState: ProductsState = {
     currentPage: 1,
     itemsPerPageByPage: { 1: 5 },
     shownProducts: [],
+    selectedProduct: null,
+    selectedProductStatus: STATUSES.LOADING,
 };
 
 const productsSlice = createSlice({
@@ -135,6 +139,17 @@ const productsSlice = createSlice({
             })
             .addCase(productServices.getProducts.rejected, (state, action) => {
                 state.status = STATUSES.FAILED;
+                state.error = action.payload as string;
+            })
+            .addCase(productServices.getOneProduct.pending, (state) => {
+                state.selectedProductStatus = STATUSES.LOADING;
+            })
+            .addCase(productServices.getOneProduct.fulfilled, (state, action) => {
+                state.selectedProductStatus = STATUSES.SUCCEEDED;
+                state.selectedProduct = action.payload;
+            })
+            .addCase(productServices.getOneProduct.rejected, (state, action) => {
+                state.selectedProductStatus = STATUSES.FAILED;
                 state.error = action.payload as string;
             });
     },
