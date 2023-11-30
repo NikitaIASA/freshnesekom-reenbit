@@ -6,7 +6,7 @@ import { IProduct } from "@appTypes/products";
 import { ROUTE_PATHS } from "@constants/routePaths";
 import arrowRight from "@assets/images/arrow-right.svg";
 import heart from "@assets/images/heart.svg";
-import { ButtonVariants, ButtonSizes} from "@appTypes/buttonTypes";
+import { ButtonVariants, ButtonSizes } from "@appTypes/buttonTypes";
 
 import "./ProductCard.scss";
 import CustomButton from "@components/UI/CustomButton";
@@ -84,20 +84,15 @@ export const ProductCard: FC<ProductListProps> = ({ product }) => {
           </div>
           <div className="product-card__buttons">
             <Link to={`${ROUTE_PATHS.PRODUCTS}/${id}`}>
-              {/* <button className="product-card__details-button">
-                <p>Product Detail</p>
-                <img src={arrowRight} alt="arrow" />
-              </button> */}
               <CustomButton>
                 <p>Product Detail</p>
                 <img src={arrowRight} alt="arrow" />
               </CustomButton>
             </Link>
-            {/* <button className="product-card__wish-button">
-              <img src={heart} alt="heart" />
-              <p>Add to wish list</p>
-            </button> */}
-            <CustomButton variant={ButtonVariants.SECONDARY} size={ButtonSizes.SMALL}>
+            <CustomButton
+              variant={ButtonVariants.SECONDARY}
+              size={ButtonSizes.SMALL}
+            >
               <img src={heart} alt="heart" />
               <p>Add to wish list</p>
             </CustomButton>

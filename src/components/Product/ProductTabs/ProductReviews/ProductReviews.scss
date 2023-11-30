@@ -7,7 +7,6 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    padding-right: 20px;
   }
 
   &__item {
@@ -25,12 +24,17 @@
   }
 
   &__user {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
     font-size: 16px;
     font-weight: 600;
   }
 
   &__comment {
     font-size: 16px;
+    word-break: break-word;
   }
 
 }
