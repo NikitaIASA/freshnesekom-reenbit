@@ -1,0 +1,34 @@
+@import "@styles/colors.scss";
+
+.product-questions {
+  font-size: 16px;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__item {
+    padding: 5px 10px;
+    background: $secondary-color-200;
+    border: 1px solid $primary-color;
+    border-radius: 6px;
+  }
+
+  &__user {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    font-weight: 600;
+  }
+
+  &__question {
+    word-break: break-word;
+  }
+
+  &__answer {
+    word-break: break-word;
+  }
+}

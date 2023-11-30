@@ -1,0 +1,24 @@
+@import "@styles/colors.scss";
+
+.product-description {
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    color: $primary-color;
+  }
+
+  &__title {
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    word-break: break-word;
+  }
+
+  &__text {
+    word-break: break-word;
+  }
+
+}
