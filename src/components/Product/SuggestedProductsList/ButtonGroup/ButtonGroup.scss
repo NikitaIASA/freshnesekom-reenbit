@@ -1,5 +1,4 @@
 .suggested-products {
-
   &__top-block {
     display: flex;
     align-items: center;
@@ -19,6 +18,7 @@
     &.arrow-left {
       transform: rotate(180deg);
     }
+
   }
 
   &__more-products-title {

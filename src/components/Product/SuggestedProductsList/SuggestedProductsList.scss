@@ -10,6 +10,11 @@
     font-family: Poppins;
     font-size: 18px;
     font-weight: 600;
+
+    @include onSmall-Mobile {
+      font-size: 14px;
+    } 
+
   }
 
   &__more-products {
@@ -19,6 +24,7 @@
     font-family: Poppins;
     font-size: 15px;
     font-weight: 700;
+    text-align: center;
   }
 
   &__button {
