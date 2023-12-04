@@ -11,14 +11,14 @@ export const ButtonGroup: FC = ({ next, previous }: ButtonGroupProps) => {
       <h2 className="suggested-products__title">You will maybe love</h2>
       <div className="suggested-products__more-products-block">
         <img
-          onClick={() => next?.()}
+          onClick={() => previous?.()}
           className="suggested-products__arrow-image arrow-left"
           src={arrow}
           alt="arrow"
         />
         <p className="suggested-products__more-products-title">More products</p>
         <img
-          onClick={() => previous?.()}
+          onClick={() => next?.()}
           className="suggested-products__arrow-image"
           src={arrow}
           alt="arrow"
