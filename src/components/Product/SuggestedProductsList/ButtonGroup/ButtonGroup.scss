@@ -14,6 +14,8 @@
 
   &__arrow-image {
     cursor: pointer;
+    width: 18px;
+    height: 100%;
 
     &.arrow-left {
       transform: rotate(180deg);
