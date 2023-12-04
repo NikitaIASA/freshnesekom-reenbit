@@ -1,3 +1,5 @@
+@import "@styles/breakpoints.scss";
+
 .suggested-products {
   &__top-block {
     display: flex;
@@ -27,6 +29,11 @@
     font-family: Poppins;
     font-size: 15px;
     font-weight: 700;
+
+    @include onSmall-Mobile {
+      font-size: 13px;
+    } 
+
   }
 
 }
