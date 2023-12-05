@@ -1,0 +1,44 @@
+@import "@styles/colors.scss";
+
+.confirmation-block {
+  margin-bottom: 32px;
+
+  &__title {
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+
+  }
+
+  &__details {
+    color: $primary-color-300;
+    margin-bottom: 32px;
+  }
+
+  &__agreement-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__agreement-item {
+    position: relative;
+    display: flex;
+    padding: 9px 16px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+    cursor: pointer;
+  }
+
+  &__error {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    color: $error-color;
+  }
+
+}

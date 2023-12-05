@@ -4,6 +4,7 @@ import { HomePage } from '@pages/HomePage';
 import { ProductsPage } from '@pages/ProductsPage';
 import { ProductPage } from '@pages/ProductPage';
 import { NotFoundPage } from '@pages/NotFoundPage';
+import { CheckoutPage } from '@pages/CheckoutPage';
 import { ROUTE_PATHS } from '@constants/routePaths';
 
 interface RouteItem {
@@ -24,6 +25,10 @@ export const routes: RouteItem[] = [
     {
         path: ROUTE_PATHS.PRODUCT,
         Element: ProductPage,
+    },
+    {
+        path: ROUTE_PATHS.CHECKOUT,
+        Element: CheckoutPage,
     },
     {
         path: ROUTE_PATHS.NOT_FOUND,

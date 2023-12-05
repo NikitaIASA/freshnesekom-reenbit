@@ -1,0 +1,71 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.billing-info {
+  margin-bottom: 64px;
+  
+  &__title {
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__details {
+    color: $primary-color-300;
+    margin-bottom: 32px;
+  }
+
+  &__inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    @include onMobile {
+      display: flex;
+      flex-direction: column;
+    }
+    
+  }
+
+  &__input-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 11px 16px 12px 21px;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+    color: $primary-color-300;
+    outline: none;
+
+    &_disabled {
+      background: $primary-color-200;
+      cursor: not-allowed;
+    }
+  }
+
+  &__arrows {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+  }
+
+  .billing-info__error {
+    position: absolute;
+    bottom: -20px;
+    color: $error-color;
+  }
+
+}

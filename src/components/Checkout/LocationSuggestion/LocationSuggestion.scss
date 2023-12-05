@@ -1,0 +1,24 @@
+@import "@styles/colors.scss";
+
+.location-suggestion {
+  position: absolute;
+  top: 58px;
+  width: 100%;
+  background: $primary-color-100;
+  z-index: 1;
+  max-height: 165px;
+  overflow: auto;
+
+  &__item {
+    padding: 6px 12px;
+    border: 1px solid $primary-color-300;
+    cursor: pointer;
+    transition: 0.2s linear;
+
+    &:hover {
+      background: $primary-color-200;
+    }
+
+  }
+  
+}

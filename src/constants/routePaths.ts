@@ -2,6 +2,6 @@ export const enum ROUTE_PATHS {
     HOME = "/",
     PRODUCTS = "/products",
     PRODUCT = "/products/:product",
-    CART = "/cart",
+    CHECKOUT = "/checkout",
     NOT_FOUND = "*"
 }

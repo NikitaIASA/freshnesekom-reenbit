@@ -1,10 +1,10 @@
-import axios from '@core/axios';
+import { productInstance } from '@core/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/products';
 
 export const getProductsService = async () => {
     try {
-        const { data } = await axios.get("/products");
+        const { data } = await productInstance.get("/products");
         return data;
     } catch (error) {
         throw new Error('Network error occurred');
@@ -13,7 +13,7 @@ export const getProductsService = async () => {
 
 export const getOneProductService = async (id: string) => {
     try {
-        const { data } = await axios.get(`/products/${id}`);
+        const { data } = await productInstance.get(`/products/${id}`);
         return data;
     } catch (error) {
         throw new Error('Network error occurred');
@@ -32,6 +32,7 @@ export const getProducts = createAsyncThunk<IProduct[], void, { rejectValue: str
         }
     },
 );
+
 export const getOneProduct = createAsyncThunk<IProduct, string, { rejectValue: string }>(
     'products/getOneProduct',
     async (id, { rejectWithValue }) => {

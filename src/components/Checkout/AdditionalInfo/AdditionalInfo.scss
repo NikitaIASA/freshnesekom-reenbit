@@ -1,0 +1,39 @@
+@import "@styles/colors.scss";
+
+.additional-info {
+  margin-bottom: 64px;
+
+  &__textarea {
+    width: 100%;
+    padding: 11px 16px 82px 21px;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+    color: $primary-color-300;
+    outline: none;
+    font-family: Poppins;
+  }
+
+  &__label {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__title {
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__details {
+    color: $primary-color-300;
+    margin-bottom: 32px;
+  }
+
+  &__error {
+    position: absolute;
+    color: $error-color;
+  }
+}

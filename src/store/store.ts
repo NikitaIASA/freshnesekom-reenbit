@@ -1,30 +1,27 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
 import productsReducer from '@store/reducers/productSlice';
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
+import locationAutocompleteSliceReducer from '@store/reducers/locationAutocompleteSlice'; 
+import cartSliceReducer from '@store/reducers/cartSlice';
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['selectedCategory', 'selectedBrands', "selectedRatings", "sortBy", "currentPage", "itemsPerPageByPage"]
+    whitelist: ['products', 'cart'] 
 };
 
-const persistedReducer = persistReducer(persistConfig, productsReducer);
+const rootReducer = combineReducers({
+  products: productsReducer,
+  locationAutocomplete: locationAutocompleteSliceReducer,
+  cart: cartSliceReducer
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    products: persistedReducer,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
