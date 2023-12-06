@@ -1,0 +1,44 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.suggested-products {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0;
+
+  &__title {
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+
+    @include onSmall-Mobile {
+      font-size: 13px;
+    } 
+
+  }
+
+  &__more-products {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__button {
+    @include onMobile {
+      width: auto;
+    }
+  }
+}
+
+.react-multi-carousel-list {
+  order: 1;
+}
+
+.react-multi-carousel-item {
+    display: flex;
+    justify-content: center;
+}
