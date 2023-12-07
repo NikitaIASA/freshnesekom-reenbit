@@ -1,40 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface CartFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    address: string;
-    country: string;
-    city: string;
-    zip: string;
-}
+import { ICartFormData } from '@appTypes/cartForm';
+import { DEFAULT_CART_FORM } from '@constants/defaultCartForm';
 
 interface cartState {
-    CartFormData: CartFormData;
+    CartFormData: ICartFormData;
 }
 
 const initialState: cartState = {
-    CartFormData: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        address: '',
-        country: '',
-        city: '',
-        zip: '',
-    }
+    CartFormData: DEFAULT_CART_FORM,
 };
 
 export const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        updateField: (state, action: PayloadAction<{ field: keyof CartFormData, value: string }>) => {
+        updateField: (state, action: PayloadAction<{ field: keyof ICartFormData, value: string | boolean }>) => {
             const { field, value } = action.payload;
-            state.CartFormData[field] = value;
+            (state.CartFormData[field] as any) = value;
         },
         resetCartForm: (state) => {
             state.CartFormData = initialState.CartFormData;

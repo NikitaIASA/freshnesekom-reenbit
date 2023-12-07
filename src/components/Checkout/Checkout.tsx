@@ -1,10 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { RootState } from "@store/store";
 
 import { useAppSelector } from "@hooks/useAppSelector";
-import CreateCartSchema from "../../schemas/cartSchema";
+import CreateCartSchema from "@schemas/cartSchema";
 import BillingInfo from "./BillingInfo";
 import AdditionalInfo from "./AdditionalInfo";
 import ConfirmationBlock from "./ConfirmationBlock";
@@ -16,57 +15,36 @@ import {
 } from "@store/selectors/locationAutoCompleteSelectors";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { resetCartForm } from "@store/reducers/cartSlice";
-import { useNavigate } from "react-router-dom";
+import FormSuccessMessage from "./FormSuccessMessage";
+import { DEFAULT_CART_FORM } from "@constants/defaultCartForm";
+import { ICartFormData } from "@appTypes/cartForm";
+import { selectCartFormData } from "@store/selectors/cartSelectors";
 
 import "./Checkout.scss";
 
-interface IFormInput {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  address: string;
-  country: string;
-  city: string;
-  zip: string;
-}
-
 export const Checkout: FC = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const countries = useAppSelector(selectAutoCompleteCountries);
   const cities = useAppSelector(selectAutoCompleteCities);
+  const cartData = useAppSelector(selectCartFormData);
+  const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false);
   const cartSchema = CreateCartSchema(countries, cities);
-  const cartData = useAppSelector(
-    (state: RootState) => state.cart.CartFormData
-  );
 
-  const defaultValues = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    country: "",
-    city: "",
-    zip: "",
-  };
-
-  const methods = useForm<IFormInput>({
+  const methods = useForm<ICartFormData>({
     resolver: yupResolver(cartSchema),
     mode: "all",
-    defaultValues: cartData || defaultValues,
+    defaultValues: cartData || DEFAULT_CART_FORM,
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    alert(
-      "(TEST ALERT) Your form is successfully sent. You can check entered data in console"
-    );
-    console.log(data);
+  const onSubmit: SubmitHandler<ICartFormData> = () => {
     dispatch(resetCartForm());
-    methods.reset(defaultValues);
-    navigate("/products");
+    methods.reset(DEFAULT_CART_FORM);
+    setIsSubmittedSuccessfully(true);
   };
+
+  if (isSubmittedSuccessfully) {
+    return <FormSuccessMessage />;
+  }
 
   return (
     <div className="checkout">

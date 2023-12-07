@@ -1,5 +1,4 @@
 import { FC, useState, useEffect, useRef, ChangeEvent } from "react";
-import clsx from "clsx";
 import { useFormContext } from "react-hook-form";
 
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -10,8 +9,19 @@ import {
 } from "@store/services/locationAutoCompleteServices";
 import { LocationSuggestion } from "../LocationSuggestion/LocationSuggestion";
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
-import { selectAutoCompleteCities, selectAutoCompleteCountries } from "@store/selectors/locationAutoCompleteSelectors";
+import {
+  selectAutoCompleteCities,
+  selectAutoCompleteCountries,
+} from "@store/selectors/locationAutoCompleteSelectors";
+import { ICartFormData } from "@appTypes/cartForm";
 import { updateField } from "@store/reducers/cartSlice";
+import CustomInput from "@components/UI/CustomInput";
+import {
+  CHECKOUT_NAMES,
+  CHECKOUT_LABELS,
+  CHECKOUT_PLACEHOLDERS,
+} from "@constants/checkoutForm";
+import { sortByQuery } from "@helpers/sortByQuery";
 import arrows from "@assets/images/double-arrows.svg";
 
 import "./BillingInfo.scss";
@@ -25,7 +35,7 @@ export const BillingInfo: FC = () => {
     formState: { errors },
     setValue,
     trigger,
-    watch
+    watch,
   } = useFormContext();
 
   const [isCountryListOpened, setIsCountryListOpened] =
@@ -33,26 +43,21 @@ export const BillingInfo: FC = () => {
   const [isCityListOpened, setIsCityListOpened] = useState<boolean>(false);
   const [selectedCountry, setSelectedCountry] = useState<string>("");
 
-  const watchedCountry = watch("country"); 
-  const watchedCity = watch("city");
-  
+  const watchedCountry = watch(CHECKOUT_NAMES.country);
+  const watchedCity = watch(CHECKOUT_NAMES.city);
+
   // Filtering countries and cities for dropdown based on entered data
-  const filteredCountries = countries.filter((country) =>
-    country.toLowerCase().includes(watchedCountry?.toLowerCase() || "")
-  );
-  const filteredCities = cities.filter((city) =>
-    city.toLowerCase().includes(watchedCity?.toLowerCase() || "")
-  );
+  const filteredCountries = sortByQuery(countries, watchedCountry);
+  const filteredCities = sortByQuery(cities, watchedCity);
 
   // Check for disabled input for city selection
-  const isCityInputDisabled =
-    !!selectedCountry === false || !countries.includes(watchedCountry);
+  const isCityInputDisabled = !!selectedCountry === false || !countries.includes(watchedCountry);
 
   // Cleaning the city with an incorrectly given country
   // If isCityInputDisabled, then clear the city field
   useEffect(() => {
     if (isCityInputDisabled) {
-      setValue("city", "");
+      setValue(CHECKOUT_NAMES.city, "");
     }
   }, [isCityInputDisabled]);
 
@@ -60,25 +65,40 @@ export const BillingInfo: FC = () => {
   const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setIsCountryListOpened(!!value);
-    setValue("country", value);
-    trigger("country");
+    setValue(CHECKOUT_NAMES.country, value);
+    trigger(CHECKOUT_NAMES.country);
     if (countries.includes(value)) {
       setSelectedCountry(value);
     }
+    dispatch(
+      updateField({ field: CHECKOUT_NAMES.country as keyof ICartFormData, value })
+    );
   };
 
   // Handlings country selection from a drop-down list
   const handleCountrySelect = (country: string) => {
     setSelectedCountry(country);
-    setValue("country", country);
-    trigger("country");
+    setValue(CHECKOUT_NAMES.country, country);
+    trigger(CHECKOUT_NAMES.country);
+    dispatch(
+      updateField({
+        field: CHECKOUT_NAMES.country as keyof ICartFormData,
+        value: country,
+      })
+    );
     setIsCountryListOpened(false);
   };
 
   // Handlings city selection from a drop-down list
   const handleCitySelect = (city: string) => {
-    setValue("city", city);
-    trigger("city");
+    setValue(CHECKOUT_NAMES.city, city);
+    trigger(CHECKOUT_NAMES.city);
+    dispatch(
+      updateField({
+        field: CHECKOUT_NAMES.city as keyof ICartFormData,
+        value: city,
+      })
+    );
     setIsCityListOpened(false);
   };
 
@@ -86,15 +106,18 @@ export const BillingInfo: FC = () => {
   const handleCityChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setIsCityListOpened(!!value);
-    setValue("city", value);
-    trigger("city");
+    setValue(CHECKOUT_NAMES.city, value);
+    trigger(CHECKOUT_NAMES.city);
+    dispatch(
+      updateField({ field: CHECKOUT_NAMES.city as keyof ICartFormData, value })
+    );
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    dispatch(updateField({ field: name, value }));
+    dispatch(updateField({ field: name as keyof ICartFormData, value }));
   };
- 
+
   // Fetching cities if correct country is selected
   useEffect(() => {
     if (selectedCountry) {
@@ -102,7 +125,7 @@ export const BillingInfo: FC = () => {
     }
   }, [selectedCountry, dispatch]);
 
-  // Fetching countries 
+  // Fetching countries
   useEffect(() => {
     dispatch(getCountries());
   }, []);
@@ -125,91 +148,48 @@ export const BillingInfo: FC = () => {
         <p className="billing-info__details">Please enter your billing info</p>
       </div>
       <div className="billing-info__inputs">
-        <div className="billing-info__input-group">
-          <label className="billing-info__label" htmlFor="firstName">
-            First name
-          </label>
+        <CustomInput
+          name={CHECKOUT_NAMES.firstName}
+          label={CHECKOUT_LABELS.firstName}
+          placeholder={CHECKOUT_PLACEHOLDERS.firstName}
+          register={register}
+          errors={errors}
+          onChange={handleChange}
+        />
+        <CustomInput
+          name={CHECKOUT_NAMES.lastName}
+          label={CHECKOUT_LABELS.lastName}
+          placeholder={CHECKOUT_PLACEHOLDERS.lastName}
+          register={register}
+          errors={errors}
+          onChange={handleChange}
+        />
+        <CustomInput
+          name={CHECKOUT_NAMES.email}
+          label={CHECKOUT_LABELS.email}
+          placeholder={CHECKOUT_PLACEHOLDERS.email}
+          register={register}
+          errors={errors}
+          onChange={handleChange}
+        />
+        <CustomInput
+          name={CHECKOUT_NAMES.phone}
+          label={CHECKOUT_LABELS.phone}
+          placeholder={CHECKOUT_PLACEHOLDERS.phone}
+          register={register}
+          errors={errors}
+          onChange={handleChange}
+        />
 
-          <input
-            className="billing-info__input"
-            id="firstName"
-            {...register("firstName")}
-            placeholder="First name"
-            onChange={handleChange}
-          />
-
-          {errors.firstName && (
-            <p className="billing-info__error">{`${errors.firstName.message}`}</p>
-          )}
-        </div>
-
-        <div className="billing-info__input-group">
-          <label className="billing-info__label" htmlFor="lastName">
-            Last name
-          </label>
-
-          <input
-            className="billing-info__input"
-            id="lastName"
-            {...register("lastName")}
-            placeholder="Last name"
-            onChange={handleChange}
-          />
-
-          {errors.lastName && (
-            <p className="billing-info__error">{`${errors.lastName.message}`}</p>
-          )}
-        </div>
-
-        <div className="billing-info__input-group">
-          <label className="billing-info__label" htmlFor="email">
-            Email address
-          </label>
-          <input
-            className="billing-info__input"
-            id="email"
-            type="email"
-            {...register("email")}
-            placeholder="Email address"
-            onChange={handleChange}
-          />
-          {errors.email && (
-            <p className="billing-info__error">{`${errors.email.message}`}</p>
-          )}
-        </div>
-
-        <div className="billing-info__input-group">
-          <label className="billing-info__label" htmlFor="phone">
-            Phone number
-          </label>
-          <input
-            className="billing-info__input"
-            id="phone"
-            type="tel"
-            {...register("phone", { required: "Phone number is required" })}
-            placeholder="Phone number"
-            onChange={handleChange}
-          />
-          {errors.phone && (
-            <p className="billing-info__error">{`${errors.phone.message}`}</p>
-          )}
-        </div>
-
-        <div className="billing-info__input-group" ref={countriesRef}>
-          <label className="billing-info__label" htmlFor="country">
-            Country
-          </label>
-
-          <input
-            className="billing-info__input"
-            placeholder="Choose a state or Country"
-            id="country"
-            // value={searchedCountry}
-            autoComplete="off"
-            {...register("country")}
+        <div className="input-container" ref={countriesRef}>
+          <CustomInput
+            name={CHECKOUT_NAMES.country}
+            label={CHECKOUT_LABELS.country}
+            placeholder={CHECKOUT_PLACEHOLDERS.country}
+            register={register}
+            errors={errors}
             onChange={handleCountryChange}
-          ></input>
-
+          />
           <div
             className="billing-info__arrows"
             onClick={() => setIsCountryListOpened(!isCountryListOpened)}
@@ -222,25 +202,17 @@ export const BillingInfo: FC = () => {
               onSelect={handleCountrySelect}
             />
           )}
-          {errors.country && (
-            <p className="billing-info__error">{`${errors.country.message}`}</p>
-          )}
         </div>
 
-        <div className="billing-info__input-group" ref={citiesRef}>
-          <label className="billing-info__label" htmlFor="city">
-            Town / City
-          </label>
-          <input
-            className={clsx("billing-info__input", {
-              "billing-info__input_disabled": isCityInputDisabled,
-            })}
-            id="city"
-            disabled={isCityInputDisabled}
-            autoComplete="off"
-            {...register("city")}
-            placeholder="Town or city"
+        <div className="input-container" ref={citiesRef}>
+          <CustomInput
+            name={CHECKOUT_NAMES.city}
+            label={CHECKOUT_LABELS.city}
+            placeholder={CHECKOUT_PLACEHOLDERS.city}
+            register={register}
+            errors={errors}
             onChange={handleCityChange}
+            disabled={!selectedCountry || !countries.includes(watchedCountry)}
           />
           {!isCityInputDisabled && (
             <div
@@ -257,43 +229,22 @@ export const BillingInfo: FC = () => {
               onSelect={handleCitySelect}
             />
           )}
-
-          {errors.city && (
-            <p className="billing-info__error">{`${errors.city.message}`}</p>
-          )}
         </div>
 
-        <div className="billing-info__input-group">
-          <label className="billing-info__label" htmlFor="address">
-            Address
-          </label>
-          <input
-            className="billing-info__input"
-            id="address"
-            {...register("address")}
-            placeholder="Address"
-            onChange={handleChange}
-          />
-          {errors.address && (
-            <p className="billing-info__error">{`${errors.address.message}`}</p>
-          )}
-        </div>
-
-        <div className="billing-info__input-group">
-          <label className="billing-info__label" htmlFor="zip">
-            ZIP/Postal code
-          </label>
-          <input
-            className="billing-info__input"
-            id="zip"
-            {...register("zip")}
-            placeholder="Postal code or ZIP"
-            onChange={handleChange}
-          />
-          {errors.zip && (
-            <p className="billing-info__error">{`${errors.zip.message}`}</p>
-          )}
-        </div>
+        <CustomInput
+          name={CHECKOUT_NAMES.address}
+          label={CHECKOUT_LABELS.address}
+          placeholder={CHECKOUT_PLACEHOLDERS.address}
+          register={register}
+          errors={errors}
+        />
+        <CustomInput
+          name={CHECKOUT_NAMES.zip}
+          label={CHECKOUT_LABELS.zip}
+          placeholder={CHECKOUT_PLACEHOLDERS.zip}
+          register={register}
+          errors={errors}
+        />
       </div>
     </div>
   );

@@ -57,6 +57,7 @@ const CreateCartSchema = (countries: string[], cities: string[]) => {
             .notRequired(),
         agreeToTermsAndPrivacy: yup
             .boolean()
+            .required()
             .oneOf([true], 'You must accept the terms and conditions'),
     });
 }

@@ -11,7 +11,8 @@
       "@store/*": ["src/store/*"],
       "@styles/*": ["src/styles/*"],
       "@appTypes/*": ["src/types/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@schemas/*": ["src/schemas/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
