@@ -6,6 +6,7 @@ import { selectSelectedProduct } from "@store/selectors/productSelectors";
 import ProductDescriptionTab from "./ProductDescriptionTab";
 import ProductReviews from "./ProductReviews";
 import ProductQuestions from "./ProductQuestions";
+import { scrollToTop } from "@helpers/scrollToTop";
 
 import "./ProductsTabs.scss";
 
@@ -32,13 +33,19 @@ export const ProductTabs: FC = () => {
     setActiveTab(tabConfigs[0].name);
   }, []);
 
+  const handleTabChange = (tabName: string) => {
+    const tabContent = document.querySelector(".product-tabs__content") as HTMLElement | null;
+    setActiveTab(tabName);
+    scrollToTop([tabContent]);
+  };
+
   return (
     <div className="product-tabs">
       <ul className="product-tabs__headers">
         {tabConfigs.map((tab) => (
           <li
             key={`tab-${tab.name}`}
-            onClick={() => setActiveTab(tab.name)}
+            onClick={() => handleTabChange(tab.name)}
             className={clsx("product-tabs__item", { active: activeTab === tab.name })}
           >
             {tab.name}
