@@ -1,5 +1,10 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+
+import { useAppDispatch } from "@hooks/useAppDispatch";
+import { ICartFormData } from "@appTypes/cartForm";
+import { updateField } from "@store/reducers/cartSlice";
+import { CHECKOUT_NAMES } from "@constants/checkoutForm";
 
 import checkedMark from "@assets/images/checked-mark.svg";
 import uncheckedMark from "@assets/images/unchecked-mark.svg";
@@ -7,15 +12,23 @@ import uncheckedMark from "@assets/images/unchecked-mark.svg";
 import "./ConfirmationBlock.scss";
 
 export const ConfirmationBlock: FC = () => {
+  const dispatch = useAppDispatch();
   const {
     register,
     watch,
-    setValue,
     formState: { errors },
   } = useFormContext();
 
-  const agreeToMarketing = watch("agreeToMarketing");
-  const agreeToTermsAndPrivacy = watch("agreeToTermsAndPrivacy");
+  const agreeToMarketing = watch(CHECKOUT_NAMES.agreeToMarketing);
+  const agreeToTermsAndPrivacy = watch(CHECKOUT_NAMES.agreeToTermsAndPrivacy);
+
+  useEffect(() => {
+    dispatch(updateField({ field: CHECKOUT_NAMES.agreeToMarketing as keyof ICartFormData, value: agreeToMarketing }));
+  }, [agreeToMarketing, dispatch]);
+
+  useEffect(() => {
+    dispatch(updateField({ field: CHECKOUT_NAMES.agreeToTermsAndPrivacy as keyof ICartFormData, value: agreeToTermsAndPrivacy }));
+  }, [agreeToTermsAndPrivacy, dispatch]);
 
   return (
     <div className="confirmation-block">
@@ -32,7 +45,7 @@ export const ConfirmationBlock: FC = () => {
             type="checkbox"
             className="customCheckbox__input"
             checked={agreeToMarketing}
-            {...register("agreeToMarketing")}
+            {...register(CHECKOUT_NAMES.agreeToMarketing)}
           />
           <img
             className="customCheckbox__icon"
@@ -53,7 +66,7 @@ export const ConfirmationBlock: FC = () => {
             type="checkbox"
             className="customCheckbox__input"
             checked={agreeToTermsAndPrivacy}
-            {...register("agreeToTermsAndPrivacy")}
+            {...register(CHECKOUT_NAMES.agreeToTermsAndPrivacy)}
           />
           <img
             className="customCheckbox__icon"

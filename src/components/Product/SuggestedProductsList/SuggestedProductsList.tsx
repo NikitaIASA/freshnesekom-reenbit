@@ -6,9 +6,9 @@ import {
   selectProducts,
   selectSelectedProduct,
 } from "@store/selectors/productSelectors";
+import { responsiveCarousel } from "@constants/breakpoints";
 import SuggestedProduct from "../SuggestedProduct";
 import ButtonGroup from "./ButtonGroup";
-import { responsiveCarousel } from "@constants/breakpoints";
 
 import "react-multi-carousel/lib/styles.css";
 import "./SuggestedProductsList.scss";
@@ -31,8 +31,6 @@ export const SuggestedProductsList: FC = () => {
         draggable={false}
         arrows={false}
         renderButtonGroupOutside={true}
-        // eslint-disable-next-line
-        // @ts-expect-error
         customButtonGroup={<ButtonGroup />}
       >
         {suggestedProducts?.map((product) => (

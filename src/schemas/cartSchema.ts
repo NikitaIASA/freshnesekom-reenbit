@@ -6,13 +6,13 @@ const CreateCartSchema = (countries: string[], cities: string[]) => {
             .string()
             .matches(/^[A-Za-z ]*$/, { message: "First name must not contain special symbols" })
             .required('Fist name is required')
-            .min(2, 'Entered at least 2 characters')
+            .min(2, 'Enter at least 2 characters')
             .max(16, 'Maximum allowed 16 characters'),
         lastName: yup
             .string()
             .matches(/^[A-Za-z ]*$/, { message: "Last name must not contain special symbols" })
             .required('Last name is required')
-            .min(2, 'Entered at least 2 characters')
+            .min(2, 'Enter at least 2 characters')
             .max(16, 'Maximum allowed 16 characters'),
         email: yup.
             string()
@@ -20,8 +20,8 @@ const CreateCartSchema = (countries: string[], cities: string[]) => {
             .required('Email is required'),
         phone: yup.string()
             .required('Phone is required')
-            .min(10, 'Entered correct phone (10-15 digits)')
-            .max(15, 'Entered correct phone (10-15 digits)'),
+            .min(10, 'Enter correct phone (10-15 digits)')
+            .max(15, 'Enter correct phone (10-15 digits)'),
         address: yup
             .string()
             .required('Address is required')
@@ -57,6 +57,7 @@ const CreateCartSchema = (countries: string[], cities: string[]) => {
             .notRequired(),
         agreeToTermsAndPrivacy: yup
             .boolean()
+            .required()
             .oneOf([true], 'You must accept the terms and conditions'),
     });
 }

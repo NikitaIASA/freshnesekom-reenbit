@@ -1,5 +1,7 @@
-import { FC, ChangeEvent, FocusEvent } from "react";
+import { FC, ChangeEvent } from "react";
 import { UseFormRegister, FieldErrors, FieldValues } from "react-hook-form";
+
+import "./CustomInput.scss";
 
 interface InputProps {
   name: string;
@@ -7,8 +9,7 @@ interface InputProps {
   type?: string;
   placeholder?: string;
   disabled?: boolean;
-  onChange?: () => void;
-  onBlur?: () => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
 }
@@ -20,27 +21,26 @@ export const CustomInput: FC<InputProps> = ({
   placeholder,
   disabled = false,
   onChange,
-  onBlur,
   register,
   errors,
 }) => {
   return (
-    <div className="billing-info__input-group">
-      <label className="billing-info__label" htmlFor={name}>
+    <div className="custom-input">
+      <label className="custom-input__label" htmlFor={name}>
         {label}
       </label>
       <input
-        className="billing-info__input"
+        className="custom-input__input"
         id={name}
         type={type}
         placeholder={placeholder}
         {...register(name)}
         onChange={onChange}
-        onBlur={onBlur}
         disabled={disabled}
+        autoComplete="off"
       />
       {errors[name] && (
-        <p className="billing-info__error">{`${errors[name]?.message}`}</p>
+        <p className="custom-input__error">{`${errors[name]?.message}`}</p>
       )}
     </div>
   );

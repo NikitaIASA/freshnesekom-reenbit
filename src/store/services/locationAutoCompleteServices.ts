@@ -49,9 +49,9 @@ export const getCitiesByCountry = createAsyncThunk<string[], string, { rejectVal
 );
 
 
-const locationAutoCompleteServices = {
+const locationAutocompleteServices = {
     getCountries,
     getCitiesByCountry,
 };
 
-export default locationAutoCompleteServices;
+export default locationAutocompleteServices;

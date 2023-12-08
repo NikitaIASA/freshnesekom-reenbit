@@ -2,7 +2,7 @@ import { FC, useState, useRef, ChangeEvent, useEffect } from "react";
 
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
 import { handleKeyDown } from "@helpers/handleKeyDown";
-import { MIN_QUANTITY, INITIAL_QUANTITY, STEP_QUANTITY } from "@constants/priceValidation";
+import { MIN_QUANTITY, INITIAL_QUANTITY, STEP_QUANTITY, DECIMAL_BASE } from "@constants/priceValidation";
 import arrowDown from "@assets/images/arrow-down.svg";
 
 import "./QuantitySelector.scss";
@@ -50,7 +50,7 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
   }, [quantity, selectedUnit, onQuantityChange]);
 
   const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = parseInt(event.target.value, 10);
+    const newQuantity = parseInt(event.target.value, DECIMAL_BASE);
     setQuantity(newQuantity);
   };
 
