@@ -8,6 +8,7 @@ import CreateCartSchema from "../../schemas/cartSchema";
 import BillingInfo from "./BillingInfo";
 import AdditionalInfo from "./AdditionalInfo";
 import ConfirmationBlock from "./ConfirmationBlock";
+import Cart from "./Cart";
 import CustomButton from "@components/UI/CustomButton";
 import { ButtonSizes, ButtonTypes } from "@appTypes/buttonTypes";
 import {
@@ -86,7 +87,9 @@ export const Checkout: FC = () => {
           </form>
         </FormProvider>
       </div>
-      <div className="checkout__right-side"></div>
+      <div className="checkout__right-side">
+        <Cart/>
+      </div>
     </div>
   );
 };

@@ -11,8 +11,17 @@ interface CartFormData {
     zip: string;
 }
 
+interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    unit: string;
+}
+
 interface cartState {
     CartFormData: CartFormData;
+    items: CartItem[];
 }
 
 const initialState: cartState = {
@@ -25,7 +34,8 @@ const initialState: cartState = {
         country: '',
         city: '',
         zip: '',
-    }
+    },
+    items: [],
 };
 
 export const cartSlice = createSlice({
@@ -38,10 +48,24 @@ export const cartSlice = createSlice({
         },
         resetCartForm: (state) => {
             state.CartFormData = initialState.CartFormData;
-        }
+        },
+        addItem: (state, action: PayloadAction<CartItem>) => {
+            const newItem = action.payload;
+            const existingItem = state.items.find(item => item.id === newItem.id && item.unit === newItem.unit);
+
+            if (existingItem) {
+                existingItem.quantity += newItem.quantity;
+            } else {
+                state.items.push(newItem);
+            }
+        },
+        removeItem: (state, action: PayloadAction<{ id: string; unit: string }>) => {
+            const { id, unit } = action.payload;
+            state.items = state.items.filter(item => item.id !== id || item.unit !== unit);
+        },
     },
 });
 
-export const { updateField, resetCartForm } = cartSlice.actions;
+export const { updateField, resetCartForm, addItem, removeItem} = cartSlice.actions;
 
 export default cartSlice.reducer;

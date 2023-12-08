@@ -1,0 +1,17 @@
+@import "@styles/colors.scss";
+
+.cart {
+  padding: 32px 16px;
+
+  &__title {
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__details {
+    color: $primary-color-300;
+    font-size: 12px;
+  }
+}

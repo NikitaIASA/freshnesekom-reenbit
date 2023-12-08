@@ -13,18 +13,24 @@ interface QuantitySelectorProps {
   maxQuantity: number;
   onQuantityChange: (quantity: number, unit: string) => number;
   setError: (error: string | null) => void;
+  selectedUnit: string;
+  setSelectedUnit: (unit: string) => void;
+  quantity: number;
+  setQuantity: (quantity: number) => void;
 }
 
 const QuantitySelector: FC<QuantitySelectorProps> = ({
-  initialQuantity = 1,
+  // initialQuantity = 1,
   units,
   maxQuantity,
   onQuantityChange,
   setError,
+  selectedUnit,
+  setSelectedUnit,
+  quantity,
+  setQuantity,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [quantity, setQuantity] = useState<number>(initialQuantity);
-  const [selectedUnit, setSelectedUnit] = useState<string>(units[0]);
 
   const validateQuantity = (qty: number) => {
     if (qty < 1 || isNaN(qty)) {
