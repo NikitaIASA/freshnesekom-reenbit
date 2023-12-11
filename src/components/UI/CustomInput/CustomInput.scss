@@ -31,4 +31,10 @@
     bottom: -20px;
     color: $error-color;
   }
+
+  &__required-asterisk {
+    color: $error-color;
+    margin-left: 2px;
+  }
+
 }

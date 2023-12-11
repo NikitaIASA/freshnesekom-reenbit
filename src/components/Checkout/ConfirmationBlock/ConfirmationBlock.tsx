@@ -73,7 +73,7 @@ export const ConfirmationBlock: FC = () => {
             src={agreeToTermsAndPrivacy ? checkedMark : uncheckedMark}
             alt="checkbox"
           />
-          <p>I agree with our terms and conditions and privacy policy.</p>
+          <p>I agree with our terms and conditions and privacy policy. <span className="confirmation-block__required-asterisk">*</span></p>
           {errors.agreeToTermsAndPrivacy && (
             <p className="confirmation-block__error">{`${errors.agreeToTermsAndPrivacy.message}`}</p>
           )}

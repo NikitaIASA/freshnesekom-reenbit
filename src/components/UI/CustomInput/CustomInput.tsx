@@ -9,6 +9,7 @@ interface InputProps {
   type?: string;
   placeholder?: string;
   disabled?: boolean;
+  isRequired?: boolean;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
@@ -23,11 +24,13 @@ export const CustomInput: FC<InputProps> = ({
   onChange,
   register,
   errors,
+  isRequired
 }) => {
   return (
     <div className="custom-input">
       <label className="custom-input__label" htmlFor={name}>
         {label}
+        {isRequired && <span className="custom-input__required-asterisk">*</span>}
       </label>
       <input
         className="custom-input__input"

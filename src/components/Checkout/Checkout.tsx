@@ -36,9 +36,12 @@ export const Checkout: FC = () => {
     defaultValues: cartData || DEFAULT_CART_FORM,
   });
 
+  const { handleSubmit, formState: { isValid, isDirty }, reset } = methods;
+
+
   const onSubmit: SubmitHandler<ICartFormData> = () => {
     dispatch(resetCartForm());
-    methods.reset(DEFAULT_CART_FORM);
+    reset(DEFAULT_CART_FORM);
     setIsSubmittedSuccessfully(true);
   };
 
@@ -50,7 +53,7 @@ export const Checkout: FC = () => {
     <div className="checkout">
       <div className="checkout__left-side">
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <BillingInfo />
             <AdditionalInfo />
             <ConfirmationBlock />
@@ -58,6 +61,7 @@ export const Checkout: FC = () => {
               size={ButtonSizes.MEDIUM}
               className="checkout__button"
               type={ButtonTypes.SUBMIT}
+              isDisabled={!isValid || !isDirty}
             >
               Complete order
             </CustomButton>
