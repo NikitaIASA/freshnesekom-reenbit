@@ -17,6 +17,7 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "src/styles"),
       "@appTypes": path.resolve(__dirname, "src/types"),
       "@assets": path.resolve(__dirname, "src/assets"),
+      "@schemas": path.resolve(__dirname, "src/schemas"),
     }
   }
 });

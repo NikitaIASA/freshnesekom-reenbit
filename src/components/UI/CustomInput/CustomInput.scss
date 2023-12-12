@@ -1,0 +1,40 @@
+@import "@styles/colors.scss";
+
+.custom-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 11px 16px 12px 21px;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+    color: $primary-color-300;
+    outline: none;
+
+    &:disabled {
+      background: $primary-color-200;
+      cursor: not-allowed;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    bottom: -20px;
+    color: $error-color;
+  }
+
+  &__required-asterisk {
+    color: $error-color;
+    margin-left: 2px;
+  }
+
+}

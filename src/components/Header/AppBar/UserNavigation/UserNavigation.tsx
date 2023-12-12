@@ -12,7 +12,7 @@ export const UserNavigation: FC = () => {
       <Link to="/" className="user-navigation__link">
         <img src={userIcon} alt="user" />
       </Link>
-      <Link to="/" className="user-navigation__link">
+      <Link to="/checkout" className="user-navigation__link">
         <img src={cartIcon} alt="cart" />
       </Link>
     </div>

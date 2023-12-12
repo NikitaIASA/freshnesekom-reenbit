@@ -1,0 +1,42 @@
+@import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
+
+.billing-info {
+  margin-bottom: 64px;
+  
+  &__title {
+    font-family: Poppins;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  &__details {
+    color: $primary-color-300;
+    margin-bottom: 32px;
+  }
+
+  &__inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+
+    @include onMobile {
+      display: flex;
+      flex-direction: column;
+    }
+    
+  }
+
+  .input-container {
+    position: relative;
+  }
+
+  &__arrows {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+  }
+
+}

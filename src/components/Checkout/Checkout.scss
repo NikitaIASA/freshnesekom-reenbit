@@ -1,0 +1,17 @@
+@import "@styles/breakpoints.scss";
+
+.checkout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 32px;
+
+  @include onBig-tablet {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  &__right-side {
+    border: 1px solid black;
+  }
+
+}
