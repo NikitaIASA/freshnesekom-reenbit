@@ -30,7 +30,7 @@
   }
 
   &--secondary {
-    border: none;
+    border: 1px solid $primary-color-200;
     background: $primary-color-50;
     color: $black;
 

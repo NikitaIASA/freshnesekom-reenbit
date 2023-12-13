@@ -1,0 +1,84 @@
+@import "@styles/colors.scss";
+
+.count-block {
+  &__price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__price-item {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__price-value {
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__total-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__total-price-delivery {
+    color: $secondary-color;
+    font-size: 12px;
+  }
+
+  &__total-price-value {
+    color: $secondary-color;
+    color: var(--c-2-a, #6a983c);
+
+    font-family: Poppins;
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  &__label {
+    position: relative;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 11px 16px 12px 21px;
+    margin: 32px 0 40px 0;
+    border-radius: 12px;
+    border: 1px solid $primary-color-200;
+    background: $primary-color-100;
+    outline: none;
+
+    &:disabled {
+      background: $primary-color-200;
+      cursor: not-allowed;
+    }
+  }
+
+  &__button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    background-color: inherit;
+    border: none;
+    padding: 0 12px 6px 12px;
+    align-items: flex-start;
+    gap: 6px;
+    font-family: Poppins;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  &__success-message {
+    position: absolute;
+    top: 40px;
+    color: $secondary-color;
+    font-weight: 700;
+
+  }
+
+}

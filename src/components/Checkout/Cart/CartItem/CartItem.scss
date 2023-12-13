@@ -1,10 +1,25 @@
 @import "@styles/colors.scss";
+@import "@styles/breakpoints.scss";
 
 .cart-item {
   display: flex;
   gap: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid $primary-color-200;
+
+  @include onMobile {
+    flex-direction: column;
+  }
+
+  &__image-block {
+
+    @include onMobile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+  }
 
   &__image {
     width: 100px;
@@ -23,6 +38,10 @@
     gap: 12px;
   }
 
+  &__description-block {
+    flex-grow: 1;
+  }
+
   &__description-key {
     width: 80px;
     color: $primary-color-300;
@@ -33,9 +52,21 @@
   }
 
   &__description-value {
+    max-width: 200px;
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
+  }
+
+  &__price-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    @include onMobile {
+      flex-direction: column;
+    }
+
   }
 
   &__price {
@@ -44,6 +75,8 @@
     font-family: Poppins;
     font-size: 18px;
     font-weight: 600;
+    word-break: break-word;
+    overflow: hidden;
   }
 
   &__buttons {
@@ -69,5 +102,4 @@
   &__button-text {
     color: $primary-color-300;
   }
-
 }

@@ -1,4 +1,6 @@
 import { FC, useState } from "react";
+import { toast } from 'react-toastify';
+
 import { useAppSelector } from "@hooks/useAppSelector";
 import { useAppDispatch } from "@hooks/useAppDispatch";
 import { selectSelectedProduct } from "@store/selectors/productSelectors";
@@ -7,16 +9,15 @@ import CustomButton from "@components/UI/CustomButton";
 import { ButtonSizes, ButtonVariants } from "@appTypes/buttonTypes";
 import ProductTabs from "../ProductTabs";
 import { addItem } from "@store/reducers/cartSlice";
+import { BOX, BOX_ITEMS } from "@constants/productUnits";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
 
 import "./ProductInfoBlock.scss";
 
-const BOX_ITEMS = 5;
 const REVIEW_SINGLE = "customer review";
 const REVIEW_PLURAL = "customer reviews";
-const BOX = "box";
 
 export const ProductInfoBlock: FC = () => {
   const dispatch = useAppDispatch();
@@ -32,9 +33,9 @@ export const ProductInfoBlock: FC = () => {
     color,
     size,
     buyBy,
-    deliveryTime,
     deliveryArea,
     price,
+    shipping,
     extraInfo,
   } = selectedProduct || {};
 
@@ -70,7 +71,7 @@ export const ProductInfoBlock: FC = () => {
     Color: color,
     Size: size,
     "Buy by": formattedBuyBy,
-    Delivery: deliveryTime,
+    Delivery: shipping?.deliveryTime,
     "Delivery area": deliveryArea,
   };
 
@@ -83,6 +84,7 @@ export const ProductInfoBlock: FC = () => {
         quantity: quantity,
         unit: selectedUnit,
       }));
+      toast.success(`Product "${title}" added to the cart!`);
     }
   };
 
@@ -118,7 +120,6 @@ export const ProductInfoBlock: FC = () => {
           </div>
           {price && (
             <QuantitySelector
-              initialQuantity={1}
               units={buyBy!}
               maxQuantity={stock}
               onQuantityChange={(quantity: number, unit: string) =>

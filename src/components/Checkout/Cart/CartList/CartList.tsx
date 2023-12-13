@@ -1,19 +1,18 @@
 import { FC } from "react";
-import { useAppSelector } from "@hooks/useAppSelector";
 
+import { useAppSelector } from "@hooks/useAppSelector";
+import { selectCartItems } from "@store/selectors/cartSelectors";
 import { CartItem } from "../CartItem/CartItem";
 
 import "./CartList.scss";
 
-interface CartListProps {}
-
-export const CartList: FC<CartListProps> = () => {
-  const items = useAppSelector((state) => state.cart.items);
+export const CartList: FC = () => {
+  const items = useAppSelector(selectCartItems);
 
   return (
     <ul className="cart-list">
-      {items?.map((item) => (
-        <CartItem key={item.id} item={item} />
+      {items?.map((item, key) => (
+        <CartItem key={`cart-item-${key}`} item={item} />
       ))}
     </ul>
   );

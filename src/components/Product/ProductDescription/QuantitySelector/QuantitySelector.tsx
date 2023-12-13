@@ -8,7 +8,6 @@ import arrowDown from "@assets/images/arrow-down.svg";
 import "./QuantitySelector.scss";
 
 interface QuantitySelectorProps {
-  initialQuantity?: number;
   units: string[];
   maxQuantity: number;
   onQuantityChange: (quantity: number, unit: string) => number;
@@ -20,7 +19,6 @@ interface QuantitySelectorProps {
 }
 
 const QuantitySelector: FC<QuantitySelectorProps> = ({
-  // initialQuantity = 1,
   units,
   maxQuantity,
   onQuantityChange,
