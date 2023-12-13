@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -20,6 +20,7 @@ import FormSuccessMessage from "./FormSuccessMessage";
 import { DEFAULT_CART_FORM } from "@constants/defaultCartForm";
 import { ICartFormData } from "@appTypes/cartForm";
 import { selectCartFormData } from "@store/selectors/cartSelectors";
+import { CHECKOUT_NAMES } from "@constants/checkoutForm";
 
 import "./Checkout.scss";
 
@@ -37,9 +38,39 @@ export const Checkout: FC = () => {
     defaultValues: cartData || DEFAULT_CART_FORM,
   });
 
+  const { handleSubmit, formState: { isValid, isDirty }, reset, trigger, getValues  } = methods;
+
+  /*Triggering validation of fields when loading the page. 
+  The check is carried out for non-empty fields and under the condition 
+  that countries and cities are loaded
+*/
+  useEffect(() => {
+    const values = getValues();
+    const fieldsToValidate: (keyof ICartFormData)[] = [];
+  
+    Object.keys(values).forEach((key) => {
+      const typedKey = key as keyof ICartFormData; 
+  
+      if (values[typedKey]) {
+        if (typedKey === CHECKOUT_NAMES.country && countries.length > 0) {
+          fieldsToValidate.push(typedKey);
+        } else if (typedKey === CHECKOUT_NAMES.city && cities.length > 0) {
+          fieldsToValidate.push(typedKey);
+        } else if (typedKey !== CHECKOUT_NAMES.country && typedKey !== CHECKOUT_NAMES.city) {
+          fieldsToValidate.push(typedKey);
+        }
+      }
+    });
+  
+    if (fieldsToValidate.length > 0) {
+      trigger(fieldsToValidate);
+    }
+  }, [countries, cities, trigger, getValues]);
+
+
   const onSubmit: SubmitHandler<ICartFormData> = () => {
     dispatch(resetCartForm());
-    methods.reset(DEFAULT_CART_FORM);
+    reset(DEFAULT_CART_FORM);
     setIsSubmittedSuccessfully(true);
   };
 
@@ -51,7 +82,7 @@ export const Checkout: FC = () => {
     <div className="checkout">
       <div className="checkout__left-side">
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <BillingInfo />
             <AdditionalInfo />
             <ConfirmationBlock />
@@ -59,6 +90,7 @@ export const Checkout: FC = () => {
               size={ButtonSizes.MEDIUM}
               className="checkout__button"
               type={ButtonTypes.SUBMIT}
+              isDisabled={!isValid || !isDirty}
             >
               Complete order
             </CustomButton>

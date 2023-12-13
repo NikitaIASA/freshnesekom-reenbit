@@ -30,6 +30,7 @@ export const BillingInfo: FC = () => {
   const dispatch = useAppDispatch();
   const countries = useAppSelector(selectAutoCompleteCountries);
   const cities = useAppSelector(selectAutoCompleteCities);
+  
   const {
     register,
     formState: { errors },
@@ -51,15 +52,13 @@ export const BillingInfo: FC = () => {
   const filteredCities = sortByQuery(cities, watchedCity);
 
   // Check for disabled input for city selection
-  const isCityInputDisabled = !!selectedCountry === false || !countries.includes(watchedCountry);
+  const isCityInputDisabled = !countries.includes(watchedCountry);
 
-  // Cleaning the city with an incorrectly given country
-  // If isCityInputDisabled, then clear the city field
   useEffect(() => {
-    if (isCityInputDisabled) {
-      setValue(CHECKOUT_NAMES.city, "");
+    if (countries.length > 0 && countries.includes(watchedCountry)) {
+      setSelectedCountry(watchedCountry);
     }
-  }, [isCityInputDisabled]);
+  }, [watchedCountry, countries]);
 
   // Country input processing
   const handleCountryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -67,11 +66,11 @@ export const BillingInfo: FC = () => {
     setIsCountryListOpened(!!value);
     setValue(CHECKOUT_NAMES.country, value);
     trigger(CHECKOUT_NAMES.country);
-    if (countries.includes(value)) {
-      setSelectedCountry(value);
-    }
     dispatch(
-      updateField({ field: CHECKOUT_NAMES.country as keyof ICartFormData, value })
+      updateField({
+        field: CHECKOUT_NAMES.country as keyof ICartFormData,
+        value,
+      })
     );
   };
 
@@ -155,6 +154,7 @@ export const BillingInfo: FC = () => {
           register={register}
           errors={errors}
           onChange={handleChange}
+          isRequired={true}
         />
         <CustomInput
           name={CHECKOUT_NAMES.lastName}
@@ -163,6 +163,7 @@ export const BillingInfo: FC = () => {
           register={register}
           errors={errors}
           onChange={handleChange}
+          isRequired={true}
         />
         <CustomInput
           name={CHECKOUT_NAMES.email}
@@ -171,6 +172,7 @@ export const BillingInfo: FC = () => {
           register={register}
           errors={errors}
           onChange={handleChange}
+          isRequired={true}
         />
         <CustomInput
           name={CHECKOUT_NAMES.phone}
@@ -179,6 +181,7 @@ export const BillingInfo: FC = () => {
           register={register}
           errors={errors}
           onChange={handleChange}
+          isRequired={true}
         />
 
         <div className="input-container" ref={countriesRef}>
@@ -189,6 +192,7 @@ export const BillingInfo: FC = () => {
             register={register}
             errors={errors}
             onChange={handleCountryChange}
+            isRequired={true}
           />
           <div
             className="billing-info__arrows"
@@ -213,6 +217,7 @@ export const BillingInfo: FC = () => {
             errors={errors}
             onChange={handleCityChange}
             disabled={!selectedCountry || !countries.includes(watchedCountry)}
+            isRequired={true}
           />
           {!isCityInputDisabled && (
             <div
@@ -237,6 +242,8 @@ export const BillingInfo: FC = () => {
           placeholder={CHECKOUT_PLACEHOLDERS.address}
           register={register}
           errors={errors}
+          isRequired={true}
+          onChange={handleChange}
         />
         <CustomInput
           name={CHECKOUT_NAMES.zip}
@@ -244,6 +251,8 @@ export const BillingInfo: FC = () => {
           placeholder={CHECKOUT_PLACEHOLDERS.zip}
           register={register}
           errors={errors}
+          isRequired={true}
+          onChange={handleChange}
         />
       </div>
     </div>

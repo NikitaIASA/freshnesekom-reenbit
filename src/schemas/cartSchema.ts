@@ -18,8 +18,10 @@ const CreateCartSchema = (countries: string[], cities: string[]) => {
             string()
             .email('Enter a valid email')
             .required('Email is required'),
-        phone: yup.string()
+        phone: yup
+        .string()
             .required('Phone is required')
+            .matches(/^\d+$/, 'Phone number must contain only digits')
             .min(10, 'Enter correct phone (10-15 digits)')
             .max(15, 'Enter correct phone (10-15 digits)'),
         address: yup
@@ -41,7 +43,7 @@ const CreateCartSchema = (countries: string[], cities: string[]) => {
             .required('City is required')
             .test(
                 'existsInCities',
-                'City is not valid',
+                'City is not valid for this country',
                 value => cities.includes(value)
             ),
         zip: yup
