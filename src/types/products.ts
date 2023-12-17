@@ -19,7 +19,7 @@ export interface IProduct {
     category: string;
     buyBy: string[];
     stockStatus: string;
-    deliveryTime: string;
+    deliveryTime: number;
     color: string;
     deliveryArea: string;
     extraInfo: IExtraInfo;

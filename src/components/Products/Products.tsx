@@ -20,18 +20,19 @@ import "./Products.scss";
 export const Products: FC = () => {
   const {
     isModalOpened: isSidebarOpened,
-    setIsModalOpened: setIsSidebarOpened,
+    openModal: openSidebar,
+    closeModal: closeSidebar,
   } = useModal();
   const { status, error } = useAppSelector(selectProductsState);
   const filteredProducts = useAppSelector(selectFilteredProducts);
 
   const handleOverlayClick = () => {
-    setIsSidebarOpened(false);
+    closeSidebar();
   };
 
   const handleFilterButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setIsSidebarOpened(true);
+    openSidebar();
   };
 
   if (status === STATUSES.FAILED) {
@@ -64,7 +65,7 @@ export const Products: FC = () => {
             isSidebarOpened ? "sidebar-opened" : ""
           }`}
         >
-          <Sidebar setIsSidebarOpened={setIsSidebarOpened} />
+          <Sidebar closeSidebar={closeSidebar} />
         </div>
         <ProductList status={status} />
       </div>

@@ -1,26 +1,27 @@
 import { FC, useState } from "react";
+import { toast } from 'react-toastify';
+
 import { useAppSelector } from "@hooks/useAppSelector";
+import { useAppDispatch } from "@hooks/useAppDispatch";
 import { selectSelectedProduct } from "@store/selectors/productSelectors";
 import QuantitySelector from "./QuantitySelector";
 import CustomButton from "@components/UI/CustomButton";
 import { ButtonSizes, ButtonVariants } from "@appTypes/buttonTypes";
 import ProductTabs from "../ProductTabs";
+import { addItem } from "@store/reducers/cartSlice";
+import { BOX, BOX_ITEMS } from "@constants/productUnits";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
 
 import "./ProductInfoBlock.scss";
 
-const BOX_ITEMS = 5;
 const REVIEW_SINGLE = "customer review";
 const REVIEW_PLURAL = "customer reviews";
-const BOX = "box";
 
 export const ProductInfoBlock: FC = () => {
+  const dispatch = useAppDispatch();
   const selectedProduct = useAppSelector(selectSelectedProduct);
-  const [error, setError] = useState<string | null>(null);
-  const [totalNewPrice, setTotalNewPrice] = useState<number>(0);
-  const [totalOldPrice, setTotalOldPrice] = useState<number>(0);
 
   const {
     rating,
@@ -32,11 +33,18 @@ export const ProductInfoBlock: FC = () => {
     color,
     size,
     buyBy,
-    deliveryTime,
     deliveryArea,
     price,
+    shipping,
     extraInfo,
   } = selectedProduct || {};
+
+  const [error, setError] = useState<string | null>(null);
+  const [totalNewPrice, setTotalNewPrice] = useState<number>(0);
+  const [totalOldPrice, setTotalOldPrice] = useState<number>(0);
+
+  const [quantity, setQuantity] = useState<number>(1);
+  const [selectedUnit, setSelectedUnit] = useState<string>(buyBy![0]);
 
   const reviewsCount = extraInfo?.reviews.length;
   const reviewsLabel = reviewsCount === 1 ? REVIEW_SINGLE : REVIEW_PLURAL;
@@ -63,8 +71,21 @@ export const ProductInfoBlock: FC = () => {
     Color: color,
     Size: size,
     "Buy by": formattedBuyBy,
-    Delivery: deliveryTime,
+    Delivery: shipping?.deliveryTime,
     "Delivery area": deliveryArea,
+  };
+
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      dispatch(addItem({
+        id: selectedProduct.id,
+        name: selectedProduct.title,
+        price: selectedProduct.price.current,
+        quantity: quantity,
+        unit: selectedUnit,
+      }));
+      toast.success(`Product "${title}" added to the cart!`);
+    }
   };
 
   return (
@@ -99,16 +120,19 @@ export const ProductInfoBlock: FC = () => {
           </div>
           {price && (
             <QuantitySelector
-              initialQuantity={1}
               units={buyBy!}
               maxQuantity={stock}
               onQuantityChange={(quantity: number, unit: string) =>
                 handleQuantityChange(quantity, unit)
               }
               setError={setError}
+              selectedUnit={selectedUnit} 
+              setSelectedUnit={setSelectedUnit}
+              quantity={quantity}
+              setQuantity={setQuantity}
             />
           )}
-          <CustomButton isDisabled={!!error?.length}>
+          <CustomButton isDisabled={!!error?.length} onClick={handleAddToCart}>
             <img src={plus} alt="plus sign" />
             Add to cart
           </CustomButton>
