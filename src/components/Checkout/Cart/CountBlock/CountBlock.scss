@@ -1,6 +1,7 @@
 @import "@styles/colors.scss";
 
 .count-block {
+
   &__price-list {
     display: flex;
     flex-direction: column;
@@ -22,6 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 12px;
   }
 
   &__total-price-delivery {
@@ -31,11 +33,11 @@
 
   &__total-price-value {
     color: $secondary-color;
-    color: var(--c-2-a, #6a983c);
-
     font-family: Poppins;
+    text-align: center; 
     font-size: 26px;
     font-weight: 600;
+    text-wrap: nowrap;
   }
 
   &__label {
@@ -78,7 +80,14 @@
     top: 40px;
     color: $secondary-color;
     font-weight: 700;
+  }
 
+  &__error {
+    position: absolute;
+    top: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    color: $error-color;
   }
 
 }
