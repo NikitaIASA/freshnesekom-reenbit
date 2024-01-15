@@ -7,6 +7,7 @@ import CreateCartSchema from "@schemas/cartSchema";
 import BillingInfo from "./BillingInfo";
 import AdditionalInfo from "./AdditionalInfo";
 import ConfirmationBlock from "./ConfirmationBlock";
+import Cart from "./Cart";
 import CustomButton from "@components/UI/CustomButton";
 import { ButtonSizes, ButtonTypes } from "@appTypes/buttonTypes";
 import {
@@ -18,7 +19,7 @@ import { resetCartForm } from "@store/reducers/cartSlice";
 import FormSuccessMessage from "./FormSuccessMessage";
 import { DEFAULT_CART_FORM } from "@constants/defaultCartForm";
 import { ICartFormData } from "@appTypes/cartForm";
-import { selectCartFormData } from "@store/selectors/cartSelectors";
+import { selectCartFormData, selectCartItems } from "@store/selectors/cartSelectors";
 import { CHECKOUT_NAMES } from "@constants/checkoutForm";
 
 import "./Checkout.scss";
@@ -27,6 +28,8 @@ export const Checkout: FC = () => {
   const dispatch = useAppDispatch();
   const countries = useAppSelector(selectAutoCompleteCountries);
   const cities = useAppSelector(selectAutoCompleteCities);
+  const cartProducts = useAppSelector(selectCartItems);
+
   const cartData = useAppSelector(selectCartFormData);
   const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false);
   const cartSchema = CreateCartSchema(countries, cities);
@@ -37,7 +40,7 @@ export const Checkout: FC = () => {
     defaultValues: cartData || DEFAULT_CART_FORM,
   });
 
-  const { handleSubmit, formState: { isValid, isDirty }, reset, trigger, getValues  } = methods;
+  const { handleSubmit, formState: { isValid }, reset, trigger, getValues  } = methods;
 
   /*Triggering validation of fields when loading the page. 
   The check is carried out for non-empty fields and under the condition 
@@ -89,14 +92,16 @@ export const Checkout: FC = () => {
               size={ButtonSizes.MEDIUM}
               className="checkout__button"
               type={ButtonTypes.SUBMIT}
-              isDisabled={!isValid || !isDirty}
+              isDisabled={!isValid || !cartProducts.length}
             >
               Complete order
             </CustomButton>
           </form>
         </FormProvider>
       </div>
-      <div className="checkout__right-side"></div>
+      <div className="checkout__right-side">
+        <Cart/>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,30 @@
+@import "@styles/colors.scss";
+
 .user-navigation {
+  display: flex;
+  gap: 40px;
+
+  &__link {
+    position: relative;
+  }
+
+  &__cart-items {
+    position: absolute;
+    bottom: 0;
+    left: -5px;
+    width: 16px;
+    height: 16px;
     display: flex;
-    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: $additional-orange-color;
+    color: $white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px #00000026;
+    cursor: pointer;
+  }
+
 }

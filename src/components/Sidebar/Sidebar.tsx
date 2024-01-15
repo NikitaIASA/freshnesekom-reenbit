@@ -10,16 +10,16 @@ import closeIcon from "@assets/images/clear-icon.svg";
 import "./Siderbar.scss";
 
 interface SidebarProps {
-  setIsSidebarOpened: (isOpened: boolean) => void;
+  closeSidebar: () => void;
 }
 
-export const Sidebar: FC<SidebarProps> = ({ setIsSidebarOpened }) => {
+export const Sidebar: FC<SidebarProps> = ({ closeSidebar }) => {
   const handleSidebarClick = (e: MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   };
 
   const handleCloseButtonClick = () => {
-    setIsSidebarOpened(false);
+    closeSidebar();
   };
 
   return (
