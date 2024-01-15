@@ -67,21 +67,25 @@ export const CountBlock: FC = () => {
     }
   };
 
+  const PERCENT_CONVERSION_FACTOR = 100;
+  const TWO_DECIMAL_PLACES = 2;
+  const BASE_PERCENTAGE = 1
+  
   const totalPrice = (cartItems.reduce((sum, item) => {
     const quantity =
       item.unit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
     return sum + item.price * quantity;
-  }, 0)).toFixed(2);
+  }, 0)).toFixed(TWO_DECIMAL_PLACES);
 
-  const taxAmount = (+totalPrice * USUAL_TAX_RATE).toFixed(2);
-  const taxPercentage = USUAL_TAX_RATE * 100;
-  const discountPercentage = discount * 100;
-  const totalPriceWithTax = +totalPrice * (1 + USUAL_TAX_RATE);
+  const taxAmount = (+totalPrice * USUAL_TAX_RATE).toFixed(TWO_DECIMAL_PLACES);
+  const taxPercentage = USUAL_TAX_RATE * PERCENT_CONVERSION_FACTOR;
+  const discountPercentage = discount * PERCENT_CONVERSION_FACTOR;
+  const totalPriceWithTax = +totalPrice * (BASE_PERCENTAGE + USUAL_TAX_RATE);
   const discountAmount = totalPriceWithTax * discount;
-  const discountedTotal = (totalPriceWithTax - discountAmount).toFixed(2);
+  const discountedTotal = (totalPriceWithTax - discountAmount).toFixed(TWO_DECIMAL_PLACES);
 
   const discountMessage = isPromoApplied
-    ? `${discountPercentage}% (-${discountAmount.toFixed(2)} USD)`
+    ? `${discountPercentage}% (-${discountAmount.toFixed(TWO_DECIMAL_PLACES)} USD)`
     : "";
 
   return (
