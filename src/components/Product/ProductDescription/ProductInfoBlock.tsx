@@ -121,7 +121,6 @@ export const ProductInfoBlock: FC = () => {
       : availableInBaseUnit;
   };
 
-
   const validateQuantity = (qty: number, maxQty: number) => {
     if (qty < 1 || isNaN(qty)) {
       setError(

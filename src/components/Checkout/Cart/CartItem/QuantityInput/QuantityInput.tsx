@@ -13,7 +13,6 @@ import arrowDown from "@assets/images/arrow-down.svg";
 
 import "./QuantityInput.scss";
 
-
 interface Item {
   id: string;
   quantity: number;
@@ -44,15 +43,10 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   );
 
   const calculateMaxAllowed = () => {
-    const currentQuantityInCart = cartItemsForProduct.reduce(
-      (acc, cartItem) => {
+    const currentQuantityInCart = cartItemsForProduct.reduce((acc, cartItem) => {
         if (cartItem.id === item.id && cartItem.unit !== item.unit) {
-          return (
-            acc +
-            (cartItem.unit === BOX
-              ? cartItem.quantity * BOX_ITEMS
-              : cartItem.quantity)
-          );
+          const quantityInBaseUnit =  cartItem.unit === BOX ? cartItem.quantity * BOX_ITEMS : cartItem.quantity;
+          return acc + quantityInBaseUnit;
         }
         return acc;
       },
