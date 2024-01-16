@@ -11,6 +11,7 @@ import ProductTabs from "../ProductTabs";
 import { addItem } from "@store/reducers/cartSlice";
 import { BOX, BOX_ITEMS } from "@constants/productUnits";
 import { selectCartItems } from "@store/selectors/cartSelectors";
+import { getValidUnitForm } from "@helpers/getValidUnitForm";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
@@ -98,9 +99,10 @@ export const ProductInfoBlock: FC = () => {
   );
 
   const unitsSummary = cartItemsForProduct.reduce((summary, item) => {
-    const unitInfo = `${item.quantity} ${item.unit}(s)`;
+    const unitForm = getValidUnitForm(item.quantity, item.unit);
+    const unitInfo = `${item.quantity} ${unitForm}`;
     return summary ? `${summary}, ${unitInfo}` : unitInfo;
-  }, "");
+}, "");
 
   const inCartMessage = unitsSummary ? `In your cart: ${unitsSummary}.` : "";
 
@@ -126,7 +128,8 @@ export const ProductInfoBlock: FC = () => {
         `Product sold in quantities of at least ${1} ${selectedUnit}`
       );
     } else if (qty > maxQty) {
-      setError(`Max available quantity: ${maxQty} ${selectedUnit}`);
+      const selectedUnitForm = getValidUnitForm(maxQty, selectedUnit)
+      setError(`Max available quantity: ${maxQty} ${selectedUnitForm}`);
     } else {
       setError(null);
     }

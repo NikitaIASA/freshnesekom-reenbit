@@ -8,6 +8,7 @@ import { BOX, BOX_ITEMS } from "@constants/productUnits";
 import { MIN_QUANTITY, STEP_QUANTITY } from "@constants/priceValidation";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { selectCartItems } from "@store/selectors/cartSelectors";
+import { getValidUnitForm } from "@helpers/getValidUnitForm";
 import arrowDown from "@assets/images/arrow-down.svg";
 
 import "./QuantityInput.scss";
@@ -76,7 +77,8 @@ export const QuantityInput: FC<QuantityInputProps> = ({
           newQuantity: maxAllowed,
         })
       );
-      toast.error(`Max allowed: ${maxAllowed} ${unit}`);
+      const maxUnit = getValidUnitForm(maxAllowed, unit);
+      toast.error(`Max allowed: ${maxAllowed} ${maxUnit}`);
     } else {
       setQuantity(newQuantity);
       dispatch(
