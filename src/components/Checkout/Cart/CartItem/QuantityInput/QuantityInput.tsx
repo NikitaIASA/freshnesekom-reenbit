@@ -84,7 +84,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
         })
       );
       const maxUnit = getValidUnitForm(maxAllowed, unit);
-      toast.error(`Max allowed: ${maxAllowed} ${maxUnit}`);
+      toast.error(`Max avaliable: ${maxAllowed} ${maxUnit}`);
     } else {
       setQuantity(newQuantity);
       dispatch(

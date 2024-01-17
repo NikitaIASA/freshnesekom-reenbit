@@ -3,6 +3,7 @@ import { ICartFormData } from '@appTypes/cartForm';
 import { DEFAULT_CART_FORM } from '@constants/defaultCartForm';
 import { ICartItem } from '@appTypes/cartItem';
 import { toast } from 'react-toastify';
+import { BOX, BOX_ITEMS } from '@constants/productUnits';
 
 interface cartState {
     CartFormData: ICartFormData;
@@ -13,8 +14,6 @@ const initialState: cartState = {
     CartFormData: DEFAULT_CART_FORM,
     items: [],
 };
-
-const KG_PER_BOX = 5;
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -43,18 +42,18 @@ export const cartSlice = createSlice({
         },
         changeItemUnit: (state, action: PayloadAction<{ id: string; newUnit: string; stock: number }>) => {
             const { id, newUnit, stock } = action.payload;
-        
+
             const existingItem = state.items.find(item => item.id === id && item.unit === newUnit);
             const itemToChange = state.items.find(item => item.id === id && item.unit !== newUnit);
-        
+
             if (!existingItem) {
                 const item = state.items.find(item => item.id === id);
-        
+
                 if (item) {
-                    const newTotalQuantityInKg = newUnit === 'box' ? item.quantity * KG_PER_BOX : item.quantity;
-        
+                    const newTotalQuantityInKg = newUnit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
+
                     if (newTotalQuantityInKg > stock) {
-                        toast.error("Exceeding warehouse stock: " + stock);
+                        toast.error(`Max available: ${stock} ${itemToChange?.unit}`);
                     } else {
                         item.unit = newUnit;
                     }
@@ -62,10 +61,10 @@ export const cartSlice = createSlice({
             } else {
                 if (itemToChange) {
                     const newTotalQuantity = existingItem.quantity + itemToChange.quantity;
-                    const newTotalQuantityInKg = newUnit === 'box' ? newTotalQuantity * KG_PER_BOX : newTotalQuantity;
-        
+                    const newTotalQuantityInKg = newUnit === BOX ? newTotalQuantity * BOX_ITEMS : newTotalQuantity;
+
                     if (newTotalQuantityInKg > stock) {
-                        toast.error("Not enough units in stock: " + stock);
+                        toast.error(`Max available: ${stock} ${itemToChange.unit}`);
                     } else {
                         state.items = state.items.filter(item => item !== itemToChange);
                         existingItem.quantity = newTotalQuantity;
