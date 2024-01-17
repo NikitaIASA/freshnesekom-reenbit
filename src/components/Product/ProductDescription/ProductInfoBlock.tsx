@@ -11,6 +11,7 @@ import ProductTabs from "../ProductTabs";
 import { addItem } from "@store/reducers/cartSlice";
 import { BOX, BOX_ITEMS } from "@constants/productUnits";
 import { selectCartItems } from "@store/selectors/cartSelectors";
+import { getValidUnitForm } from "@helpers/getValidUnitForm";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
@@ -52,10 +53,18 @@ export const ProductInfoBlock: FC = () => {
   const reviewsLabel = reviewsCount === 1 ? REVIEW_SINGLE : REVIEW_PLURAL;
 
   const calculatePrice = (qty: number, unit: string) => {
+    if (isNaN(qty) || qty < 0) {
+      setTotalNewPrice(0);
+      setTotalOldPrice(0);
+      return;
+    }
+
     const actualQuantity = unit === BOX ? qty * BOX_ITEMS : qty;
     if (price) {
       setTotalNewPrice(parseFloat((actualQuantity * price.current).toFixed(2)));
-      setTotalOldPrice(parseFloat((actualQuantity * price.previous).toFixed(2)));
+      setTotalOldPrice(
+        parseFloat((actualQuantity * price.previous).toFixed(2))
+      );
     }
   };
 
@@ -64,7 +73,7 @@ export const ProductInfoBlock: FC = () => {
   }, [quantity, selectedUnit]);
 
   const formattedBuyBy = buyBy
-    ?.map((unit) => (unit === BOX ? `${unit} (5 ${buyBy[0]})` : unit))
+    ?.map((unit) => (unit === BOX ? `${unit} (${BOX_ITEMS} ${buyBy[0]})` : unit))
     .join(", ");
 
   const details = {
@@ -98,7 +107,8 @@ export const ProductInfoBlock: FC = () => {
   );
 
   const unitsSummary = cartItemsForProduct.reduce((summary, item) => {
-    const unitInfo = `${item.quantity} ${item.unit}(s)`;
+    const unitForm = getValidUnitForm(item.quantity, item.unit);
+    const unitInfo = `${item.quantity} ${unitForm}`;
     return summary ? `${summary}, ${unitInfo}` : unitInfo;
   }, "");
 
@@ -107,7 +117,8 @@ export const ProductInfoBlock: FC = () => {
   const calculateMaxAvailableQuantity = () => {
     const totalInCart = cartProducts.reduce((acc, item) => {
       if (item.id === selectedProduct?.id) {
-        const quantityInBaseUnit = item.unit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
+        const quantityInBaseUnit =
+          item.unit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
         return acc + quantityInBaseUnit;
       }
       return acc;
@@ -119,14 +130,17 @@ export const ProductInfoBlock: FC = () => {
       : availableInBaseUnit;
   };
 
-
   const validateQuantity = (qty: number, maxQty: number) => {
+    if (maxQty === 0) {
+      setError("This product is currently out of stock");
+      return;
+    }
+
     if (qty < 1 || isNaN(qty)) {
-      setError(
-        `Product sold in quantities of at least ${1} ${selectedUnit}`
-      );
+      setError(`Product sold in quantities of at least ${1} ${selectedUnit}`);
     } else if (qty > maxQty) {
-      setError(`Max available quantity: ${maxQty} ${selectedUnit}`);
+      const selectedUnitForm = getValidUnitForm(maxQty, selectedUnit);
+      setError(`Max available quantity: ${maxQty} ${selectedUnitForm}`);
     } else {
       setError(null);
     }

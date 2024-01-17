@@ -8,10 +8,10 @@ import { BOX, BOX_ITEMS } from "@constants/productUnits";
 import { MIN_QUANTITY, STEP_QUANTITY } from "@constants/priceValidation";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { selectCartItems } from "@store/selectors/cartSelectors";
+import { getValidUnitForm } from "@helpers/getValidUnitForm";
 import arrowDown from "@assets/images/arrow-down.svg";
 
 import "./QuantityInput.scss";
-
 
 interface Item {
   id: string;
@@ -25,6 +25,8 @@ interface QuantityInputProps {
   stock: number;
 }
 
+const DECIMAL_BASE = 10;
+
 export const QuantityInput: FC<QuantityInputProps> = ({
   item,
   units,
@@ -34,6 +36,8 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   const itemsInCart = useAppSelector(selectCartItems);
   const [quantity, setQuantity] = useState<number>(item.quantity);
   const [unit, setUnit] = useState<string>(item.unit);
+  const inputQuantityValue = quantity ? quantity.toString() : "";
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
@@ -51,15 +55,10 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   }, [itemsInCart, item.id, item.unit]);
 
   const calculateMaxAllowed = () => {
-    const currentQuantityInCart = cartItemsForProduct.reduce(
-      (acc, cartItem) => {
+    const currentQuantityInCart = cartItemsForProduct.reduce((acc, cartItem) => {
         if (cartItem.id === item.id && cartItem.unit !== item.unit) {
-          return (
-            acc +
-            (cartItem.unit === BOX
-              ? cartItem.quantity * BOX_ITEMS
-              : cartItem.quantity)
-          );
+          const quantityInBaseUnit =  cartItem.unit === BOX ? cartItem.quantity * BOX_ITEMS : cartItem.quantity;
+          return acc + quantityInBaseUnit;
         }
         return acc;
       },
@@ -72,7 +71,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   };
 
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = parseInt(e.target.value, 10);
+    const newQuantity = parseInt(e.target.value, DECIMAL_BASE);
     const maxAllowed = calculateMaxAllowed();
 
     if (newQuantity > maxAllowed) {
@@ -84,7 +83,8 @@ export const QuantityInput: FC<QuantityInputProps> = ({
           newQuantity: maxAllowed,
         })
       );
-      toast.error(`Max allowed: ${maxAllowed} ${unit}`);
+      const maxUnit = getValidUnitForm(maxAllowed, unit);
+      toast.error(`Max allowed: ${maxAllowed} ${maxUnit}`);
     } else {
       setQuantity(newQuantity);
       dispatch(
@@ -112,7 +112,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
       <input
         className="quantity-input__input"
         type="number"
-        value={quantity}
+        value={inputQuantityValue}
         onChange={handleQuantityChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}
