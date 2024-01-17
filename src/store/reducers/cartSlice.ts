@@ -53,7 +53,7 @@ export const cartSlice = createSlice({
                     const newTotalQuantityInKg = newUnit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
 
                     if (newTotalQuantityInKg > stock) {
-                        toast.error(`Max available: ${stock} ${itemToChange?.unit}`);
+                        toast.error("There is not enough stock available.");
                     } else {
                         item.unit = newUnit;
                     }
@@ -64,7 +64,7 @@ export const cartSlice = createSlice({
                     const newTotalQuantityInKg = newUnit === BOX ? newTotalQuantity * BOX_ITEMS : newTotalQuantity;
 
                     if (newTotalQuantityInKg > stock) {
-                        toast.error(`Max available: ${stock} ${itemToChange.unit}`);
+                        toast.error("There is not enough stock available");
                     } else {
                         state.items = state.items.filter(item => item !== itemToChange);
                         existingItem.quantity = newTotalQuantity;
