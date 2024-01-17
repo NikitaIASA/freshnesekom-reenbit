@@ -73,7 +73,7 @@ export const ProductInfoBlock: FC = () => {
   }, [quantity, selectedUnit]);
 
   const formattedBuyBy = buyBy
-    ?.map((unit) => (unit === BOX ? `${unit} (5 ${buyBy[0]})` : unit))
+    ?.map((unit) => (unit === BOX ? `${unit} (${BOX_ITEMS} ${buyBy[0]})` : unit))
     .join(", ");
 
   const details = {

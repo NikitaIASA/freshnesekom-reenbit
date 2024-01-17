@@ -25,6 +25,8 @@ interface QuantityInputProps {
   stock: number;
 }
 
+const DECIMAL_BASE = 10;
+
 export const QuantityInput: FC<QuantityInputProps> = ({
   item,
   units,
@@ -61,7 +63,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   };
 
   const handleQuantityChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = parseInt(e.target.value, 10);
+    const newQuantity = parseInt(e.target.value, DECIMAL_BASE);
     const maxAllowed = calculateMaxAllowed();
 
     if (newQuantity > maxAllowed) {
