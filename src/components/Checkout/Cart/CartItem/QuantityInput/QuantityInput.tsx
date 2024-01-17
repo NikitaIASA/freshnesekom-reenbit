@@ -34,6 +34,8 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   const itemsInCart = useAppSelector(selectCartItems);
   const [quantity, setQuantity] = useState<number>(item.quantity);
   const [unit, setUnit] = useState<string>(item.unit);
+  const inputQuantityValue = quantity ? quantity.toString() : "";
+
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   useOnClickOutside(dropdownRef, () => setIsDropdownOpen(false));
@@ -101,7 +103,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
       <input
         className="quantity-input__input"
         type="number"
-        value={quantity}
+        value={inputQuantityValue}
         onChange={handleQuantityChange}
         onKeyDown={handleKeyDown}
         onBlur={handleBlur}

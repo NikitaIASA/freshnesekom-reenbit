@@ -23,6 +23,7 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
   setQuantity,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const inputQuantityValue = quantity ? quantity.toString() : "";
   
   const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newQuantity = parseInt(event.target.value, DECIMAL_BASE);
@@ -43,7 +44,7 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
         className="quantity-selector__input"
         type="number"
         onKeyDown={handleKeyDown}
-        value={quantity || ""}
+        value={inputQuantityValue}
         onChange={handleQuantityChange}
         min={MIN_QUANTITY}
         step={STEP_QUANTITY}
