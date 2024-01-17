@@ -1,5 +1,5 @@
-import { FC, useState } from "react";
-import { toast } from 'react-toastify';
+import { FC, useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 import { useAppSelector } from "@hooks/useAppSelector";
 import { useAppDispatch } from "@hooks/useAppDispatch";
@@ -10,6 +10,8 @@ import { ButtonSizes, ButtonVariants } from "@appTypes/buttonTypes";
 import ProductTabs from "../ProductTabs";
 import { addItem } from "@store/reducers/cartSlice";
 import { BOX, BOX_ITEMS } from "@constants/productUnits";
+import { selectCartItems } from "@store/selectors/cartSelectors";
+import { getValidUnitForm } from "@helpers/getValidUnitForm";
 import Stars from "@components/UI/Stars";
 import plus from "@assets/images/plus.svg";
 import heart from "@assets/images/heart.svg";
@@ -22,6 +24,7 @@ const REVIEW_PLURAL = "customer reviews";
 export const ProductInfoBlock: FC = () => {
   const dispatch = useAppDispatch();
   const selectedProduct = useAppSelector(selectSelectedProduct);
+  const cartProducts = useAppSelector(selectCartItems);
 
   const {
     rating,
@@ -48,20 +51,29 @@ export const ProductInfoBlock: FC = () => {
 
   const reviewsCount = extraInfo?.reviews.length;
   const reviewsLabel = reviewsCount === 1 ? REVIEW_SINGLE : REVIEW_PLURAL;
-  const conversionRate = buyBy?.includes(BOX) ? BOX_ITEMS : 1;
 
-  const handleQuantityChange = (quantity: number, unit: string) => {
-    const actualQuantity = unit === BOX ? quantity * conversionRate : quantity;
+  const calculatePrice = (qty: number, unit: string) => {
+    if (isNaN(qty) || qty < 0) {
+      setTotalNewPrice(0);
+      setTotalOldPrice(0);
+      return;
+    }
+
+    const actualQuantity = unit === BOX ? qty * BOX_ITEMS : qty;
     if (price) {
       setTotalNewPrice(parseFloat((actualQuantity * price.current).toFixed(2)));
-      setTotalOldPrice(parseFloat((actualQuantity * price.previous).toFixed(2)));
+      setTotalOldPrice(
+        parseFloat((actualQuantity * price.previous).toFixed(2))
+      );
     }
-  
-    return actualQuantity;
   };
 
+  useEffect(() => {
+    calculatePrice(quantity, selectedUnit);
+  }, [quantity, selectedUnit]);
+
   const formattedBuyBy = buyBy
-    ?.map((unit) => (unit === BOX ? `${unit} (5 ${buyBy[0]})` : unit))
+    ?.map((unit) => (unit === BOX ? `${unit} (${BOX_ITEMS} ${buyBy[0]})` : unit))
     .join(", ");
 
   const details = {
@@ -77,16 +89,67 @@ export const ProductInfoBlock: FC = () => {
 
   const handleAddToCart = () => {
     if (selectedProduct) {
-      dispatch(addItem({
-        id: selectedProduct.id,
-        name: selectedProduct.title,
-        price: selectedProduct.price.current,
-        quantity: quantity,
-        unit: selectedUnit,
-      }));
+      dispatch(
+        addItem({
+          id: selectedProduct.id,
+          name: selectedProduct.title,
+          price: selectedProduct.price.current,
+          quantity: quantity,
+          unit: selectedUnit,
+        })
+      );
       toast.success(`Product "${title}" added to the cart!`);
     }
   };
+
+  const cartItemsForProduct = cartProducts.filter(
+    (item) => item.id === selectedProduct?.id
+  );
+
+  const unitsSummary = cartItemsForProduct.reduce((summary, item) => {
+    const unitForm = getValidUnitForm(item.quantity, item.unit);
+    const unitInfo = `${item.quantity} ${unitForm}`;
+    return summary ? `${summary}, ${unitInfo}` : unitInfo;
+  }, "");
+
+  const inCartMessage = unitsSummary ? `In your cart: ${unitsSummary}.` : "";
+
+  const calculateMaxAvailableQuantity = () => {
+    const totalInCart = cartProducts.reduce((acc, item) => {
+      if (item.id === selectedProduct?.id) {
+        const quantityInBaseUnit =
+          item.unit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
+        return acc + quantityInBaseUnit;
+      }
+      return acc;
+    }, 0);
+
+    const availableInBaseUnit = stock - totalInCart;
+    return selectedUnit === BOX
+      ? Math.floor(availableInBaseUnit / BOX_ITEMS)
+      : availableInBaseUnit;
+  };
+
+  const validateQuantity = (qty: number, maxQty: number) => {
+    if (maxQty === 0) {
+      setError("This product is currently out of stock");
+      return;
+    }
+
+    if (qty < 1 || isNaN(qty)) {
+      setError(`Product sold in quantities of at least ${1} ${selectedUnit}`);
+    } else if (qty > maxQty) {
+      const selectedUnitForm = getValidUnitForm(maxQty, selectedUnit);
+      setError(`Max available quantity: ${maxQty} ${selectedUnitForm}`);
+    } else {
+      setError(null);
+    }
+  };
+
+  useEffect(() => {
+    const maxAvailableQuantity = calculateMaxAvailableQuantity();
+    validateQuantity(quantity, maxAvailableQuantity);
+  }, [cartProducts, selectedUnit, quantity]);
 
   return (
     <div className="product-info">
@@ -112,6 +175,7 @@ export const ProductInfoBlock: FC = () => {
           ))}
         </ul>
       </div>
+      <p className="product-info__in-cart-message">{inCartMessage}</p>
       <div className="product-info__price-block">
         <div className="product-info__price-block-container">
           <div className="product-info__prices">
@@ -121,12 +185,7 @@ export const ProductInfoBlock: FC = () => {
           {price && (
             <QuantitySelector
               units={buyBy!}
-              maxQuantity={stock}
-              onQuantityChange={(quantity: number, unit: string) =>
-                handleQuantityChange(quantity, unit)
-              }
-              setError={setError}
-              selectedUnit={selectedUnit} 
+              selectedUnit={selectedUnit}
               setSelectedUnit={setSelectedUnit}
               quantity={quantity}
               setQuantity={setQuantity}
@@ -143,7 +202,7 @@ export const ProductInfoBlock: FC = () => {
         <img src={heart} alt="heart" />
         Add to my wish list
       </CustomButton>
-      <ProductTabs/>
+      <ProductTabs />
     </div>
   );
 };

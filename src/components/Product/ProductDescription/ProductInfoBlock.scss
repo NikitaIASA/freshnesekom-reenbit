@@ -77,7 +77,6 @@
       flex-direction: column;
       gap: 24px;
     }
-    
   }
 
   &__price-block {
@@ -116,6 +115,13 @@
     bottom: 0;
     font-weight: bold;
     color: $error-color;
+  }
+
+  &__in-cart-message {
+    color: $secondary-color;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px 0;
   }
   
 }

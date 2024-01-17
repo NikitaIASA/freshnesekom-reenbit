@@ -1,4 +1,4 @@
-import { FC, useState, useRef, ChangeEvent, useEffect } from "react";
+import { FC, useState, useRef, ChangeEvent } from "react";
 
 import { useOnClickOutside } from "@hooks/useOnClickOutside";
 import { handleKeyDown } from "@helpers/handleKeyDown";
@@ -9,9 +9,6 @@ import "./QuantitySelector.scss";
 
 interface QuantitySelectorProps {
   units: string[];
-  maxQuantity: number;
-  onQuantityChange: (quantity: number, unit: string) => number;
-  setError: (error: string | null) => void;
   selectedUnit: string;
   setSelectedUnit: (unit: string) => void;
   quantity: number;
@@ -20,33 +17,14 @@ interface QuantitySelectorProps {
 
 const QuantitySelector: FC<QuantitySelectorProps> = ({
   units,
-  maxQuantity,
-  onQuantityChange,
-  setError,
   selectedUnit,
   setSelectedUnit,
   quantity,
   setQuantity,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const validateQuantity = (qty: number) => {
-    if (qty < 1 || isNaN(qty)) {
-      setError(`Product sold in quantities of at least 1 ${units[0]}`);
-      onQuantityChange(0, selectedUnit);
-    } else if (qty > maxQuantity) {
-      setError(`Max Product quantity: ${maxQuantity} ${units[0]}`);
-      onQuantityChange(0, selectedUnit);
-    } else {
-      setError(null);
-    }
-  };
-
-  useEffect(() => {
-    const actualQuantity = onQuantityChange(quantity, selectedUnit);
-    validateQuantity(actualQuantity);
-  }, [quantity, selectedUnit, onQuantityChange]);
-
+  const inputQuantityValue = quantity ? quantity.toString() : "";
+  
   const handleQuantityChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newQuantity = parseInt(event.target.value, DECIMAL_BASE);
     setQuantity(newQuantity);
@@ -66,7 +44,7 @@ const QuantitySelector: FC<QuantitySelectorProps> = ({
         className="quantity-selector__input"
         type="number"
         onKeyDown={handleKeyDown}
-        value={quantity || ""}
+        value={inputQuantityValue}
         onChange={handleQuantityChange}
         min={MIN_QUANTITY}
         step={STEP_QUANTITY}
