@@ -1,4 +1,4 @@
-import { FC, useState, useRef, ChangeEvent } from "react";
+import { FC, useState, useRef, ChangeEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { handleKeyDown } from "@helpers/handleKeyDown";
@@ -41,6 +41,14 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   const cartItemsForProduct = itemsInCart.filter(
     (item) => item.id === item?.id
   );
+
+  useEffect(() => {
+    const currentCartItem = itemsInCart.find(cartItem => cartItem.id === item.id && cartItem.unit === item.unit);
+    if (currentCartItem) {
+      setQuantity(currentCartItem.quantity);
+      setUnit(currentCartItem.unit);
+    }
+  }, [itemsInCart, item.id, item.unit]);
 
   const calculateMaxAllowed = () => {
     const currentQuantityInCart = cartItemsForProduct.reduce(
@@ -95,9 +103,8 @@ export const QuantityInput: FC<QuantityInputProps> = ({
   };
 
   const handleUnitSelect = (newUnit: string) => {
-    setUnit(newUnit);
     setIsDropdownOpen(false);
-    dispatch(changeItemUnit({ id: item.id, newUnit }));
+    dispatch(changeItemUnit({ id: item.id, newUnit, stock }));
   };
 
   return (

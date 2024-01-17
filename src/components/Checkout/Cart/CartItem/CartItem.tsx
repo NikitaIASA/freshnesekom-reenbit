@@ -108,7 +108,7 @@ export const CartItem: FC<CartItemProps> = ({ item }) => {
       {isModalOpened && (
         <ConfirmationModal
           message={`Are you sure you want to delete "${title}" product ?`}
-          onConfirm={handleRemoveItem}
+          onConfirm={handleRemoveItem}  
           onClose={closeModal}
         />
       )}
