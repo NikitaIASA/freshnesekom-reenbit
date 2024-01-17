@@ -53,10 +53,18 @@ export const ProductInfoBlock: FC = () => {
   const reviewsLabel = reviewsCount === 1 ? REVIEW_SINGLE : REVIEW_PLURAL;
 
   const calculatePrice = (qty: number, unit: string) => {
+    if (isNaN(qty) || qty < 0) {
+      setTotalNewPrice(0);
+      setTotalOldPrice(0);
+      return;
+    }
+
     const actualQuantity = unit === BOX ? qty * BOX_ITEMS : qty;
     if (price) {
       setTotalNewPrice(parseFloat((actualQuantity * price.current).toFixed(2)));
-      setTotalOldPrice(parseFloat((actualQuantity * price.previous).toFixed(2)));
+      setTotalOldPrice(
+        parseFloat((actualQuantity * price.previous).toFixed(2))
+      );
     }
   };
 
@@ -102,14 +110,15 @@ export const ProductInfoBlock: FC = () => {
     const unitForm = getValidUnitForm(item.quantity, item.unit);
     const unitInfo = `${item.quantity} ${unitForm}`;
     return summary ? `${summary}, ${unitInfo}` : unitInfo;
-}, "");
+  }, "");
 
   const inCartMessage = unitsSummary ? `In your cart: ${unitsSummary}.` : "";
 
   const calculateMaxAvailableQuantity = () => {
     const totalInCart = cartProducts.reduce((acc, item) => {
       if (item.id === selectedProduct?.id) {
-        const quantityInBaseUnit = item.unit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
+        const quantityInBaseUnit =
+          item.unit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
         return acc + quantityInBaseUnit;
       }
       return acc;
@@ -122,12 +131,15 @@ export const ProductInfoBlock: FC = () => {
   };
 
   const validateQuantity = (qty: number, maxQty: number) => {
+    if (maxQty === 0) {
+      setError("This product is currently out of stock");
+      return;
+    }
+
     if (qty < 1 || isNaN(qty)) {
-      setError(
-        `Product sold in quantities of at least ${1} ${selectedUnit}`
-      );
+      setError(`Product sold in quantities of at least ${1} ${selectedUnit}`);
     } else if (qty > maxQty) {
-      const selectedUnitForm = getValidUnitForm(maxQty, selectedUnit)
+      const selectedUnitForm = getValidUnitForm(maxQty, selectedUnit);
       setError(`Max available quantity: ${maxQty} ${selectedUnitForm}`);
     } else {
       setError(null);
