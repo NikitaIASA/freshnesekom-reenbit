@@ -17,6 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
+    "react-hotjar": "^6.2.0",
     "react-multi-carousel": "^2.8.4",
     "react-paginate": "^8.2.0",
     "react-redux": "^8.1.3",
