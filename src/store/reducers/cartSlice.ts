@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ICartFormData } from '@appTypes/cartForm';
 import { DEFAULT_CART_FORM } from '@constants/defaultCartForm';
 import { ICartItem } from '@appTypes/cartItem';
+import { toast } from 'react-toastify';
+import { BOX, BOX_ITEMS } from '@constants/productUnits';
 
 interface cartState {
     CartFormData: ICartFormData;
@@ -38,18 +40,42 @@ export const cartSlice = createSlice({
             const { id, unit } = action.payload;
             state.items = state.items.filter(item => item.id !== id || item.unit !== unit);
         },
-        changeItemUnit: (state, action: PayloadAction<{ id: string; newUnit: string }>) => {
-            const { id, newUnit } = action.payload;
-            const item = state.items.find(item => item.id === id);
+        changeItemUnit: (state, action: PayloadAction<{ id: string; newUnit: string; stock: number }>) => {
+            const { id, newUnit, stock } = action.payload;
 
-            if (item) {
-                item.unit = newUnit;
+            const existingItem = state.items.find(item => item.id === id && item.unit === newUnit);
+            const itemToChange = state.items.find(item => item.id === id && item.unit !== newUnit);
+
+            if (!existingItem) {
+                const item = state.items.find(item => item.id === id);
+
+                if (item) {
+                    const newTotalQuantityInKg = newUnit === BOX ? item.quantity * BOX_ITEMS : item.quantity;
+
+                    if (newTotalQuantityInKg > stock) {
+                        toast.error("There is not enough stock available.");
+                    } else {
+                        item.unit = newUnit;
+                    }
+                }
+            } else {
+                if (itemToChange) {
+                    const newTotalQuantity = existingItem.quantity + itemToChange.quantity;
+                    const newTotalQuantityInKg = newUnit === BOX ? newTotalQuantity * BOX_ITEMS : newTotalQuantity;
+
+                    if (newTotalQuantityInKg > stock) {
+                        toast.error("There is not enough stock available");
+                    } else {
+                        state.items = state.items.filter(item => item !== itemToChange);
+                        existingItem.quantity = newTotalQuantity;
+                    }
+                }
             }
         },
         changeItemQuantity: (state, action: PayloadAction<{ id: string; newQuantity: number; unit: string }>) => {
             const { id, newQuantity, unit } = action.payload;
             const item = state.items.find(item => item.id === id && item.unit === unit);
-        
+
             if (item && newQuantity >= 0) {
                 item.quantity = newQuantity;
             }

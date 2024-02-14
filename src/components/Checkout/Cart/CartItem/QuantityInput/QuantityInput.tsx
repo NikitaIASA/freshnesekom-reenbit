@@ -1,4 +1,4 @@
-import { FC, useState, useRef, ChangeEvent } from "react";
+import { FC, useState, useRef, ChangeEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { handleKeyDown } from "@helpers/handleKeyDown";
@@ -9,6 +9,8 @@ import { MIN_QUANTITY, STEP_QUANTITY } from "@constants/priceValidation";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { selectCartItems } from "@store/selectors/cartSelectors";
 import { getValidUnitForm } from "@helpers/getValidUnitForm";
+import { useModal } from "@hooks/useModal";
+import ConfirmationModal from "@components/UI/ConfirmationModal";
 import arrowDown from "@assets/images/arrow-down.svg";
 
 import "./QuantityInput.scss";
@@ -34,6 +36,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
 }) => {
   const dispatch = useDispatch();
   const itemsInCart = useAppSelector(selectCartItems);
+  const { isModalOpened, openModal, closeModal } = useModal();
   const [quantity, setQuantity] = useState<number>(item.quantity);
   const [unit, setUnit] = useState<string>(item.unit);
   const inputQuantityValue = quantity ? quantity.toString() : "";
@@ -46,10 +49,24 @@ export const QuantityInput: FC<QuantityInputProps> = ({
     (item) => item.id === item?.id
   );
 
+  useEffect(() => {
+    const currentCartItem = itemsInCart.find(
+      (cartItem) => cartItem.id === item.id && cartItem.unit === item.unit
+    );
+    if (currentCartItem) {
+      setQuantity(currentCartItem.quantity);
+      setUnit(currentCartItem.unit);
+    }
+  }, [itemsInCart, item.id, item.unit]);
+
   const calculateMaxAllowed = () => {
-    const currentQuantityInCart = cartItemsForProduct.reduce((acc, cartItem) => {
+    const currentQuantityInCart = cartItemsForProduct.reduce(
+      (acc, cartItem) => {
         if (cartItem.id === item.id && cartItem.unit !== item.unit) {
-          const quantityInBaseUnit =  cartItem.unit === BOX ? cartItem.quantity * BOX_ITEMS : cartItem.quantity;
+          const quantityInBaseUnit =
+            cartItem.unit === BOX
+              ? cartItem.quantity * BOX_ITEMS
+              : cartItem.quantity;
           return acc + quantityInBaseUnit;
         }
         return acc;
@@ -76,7 +93,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
         })
       );
       const maxUnit = getValidUnitForm(maxAllowed, unit);
-      toast.error(`Max allowed: ${maxAllowed} ${maxUnit}`);
+      toast.error(`Max avaliable: ${maxAllowed} ${maxUnit}`);
     } else {
       setQuantity(newQuantity);
       dispatch(
@@ -93,11 +110,30 @@ export const QuantityInput: FC<QuantityInputProps> = ({
       );
     }
   };
+  const [newUnitForConfirmation, setNewUnitForConfirmation] = useState("");
 
   const handleUnitSelect = (newUnit: string) => {
-    setUnit(newUnit);
+    if (newUnit === unit) {
+      setIsDropdownOpen(false);
+      return;
+    }
+
+    const existingItemWithNewUnit = itemsInCart.find(
+      (cartItem) => cartItem.id === item.id && cartItem.unit === newUnit
+    );
+
+    if (existingItemWithNewUnit) {
+      setNewUnitForConfirmation(newUnit);
+      openModal();
+    } else {
+      applyUnitChange(newUnit);
+    }
+  };
+
+  const applyUnitChange = (newUnit: string) => {
     setIsDropdownOpen(false);
-    dispatch(changeItemUnit({ id: item.id, newUnit }));
+    closeModal();
+    dispatch(changeItemUnit({ id: item.id, newUnit, stock }));
   };
 
   return (
@@ -139,6 +175,13 @@ export const QuantityInput: FC<QuantityInputProps> = ({
             </ul>
           )}
         </div>
+      )}
+      {isModalOpened && (
+        <ConfirmationModal
+          message={`You already have order item with the unit "${newUnitForConfirmation}". The items will be merged into one`}
+          onConfirm={() => applyUnitChange(newUnitForConfirmation)}
+          onClose={closeModal}
+        />
       )}
     </div>
   );
